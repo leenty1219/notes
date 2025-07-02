@@ -11,6 +11,7 @@
 ### 原子性
 
 ```objc
+#include <atomic>
 {
  std::atomic<int32_t> _counter; // 定义变量
 }
@@ -64,3 +65,11 @@
 | `memory_order_acquire` | 读操作之前不能被重排到 acquire 前面 | 读方                 |
 | `memory_order_acq_rel` | 两者都保证                          | 双向同步             |
 | `memory_order_seq_cst` | 顺序一致性（最安全）                | 推荐默认使用         |
+
+#### 获取纳秒
+
+```c++
+#include <mach/mach_time.h>
+uint64_t t = mach_absolute_time();
+```
+
