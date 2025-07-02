@@ -48,6 +48,24 @@
 
 ```
 
+#### cas
+
+```objc
+    std::atomic_int _count{10}; // 初始化的值
+    int expected = 10; // 期望的值
+    int desired = 100; // 修改的值
+    std::atomic_compare_exchange_strong_explicit(&_count, &expected, desired, std::memory_order_relaxed, std::memory_order_relaxed);
+
+// 这里的含义：如果 _count 与期望的值 expected 相等，那么 _count 就修改为 desired，否则不改变
+//   if (_count == expected){
+//				_count = desired;
+//   }
+
+    NSLog(@"value = %d",_count.load());
+```
+
+
+
 | 你要做的操作 | 推荐函数                             |
 | ------------ | ------------------------------------ |
 | 原子加       | `atomic_fetch_add_explicit`          |
