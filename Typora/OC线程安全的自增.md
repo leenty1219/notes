@@ -48,6 +48,8 @@
 
 ```
 
+> 不带 `_explicit` 的省略最后一个参数，默认为：memory_order_seq_cst
+
 #### cas
 
 ```objc
