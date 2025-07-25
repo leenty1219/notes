@@ -8,7 +8,6 @@ dispatch_queue_t serialQueue = dispatch_queue_create("SerialQueue", DISPATCH_QUE
 dispatch_async(serialQueue, ^{
 
   NSLog(@"1");
-
 });
 ```
 
@@ -197,7 +196,23 @@ dispatch_source_merge_data(dataSource, 2); // += 2
 
 > 还可以监听文件的改动，具体应用场景具体再看
 
+### 9. 队列设置目标
 
+```objc
++ (dispatch_queue_t)setterQueue {
+    static dispatch_queue_t queue;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        queue = dispatch_queue_create("com.ibireme.yykit.webimage.setter", DISPATCH_QUEUE_SERIAL);
+        dispatch_set_target_queue(queue, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
+    });
+    return queue;
+}
+```
+
+这是一个`YYKit`的代码片段，其中`queue = dispatch_queue_create("com.ibireme.yykit.webimage.setter", DISPATCH_QUEUE_SERIAL);`是创建的一个串行队列，设置目标target到global中去。
+
+如何理解：这个`queue`的本质是串行设置优先级，利用 `dispatch_get_global_queue` 来设置优先级。这里并不会因为将target设置到global就会改变串行本质。
 
 
 
