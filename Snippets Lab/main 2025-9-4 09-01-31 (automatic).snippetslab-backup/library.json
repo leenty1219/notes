@@ -1,0 +1,1344 @@
+{
+  "date" : "2025-09-04T01:01:31Z",
+  "name" : "main.snippetslablibrary",
+  "schema" : "2.6",
+  "app" : "2.6.1",
+  "modified" : "2025-09-04T00:48:52Z",
+  "snippets" : 54,
+  "contents" : {
+    "smartGroups" : [
+
+    ],
+    "folders" : [
+      {
+        "uuid" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "title" : "OC"
+      },
+      {
+        "uuid" : "8ADAC7A7-D855-46B4-A837-441521ACB897",
+        "title" : "Swift"
+      },
+      {
+        "uuid" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "title" : "Sunell"
+      },
+      {
+        "defaultLanguage" : "ObjectiveCLexer",
+        "uuid" : "07F7574C-6875-42A8-AA3E-1CF11B1287E5",
+        "title" : "SUI"
+      },
+      {
+        "uuid" : "3D8C18B4-1CFD-4A58-865B-0C9455064B2A",
+        "title" : "Developer"
+      }
+    ],
+    "tags" : [
+
+    ],
+    "snippets" : [
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "uuid" : "380A75A1-74FB-4D72-8856-ECE7EE9C0AB8",
+            "attachments" : [
+
+            ],
+            "language" : "ObjectiveCLexer",
+            "dateCreated" : "2025-06-17T07:45:36Z",
+            "dateModified" : "2025-06-17T07:47:28Z",
+            "content" : "\/\/ 将 JSON (NSData,NSString,NSDictionary) 转换为 Model:\nUser *user = [User yy_modelWithJSON:json];\n\n\/\/ 将 Model 转换为 JSON 对象:\nNSDictionary *json = [user yy_modelToJSONObject];\n\n\n\/\/返回一个 Dict，将 Model 属性名对映射到 JSON 的 Key。\n+ (NSDictionary *)modelCustomPropertyMapper {\n    return @{@\"name\" : @\"n\",\n             @\"page\" : @\"p\",\n             @\"desc\" : @\"ext.desc\",\n             @\"bookID\" : @[@\"id\",@\"ID\",@\"book_id\"]};\n}\n\n\/\/ Model 包含其他 Model，什么都不用做\n\n\/\/ 返回容器类中的所需要存放的数据类型 (以 Class 或 Class Name 的形式)。\n+ (NSDictionary *)modelContainerPropertyGenericClass {\n    return @{@\"shadows\" : [Shadow class],\n             @\"borders\" : Border.class,\n             @\"attachments\" : @\"Attachment\" };\n}\n\n\/\/ 如果实现了该方法，则处理过程中会忽略该列表内的所有属性\n+ (NSArray *)modelPropertyBlacklist {\n    return @[@\"test1\", @\"test2\"];\n}\n\/\/ 如果实现了该方法，则处理过程中不会处理该列表外的属性。\n+ (NSArray *)modelPropertyWhitelist {\n    return @[@\"name\"];\n}",
+            "title" : "标签页",
+            "noteAttributes" : [
+
+            ],
+            "note" : ""
+          }
+        ],
+        "uuid" : "5558E3FD-1CD9-458E-A1C2-AD4E91D34154",
+        "dateModified" : "2025-06-17T07:45:39Z",
+        "dateCreated" : "2025-06-17T07:45:36Z",
+        "title" : "YYModel"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "uuid" : "557A0A09-CFC6-4877-A734-63D2A673DC1A",
+            "noteAttributes" : [
+
+            ],
+            "language" : "ObjectiveCLexer",
+            "dateCreated" : "2025-06-12T02:49:30Z",
+            "dateModified" : "2025-06-12T02:50:14Z",
+            "content" : "rvictl -s 00008101-000319CA1432001E \/\/ 连接我的测试机\nrvictl -x 00008101-000319CA1432001E \/\/ 断开我的测试机",
+            "title" : "标签页",
+            "attachments" : [
+
+            ],
+            "note" : ""
+          }
+        ],
+        "uuid" : "330A7DF3-089D-4FDD-AB90-DE3B58B81243",
+        "dateModified" : "2025-06-12T02:49:38Z",
+        "dateCreated" : "2025-06-12T02:49:30Z",
+        "title" : "wireshark 我的测试机"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "uuid" : "93030AE6-3CCF-4E9E-B58C-D1AB6AFC6FCD",
+            "attachments" : [
+
+            ],
+            "language" : "DartLexer",
+            "dateCreated" : "2025-05-27T05:39:38Z",
+            "dateModified" : "2025-05-27T09:21:01Z",
+            "content" : "void changeChanle() {\n    Map pickData = {};\n    for (SVChannelModel element in deviceModel.channels) {\n      pickData[element.getName()] = [];\n    }\n    SVMenuLinkPicker().showMenuPicker(\n      context,\n      pickData,\n      1,\n      title: 'TK_ChannelSelect'.tr,\n      selectValue: [deviceModel.channels[selectChannelIndex.value].getName()],\n      onConfirm: (res, position) {\n        int selectIndex = position.first;\n        SVChannelModel channelModel = deviceModel.channels[selectIndex];\n        SVDialog.loading().show();\n        sdkChannel.methodChannelSendMsg(\"getDayAndNightMode\", param: {\"devId\": deviceModel.ID, \"channelId\": channelModel.ID}).then((value) {\n          SVDialog.loading().dismiss();\n          if (value is Map && value[\"code\"] == 0 && value[\"result\"] is Map && (value[\"result\"] as Map).isNotEmpty) {\n            SVDeviceDayNightModel model = SVDeviceDayNightModel().initMap(value[\"result\"]);\n            dayNightModel.value = model.toMap();\n            selectChannelIndex.value = selectIndex;\n            reloadData();\n          } else {\n            if (deviceModel.status == 0 || deviceModel.channels[selectIndex].status == 0) {\n              SVDialog.tost().show('TK_DeviceNotOnline'.tr);\n            } else {\n              SVDialog.tost().show('TK_QueryFailed'.tr);\n            }\n          }\n        });\n      },\n    );\n  }\n\n\n\nvoid clickToselectAlarmType() {\n\n    List<dynamic> selectValue = [];\n    for (var i = 0; i < slectIndex.length; i++) {\n      int index = slectIndex[i];\n      if (i == 0) {\n        if (selectDevice == null || selectDevice?.platformType == 0) {\n          selectValue.add(pickData.keys.toList()[index]);\n        } else {\n          \/\/ selectValue.add(dahuaPickData.keys.toList()[index]);\n          selectValue.add(pickData.keys.toList()[index]);\n        }\n      } else if (i == 1) {\n        int upIndex = slectIndex[i - 1];\n        List valus;\n        if (selectDevice == null || selectDevice?.platformType == 0) {\n          valus = pickData.values.toList()[upIndex];\n        } else {\n          \/\/ valus = dahuaPickData.values.toList()[upIndex];\n          valus = pickData.values.toList()[upIndex];\n        }\n        selectValue.add(valus[index]);\n      }\n    }\n\n    int columnNum = 1;\n    \/\/ if (selectDevice == null || selectDevice?.platformType == 0) {\n    \/\/   columnNum = 2;\n    \/\/ } else {\n    \/\/   columnNum = 1;\n    \/\/ }\n\n    debugPrint(\"linrendi_selectValue = ${selectValue.toString()}\");\n    SVMenuLinkPicker().showMenuPicker(\n      context,\n      pickData,\n      columnNum,\n      selectValue: selectValue,\n      onConfirm: (res, position) {\n        slectIndex = position;\n        reloadData();\n      },\n    );\n  }",
+            "title" : "标签页",
+            "noteAttributes" : [
+
+            ],
+            "note" : ""
+          }
+        ],
+        "uuid" : "2EA5F907-21A5-422D-87F0-B99FF8EB49F8",
+        "dateModified" : "2025-05-27T05:39:46Z",
+        "dateCreated" : "2025-05-27T05:39:38Z",
+        "title" : "flutter 选择框"
+      },
+      {
+        "folder" : "07F7574C-6875-42A8-AA3E-1CF11B1287E5",
+        "fragments" : [
+          {
+            "noteAttributes" : [
+
+            ],
+            "uuid" : "71CE2CF3-7008-4D88-8789-677715BF6B10",
+            "language" : "ObjectiveCLexer",
+            "dateCreated" : "2025-08-25T06:02:49Z",
+            "dateModified" : "2025-08-25T06:02:59Z",
+            "content" : "        CustomRefreshHeader *header = [CustomRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshHeaderAction)];\n        header.showRetry = YES;\n        header.hideTipsView = YES;\n        [header setTitle:@\"下拉刷新\" forState:MJRefreshStateIdle];\n        [header setTitle:@\"下拉刷新\" forState:MJRefreshStatePulling];\n        [header setTitle:@\"刷新中\" forState:MJRefreshStateRefreshing];\n        _collectionView.mj_header = header;\n        \n        \n        MJRefreshAutoNormalFooter *mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{\n            [weakSelf requestMoreFeeds];\n        }];\n        mj_footer.refreshingTitleHidden = YES;\n        mj_footer.triggerAutomaticallyRefreshPercent = -13;\n        mj_footer.backgroundColor = SuiDynamicColor([UIColor colorWithHexString:@\"#F5F5F5\"], UIColor.blackColor);\n        [mj_footer setTitle:@\"\" forState:MJRefreshStateIdle];\n        [mj_footer setTitle:@\"\" forState:MJRefreshStatePulling];\n        \n        _collectionView.mj_footer = mj_footer;\n        _collectionView.mj_footer.hidden = YES;",
+            "title" : "标签页",
+            "attachments" : [
+
+            ],
+            "note" : ""
+          }
+        ],
+        "uuid" : "204F4AB0-E8BC-4993-9BD2-8D2DFFE3A24F",
+        "dateModified" : "2025-08-25T06:02:58Z",
+        "dateCreated" : "2025-08-25T06:02:49Z",
+        "title" : "自定义上拉加载下拉刷新"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "attachments" : [
+
+            ],
+            "note" : "",
+            "language" : "ObjectiveCLexer",
+            "dateCreated" : "2025-06-09T01:55:15Z",
+            "dateModified" : "2025-06-11T11:51:36Z",
+            "content" : "\/*\n\n支持多个样式\n仅支持title不支持message\n注意: actionId的cancel按钮id为0x2000\nactions不需要包括 cancel，cancel默认添加上\n\n*\/\nNSArray * actions = @[\n  [[SVAlertAction alloc]initWithTitle:International(@\"TK_EditTour\") action:SVAlertActionTypeUnknow actionId:0],\n  [[SVAlertAction alloc]initWithTitle:International(@\"TK_DelTour\") action:SVAlertActionTypeDelete actionId:1],\n];\n\nSVSheetAlertController * controller = [SVSheetAlertController alertWithTitle:model.tourName actions:actions actionHandler:^(SVAlertAction * _Nonnull action) {\n  \n  if (action.actionId == 0) {\n    [self editTour:model];\n  } else if (action.actionId == 1) {\n          \n  } else if (action.actionId == cancelActionId) { \/\/ 取消操作\n      \n  }\n  \n}];\n[UIViewController.topVC presentViewController:controller animated:true completion:nil];",
+            "title" : "标签页",
+            "noteAttributes" : [
+
+            ],
+            "uuid" : "CD90437F-48ED-40AA-89D0-C680257FC951"
+          }
+        ],
+        "uuid" : "A04F5E3F-CFAE-4FE6-8D26-2170C643A8EE",
+        "dateModified" : "2025-06-09T01:55:20Z",
+        "dateCreated" : "2025-06-09T01:55:15Z",
+        "title" : "Sheet弹框"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "note" : "",
+            "attachments" : [
+
+            ],
+            "language" : "CppLexer",
+            "dateCreated" : "2025-05-14T01:03:49Z",
+            "dateModified" : "2025-05-14T01:18:44Z",
+            "content" : "\n\/\/ 在 VideoPlayer.h 中声明函数\nint getPtzReq();\n\/\/ 在VideoPlayer.cpp中实现\nint VideoPlayer::getPtzReq()\n{\n    if(m_nSessionId < 1000)\n        return 0;\n    char *szList = NULL;\n    int nRet = -1;\n    if(m_nPTZAbility == -1)\n        nRet = sdks_dev_json_get_hw_cap_by_chn(m_nSessionId, m_nChannelID, &szList);\n    else\n        return m_nPTZAbility;\n\n    if(nRet == 0)\n    {\n        Json::Reader reader;\n        Json::Value value;\n        bool bRet = reader.parse(szList, value);\n        if (bRet)\n        {\n            int RS485Num = value[\"RS485Num\"].asInt();\n            int InternalPTZEnable = value[\"InternalPTZEnable\"].asInt();\n            if(RS485Num == 1 || InternalPTZEnable == 1)\n            {\n                m_nPTZAbility = 1;\n            }else\n            {\n                m_nPTZAbility = 0;\n            }\n            return m_nPTZAbility;\n        }\n    }\n    return 0;\n}\n\/\/ 2.在 SdkSingleDevice.h 中添加头文件\nint getPtzReq(int p_nchannelID);\n\/\/ 在 SdkSingleDevice.cpp 中添加实现逻辑\nint SdkSingleDevice::getPtzReq(int p_nchannelID)\n{\n    if(m_nSessionId < 1000 || !m_bIsOpenDevice || m_bIsCloseDevice.load(std::memory_order_acquire))\n        return -1;\n    VideoPlayer *obj = findVideoPlayer(p_nchannelID);\n    if (obj == NULL)\n    {\n        return 0;\n    }\n    return obj->getPtzReq();\n}\n\n\/\/ 在VideoDeviceController中添加头文件\nint getPtzReq(string p_deviceID, int p_nchannelID);\n\/\/ 在cpp中添加函数实现\nint VideoDeviceController::getPtzReq(string p_deviceID, int p_nchannelID)\n{\n\tsys_mutex_lock(m_pMutex);\n\tSdkSingleDevice *obj = (SdkSingleDevice*)findSingleSocketController(p_deviceID);\n\tif (obj == NULL){\n\t\tsys_mutex_unlock(m_pMutex);\n\t\treturn 0;\n\t}\n\tint enable = obj->getPtzReq(p_nchannelID);\n\tsys_mutex_unlock(m_pMutex);\n\treturn enable;\n}\n\/\/ 在 SVVideoPlayToolInfo 中定义OC层\n\/\/查询ptz巡航相关的配置\n- (NSDictionary *)getPTZTour:(NSString*)deviceId channelId:(NSInteger)channelId;\n\/\/查询ptz巡航相关的配置\n- (NSDictionary*)getPTZTour:(NSString*)deviceId channelId:(NSInteger)channelId{\n  std::string result = \"\";\n  int rNet = _videoDeviceCtrl->getPtzTour([self _stringOCStringToCppStr:deviceId], (int)channelId, result);\n  if (rNet < 0) {\n    return [NSDictionary dictionary];\n  }\n  NSString *str = [self _stringCppStrToOCString:result];\n  NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];\n  NSError *error;\n  NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];\n  return dict;\n}\n\n",
+            "title" : "标签页",
+            "noteAttributes" : [
+
+            ],
+            "uuid" : "5DAE251D-5957-401B-8C38-C68CBA266403"
+          }
+        ],
+        "uuid" : "E524810F-AF11-4632-9CED-7F29A0756ACD",
+        "dateModified" : "2025-05-14T01:04:15Z",
+        "dateCreated" : "2025-05-14T01:03:49Z",
+        "title" : "SDK添加Get函数"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "note" : "",
+            "noteAttributes" : [
+
+            ],
+            "language" : "ObjectiveCLexer",
+            "dateCreated" : "2025-05-14T11:00:13Z",
+            "dateModified" : "2025-06-17T08:05:15Z",
+            "content" : "\/\/ 将value映射为key。eg. 服务器字段为id，映射为_id\n+(NSDictionary *) mj_replacedKeyFromPropertyName {\n   return @{@\"presetId\" : @\"PresetId\",\n            @\"speed\" : @\"SpeedValue\",\n            @\"time\" : @\"StopTime\",\n            @\"_id\" : @\"id\"};\n}\n\n\/\/ points 为数组类型\n+ (NSDictionary *) mj_objectClassInArray {\n    return @{@\"points\" : [SVPTZTourPointModel class]};\n}\n\n+ (NSArray *)mj_ignoredPropertyNames {\n    return @[@\"tempProperty\", @\"ignoreField\"];\n}",
+            "title" : "标签页",
+            "attachments" : [
+
+            ],
+            "uuid" : "1CCB77CC-82BC-47B4-BED0-52778014C945"
+          }
+        ],
+        "uuid" : "53133D2D-F7CB-438F-B245-DACBDEE83BD3",
+        "dateModified" : "2025-05-14T11:00:24Z",
+        "dateCreated" : "2025-05-14T11:00:13Z",
+        "title" : "MJExtension"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "note" : "",
+            "attachments" : [
+
+            ],
+            "noteAttributes" : [
+
+            ],
+            "title" : "标签页",
+            "language" : "ObjectiveCLexer",
+            "dateCreated" : "2025-06-10T02:00:08Z",
+            "uuid" : "766F87FA-61E9-406D-A122-176E1547FE72",
+            "dateModified" : "2025-06-10T02:03:10Z",
+            "content" : "\/\/ 属性中定义block，属性名为：closeHandler\n@property(nonatomic, copy) void(^closeHandler)();\n\n\n+ (instancetype)alertWithTitle:(NSString * _Nullable)title\n                       message:(NSString * _Nullable)message\n                       actions:(NSArray <SVAlertAction *>* _Nullable)actions\n                 actionHandler:(void(^ _Nullable)(SVAlertAction *action) )handler;\n                 \n                 "
+          }
+        ],
+        "uuid" : "2694145F-3D2B-4857-B38C-1E515E2E9635",
+        "dateModified" : "2025-06-10T02:00:13Z",
+        "dateCreated" : "2025-06-10T02:00:08Z",
+        "title" : "block 定义"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "note" : "",
+            "attachments" : [
+
+            ],
+            "uuid" : "215AE5B0-F4B4-46FB-8FB8-9379E41A47A5",
+            "content" : "UILabel * label = [[UILabel alloc]init];\nlabel.text = <#text#>;\nlabel.font = [SVUIManager sysFontSize:<#12#>];\nlabel.textAlignment = NSTextAlignmentLeft;\nlabel.textColor = [SVUIManager colorTitle];\n[<#superView#> addSubview:label];\n\n",
+            "dateCreated" : "2025-05-13T03:20:38Z",
+            "dateModified" : "2025-05-14T08:57:28Z",
+            "noteAttributes" : [
+
+            ],
+            "title" : "标签页",
+            "language" : "ObjectiveCLexer"
+          }
+        ],
+        "uuid" : "820E3546-788F-474F-9C17-ADBD8EA71768",
+        "dateModified" : "2025-05-13T03:20:45Z",
+        "dateCreated" : "2025-05-13T03:20:38Z",
+        "title" : "UILabel"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "noteAttributes" : [
+
+            ],
+            "dateModified" : "2025-06-19T02:41:51Z",
+            "dateCreated" : "2025-06-19T02:41:24Z",
+            "uuid" : "2E3B2544-FB4B-4658-894C-6D065975103D",
+            "note" : "",
+            "title" : "标签页",
+            "content" : "掘金不错的一个文章：https:\/\/juejin.cn\/post\/7297608058477133860",
+            "attachments" : [
+
+            ],
+            "language" : "ObjectiveCLexer"
+          }
+        ],
+        "uuid" : "CA865DBE-C65C-499F-85E4-0DE151885FC9",
+        "dateModified" : "2025-06-19T02:41:36Z",
+        "dateCreated" : "2025-06-19T02:41:24Z",
+        "title" : "适配UISecen项目"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "noteAttributes" : [
+
+            ],
+            "dateModified" : "2025-05-19T06:09:06Z",
+            "dateCreated" : "2025-05-19T06:00:32Z",
+            "uuid" : "4454B0A9-C15F-45FE-B77B-4A3B346EBF52",
+            "title" : "标签页",
+            "content" : "AppCommon.sendNativeCommand([\"gotoAlarmSmartMove\", JSON.stringify($rootScope.MaintainDeviceInfo), $scope.currentChannel, JSON.stringify($scope.CordonSettingData), JSON.stringify($scope.CordonSetting), 2], function (value, result)\n{\n  if (value == 0)\n    {\n         $scope.CordonSettingData = JSON.parse(result);\n    } else\n    {\n         PromptBox.showPrompt($rootScope.TK_QueryFailed, \"img\/Main\/tip_wrong.png\");\n    }\n});\n\n\/\/ 接着在OC的文件 nativaSDK.mm 中监听\n- (void)nativeMethod:(CDVInvokedUrlCommand*)command\n\n\/\/ 如果需要返回值\nNSDictionary *dict = @{@\"\":@\"\"};\nNSData *data = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];\nNSString *str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];\n[self sendSDKResult:0 callbackId:command.callbackId result:str];",
+            "note" : "",
+            "attachments" : [
+
+            ],
+            "language" : "JavascriptLexer"
+          }
+        ],
+        "uuid" : "D7E7FC7D-F2C5-4C71-A3D0-FFF3E907D028",
+        "dateModified" : "2025-05-19T06:00:41Z",
+        "dateCreated" : "2025-05-19T06:00:32Z",
+        "title" : "H5调用到app"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "note" : "",
+            "attachments" : [
+
+            ],
+            "language" : "MakefileLexer",
+            "title" : "标签页",
+            "noteAttributes" : [
+
+            ],
+            "content" : "\\\\192.168.10.150\\Share_SunView\\APP\\iOS\\SunView\\2.1\\SunView_iOS_T2.1.0_20250528.ipa\nPTZ巡游Bug修改\n\\\\192.168.10.150\\Share_SunView\\APP\\iOS\\SunView\\2.1\\SunView_iOS_T2.1.0_20250604.ipa\n\/\/ 时间配置\n\\\\192.168.10.150\\Share_SunView\\APP\\iOS\\SunView\\2.1\\SunView_iOS_T2.1.0_20250612.ipa",
+            "uuid" : "24C9D24E-332A-4B43-84B4-5DA2612E4C96",
+            "dateCreated" : "2025-06-04T03:14:17Z",
+            "dateModified" : "2025-06-12T09:19:53Z"
+          }
+        ],
+        "uuid" : "3C8D9D0E-ADCC-4EF0-A2F5-6E5F1E5249C5",
+        "dateModified" : "2025-06-04T03:14:20Z",
+        "dateCreated" : "2025-06-04T03:14:17Z",
+        "title" : "转测地址"
+      },
+      {
+        "folder" : "07F7574C-6875-42A8-AA3E-1CF11B1287E5",
+        "fragments" : [
+          {
+            "title" : "标签页",
+            "noteAttributes" : [
+
+            ],
+            "language" : "ObjectiveCLexer",
+            "note" : "",
+            "content" : "\/\/ 前面是亮色，后面是暗色\nSuiDynamicColor(UIColor.whiteColor, UIColor.blackColor)；",
+            "uuid" : "860EC282-2F85-47CE-AC39-A9820D58DBF9",
+            "dateCreated" : "2025-08-25T05:36:16Z",
+            "dateModified" : "2025-08-25T05:36:57Z",
+            "attachments" : [
+
+            ]
+          }
+        ],
+        "uuid" : "385BE140-F99F-4F8D-8C59-2B92B7F43923",
+        "dateModified" : "2025-08-25T05:36:26Z",
+        "dateCreated" : "2025-08-25T05:36:16Z",
+        "title" : "适配暗黑模式"
+      },
+      {
+        "folder" : "07F7574C-6875-42A8-AA3E-1CF11B1287E5",
+        "fragments" : [
+          {
+            "uuid" : "D8058ADD-D4A9-4B04-8F59-731436746B1E",
+            "dateModified" : "2025-08-25T07:32:04Z",
+            "content" : "\/\/ View事件\n[PersonalUserBehaviorGatheringServiceInstance logBusinessIDForView: @\"随手记新首页_浏览\" extraValue:nil];\n\n\/\/ 点击事件\n [PersonalUserBehaviorGatheringServiceInstance logBusinessIDForClick: @\"账本管理首页_全局搜索框\" extraValue: logDic.toJSONString];\n \n \/\/ 离开事件\n - (void)viewDidDisappear:(BOOL)animated {\n    [super viewDidDisappear:animated];\n    if (_enterTimeInterval && _enterTimeInterval != 0) {\n        NSInteger stayTime = ([[NSDate new] timeIntervalSince1970] - _enterTimeInterval) * 1000;\n        NSDictionary *customValue = @{\n            @\"time_op\" : [NSString stringWithFormat:@\"%@\", @(stayTime)]\n        };\n        [SuiCloudUserBehaviorGatheringServiceInstance logBusinessIDForLeave:@\"图表设置页_离开\" extraValue:[customValue toJSONString]];\n    }\n}\n\n\/\/ 云账本\n[SCNewbieGuideManager.sharedManager logDemoBookForViewIfNeed:@\"神象云演示账本首页\" customValue:nil];",
+            "title" : "标签页",
+            "noteAttributes" : [
+
+            ],
+            "dateCreated" : "2025-08-25T05:40:29Z",
+            "attachments" : [
+
+            ],
+            "language" : "ObjectiveCLexer",
+            "note" : ""
+          }
+        ],
+        "uuid" : "698AC909-6AAA-4D74-87DC-85AB1C3AFCD5",
+        "dateModified" : "2025-08-25T05:40:36Z",
+        "dateCreated" : "2025-08-25T05:40:29Z",
+        "title" : "上报事件"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "uuid" : "944F4935-8580-43DD-AB71-A7A85F264BB1",
+            "dateModified" : "2025-05-27T02:49:19Z",
+            "content" : "- (NSString *)deviceTokenToString:(NSData *)deviceToken {\n  NSMutableString *deviceTokenString1 = [NSMutableString string];\n  const char *bytes = (char *)deviceToken.bytes;\n  int iCount = deviceToken.length;\n  for (int i = 0; i < iCount; i++) {\n    [deviceTokenString1 appendFormat:@\"%02x\", bytes[i]&0x000000FF];\n  }\n  return deviceTokenString1;\n}\n\n\/\/ b12c6b381ef7ac90054a456cc9f5d0d533710b55e52c66be815f9977759923e0 iphone 12\n\n\/\/ 694f1b2cb59d006808ac4ee3ed0a4057e2897e7ff2019744f72a57d52c8f8ec3 debug\n\/\/ 4f1cc1ea238f01792c377cd9471d0b1adb3dac878101a96c166922d83231e000 release\n\n\/\/ 9c6872b910aeee3307c5a3e9c542157136cd0df65dc63b08ab69efed8265f455 iPhone7",
+            "title" : "标签页",
+            "noteAttributes" : [
+
+            ],
+            "dateCreated" : "2025-05-26T11:32:27Z",
+            "attachments" : [
+
+            ],
+            "language" : "ObjectiveCLexer",
+            "note" : ""
+          }
+        ],
+        "uuid" : "CB6F1091-4C75-45D2-B828-0042704B17E2",
+        "dateModified" : "2025-05-26T11:32:33Z",
+        "dateCreated" : "2025-05-26T11:32:27Z",
+        "title" : "获取推送token"
+      },
+      {
+        "folder" : "3D8C18B4-1CFD-4A58-865B-0C9455064B2A",
+        "fragments" : [
+          {
+            "uuid" : "56A52386-7E36-4846-A893-490B517AA0E6",
+            "dateModified" : "2025-08-22T00:53:34Z",
+            "content" : "https:\/\/developer.apple.com\/account\/resources\/certificates\/list",
+            "title" : "标签页",
+            "noteAttributes" : [
+
+            ],
+            "dateCreated" : "2025-08-22T00:53:25Z",
+            "attachments" : [
+
+            ],
+            "language" : "YamlLexer",
+            "note" : ""
+          }
+        ],
+        "uuid" : "2644915F-8DA0-4924-9DAD-940696226FA3",
+        "dateModified" : "2025-08-22T00:53:32Z",
+        "dateCreated" : "2025-08-22T00:53:25Z",
+        "title" : "证书地址"
+      },
+      {
+        "folder" : "07F7574C-6875-42A8-AA3E-1CF11B1287E5",
+        "fragments" : [
+          {
+            "uuid" : "1BCED1E7-379B-44E4-B3BD-8633F90A8018",
+            "dateModified" : "2025-08-25T06:06:31Z",
+            "content" : "\/\/ 注册类\n[SuiRoutes addPageClass:[MessageCenterHomeVC class] routePattern:MessageCenterHomeURLPattern];\n\n\/\/ 跳转\n [SuiRoutes showPageWithURL:[NSURL sui_routeURLWithRoutePattern:MessageCenterHomeURLPattern]];",
+            "title" : "标签页",
+            "noteAttributes" : [
+
+            ],
+            "dateCreated" : "2025-08-25T06:05:58Z",
+            "attachments" : [
+
+            ],
+            "language" : "ObjectiveCLexer",
+            "note" : ""
+          }
+        ],
+        "uuid" : "766DEFF5-58B6-400E-8485-09256C7D0206",
+        "dateModified" : "2025-08-25T06:06:01Z",
+        "dateCreated" : "2025-08-25T06:05:58Z",
+        "title" : "Router"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "uuid" : "A5784FE4-57D9-4A8F-8268-FCA760C9CB5E",
+            "dateModified" : "2025-06-09T07:41:03Z",
+            "content" : "ip.src == 192.168.2.197 && ip.dst == 47.88.77.75",
+            "title" : "标签页",
+            "noteAttributes" : [
+
+            ],
+            "dateCreated" : "2025-06-09T07:40:50Z",
+            "attachments" : [
+
+            ],
+            "language" : "ObjectiveCLexer",
+            "note" : ""
+          }
+        ],
+        "uuid" : "CAEFA2E2-A07C-451D-8B0E-F6A50CD097BA",
+        "dateModified" : "2025-06-09T07:40:55Z",
+        "dateCreated" : "2025-06-09T07:40:50Z",
+        "title" : "抓取推送包"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "uuid" : "55AB6EC6-A605-41CE-90CA-5A4D7432229E",
+            "note" : "",
+            "dateModified" : "2025-05-13T03:25:43Z",
+            "language" : "ObjectiveCLexer",
+            "noteAttributes" : [
+
+            ],
+            "dateCreated" : "2025-05-13T03:25:23Z",
+            "attachments" : [
+
+            ],
+            "title" : "标签页",
+            "content" : "LOG_SunView_INFO(\"<#log#>\");"
+          }
+        ],
+        "uuid" : "57F60C96-2E6C-4115-9AB3-9BB86D25F2FD",
+        "dateModified" : "2025-05-13T03:25:30Z",
+        "dateCreated" : "2025-05-13T03:25:23Z",
+        "title" : "log c++"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "uuid" : "8DF15305-8CD8-484C-A0E3-C8AF61E23DA1",
+            "noteAttributes" : [
+
+            ],
+            "content" : "UIRectCorner corners = UIRectCornerTopLeft | UIRectCornerTopRight;\nCGFloat radius = 10.0;\nUIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.view.bounds\n                                             byRoundingCorners:corners\n                                                   cornerRadii:CGSizeMake(radius, radius)];\n\nCAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];\nmaskLayer.frame = self.view.bounds;\nmaskLayer.path = maskPath.CGPath;\n\nself.view.layer.mask = maskLayer;",
+            "note" : "",
+            "dateModified" : "2025-05-14T11:00:08Z",
+            "title" : "标签页",
+            "attachments" : [
+
+            ],
+            "dateCreated" : "2025-05-14T10:59:51Z",
+            "language" : "ObjectiveCLexer"
+          }
+        ],
+        "uuid" : "79DF086D-FD6F-4324-8725-B7D2DB5D9CB6",
+        "dateModified" : "2025-05-14T10:59:55Z",
+        "dateCreated" : "2025-05-14T10:59:51Z",
+        "title" : "自定义圆角"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "title" : "标签页",
+            "uuid" : "8333BE50-B6FB-416F-90A2-00AD8B843DC7",
+            "content" : "SunView_LOG_INFO(@\"<#log#>\");",
+            "language" : "ObjectiveCLexer",
+            "noteAttributes" : [
+
+            ],
+            "dateCreated" : "2025-05-13T03:24:22Z",
+            "dateModified" : "2025-05-13T03:24:50Z",
+            "attachments" : [
+
+            ],
+            "note" : ""
+          }
+        ],
+        "uuid" : "50A575C0-E7D3-4175-BE1D-55404067A9DD",
+        "dateModified" : "2025-05-13T03:24:28Z",
+        "dateCreated" : "2025-05-13T03:24:22Z",
+        "title" : "log原生"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "note" : "",
+            "attachments" : [
+
+            ],
+            "content" : "\/\/ OC对象强持有一个NSData\n@property(nonatomic, strong) NSData *retainedCString;\n\/\/ 在使用的地方\nNSString * param = self.name;\nNSData *utf8Data = [param dataUsingEncoding:NSUTF8StringEncoding];\nNSMutableData *cStringData = [utf8Data mutableCopy];\n[cStringData appendBytes:\"\" length:1]; \/\/ 添加 null terminator\nself.retainedCString = cStringData;\nconst char * _ctourName = (const char *)self.retainedCString.bytes;",
+            "uuid" : "2862AA08-D0F0-4CD3-B9B9-6FD3F51223C3",
+            "dateCreated" : "2025-05-14T01:20:34Z",
+            "dateModified" : "2025-05-14T01:22:36Z",
+            "noteAttributes" : [
+
+            ],
+            "title" : "标签页",
+            "language" : "ObjectiveCLexer"
+          }
+        ],
+        "uuid" : "B35FFF0B-7FC6-4668-A27A-69B8050F5C2E",
+        "dateModified" : "2025-05-14T01:20:56Z",
+        "dateCreated" : "2025-05-14T01:20:34Z",
+        "title" : "临时字符串转Char * 异常释放"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "note" : "",
+            "attachments" : [
+
+            ],
+            "content" : "[SVNativeChannel jumpFlutterVC:SVFlutterPageRoute_SmartModeDetection parameter:param animation:NO];",
+            "uuid" : "F88EDB40-D116-4F33-8559-89000EEBA484",
+            "dateCreated" : "2025-05-19T06:02:51Z",
+            "dateModified" : "2025-05-19T06:03:13Z",
+            "noteAttributes" : [
+
+            ],
+            "title" : "标签页",
+            "language" : "ObjectiveCLexer"
+          }
+        ],
+        "uuid" : "E85B9BDF-521D-47B6-94EF-A9A355DBFE42",
+        "dateModified" : "2025-05-19T06:03:02Z",
+        "dateCreated" : "2025-05-19T06:02:51Z",
+        "title" : "OC调用Flutter"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "attachments" : [
+
+            ],
+            "note" : "",
+            "uuid" : "1D082690-0B21-47ED-BF0A-C49C9DE89058",
+            "noteAttributes" : [
+
+            ],
+            "dateModified" : "2025-05-14T08:56:50Z",
+            "title" : "标签页",
+            "content" : "if (@available(iOS 14, *)) {\n    \/\/ iOS 14 及以上逻辑\n} else {\n    \/\/ iOS 13 或更早版本处理\n}",
+            "language" : "SwiftLexer",
+            "dateCreated" : "2025-05-14T08:56:46Z"
+          }
+        ],
+        "uuid" : "A0654F0E-BACC-4D7A-93C4-F0723B36B878",
+        "dateModified" : "2025-05-14T08:56:49Z",
+        "dateCreated" : "2025-05-14T08:56:46Z",
+        "title" : "版本兼容"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "title" : "标签页",
+            "uuid" : "AC971790-C076-4E14-958E-8DA2AEBD4BD9",
+            "noteAttributes" : [
+
+            ],
+            "note" : "",
+            "attachments" : [
+
+            ],
+            "dateCreated" : "2025-05-28T01:05:22Z",
+            "language" : "ObjectiveCLexer",
+            "dateModified" : "2025-05-28T01:05:53Z",
+            "content" : "国内\n\/\/ http:\/\/113.107.244.124:5443\/download?file=.\/25242B9C-29E7-498A-8223-0142F03DD5F1.zip\n美国\n\/\/ http:\/\/improvement.51cloudtech.com:5443\/download?file=.\/25242B9C-29E7-498A-8223-0142F03DD5F1.zip\n\n下载时，替换链接中对应的UUID"
+          }
+        ],
+        "uuid" : "7A252382-96FD-4737-83CF-D41E03A6DE52",
+        "dateModified" : "2025-05-28T01:05:27Z",
+        "dateCreated" : "2025-05-28T01:05:22Z",
+        "title" : "日志下载"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "noteAttributes" : [
+
+            ],
+            "language" : "ObjectiveCLexer",
+            "uuid" : "5744F3BE-9BA3-4DAA-ACA5-ABF9C455D227",
+            "attachments" : [
+
+            ],
+            "note" : "",
+            "title" : "标签页",
+            "dateCreated" : "2025-06-23T09:44:30Z",
+            "content" : "    \/\/ NSDate 转  NSDateComponents\n    NSCalendar * calendar = [NSCalendar currentCalendar];\n    NSDateComponents * components =  [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:date];\n    \n    \/\/ NSDateComponents 转 NSDate\n    NSDateComponents *components = [[NSDateComponents alloc] init];\n    components.year = year;\n    components.month = month;\n    \/\/ 使用1号日期\n    components.day = 1;\n\n    \/\/ 生成日期\n    NSDate *date = [calendar dateFromComponents:components];\n    \/\/ ",
+            "dateModified" : "2025-08-20T06:31:45Z"
+          }
+        ],
+        "uuid" : "B4656939-33EB-4A3D-92C2-963E7A9BE6DA",
+        "dateModified" : "2025-06-23T09:44:38Z",
+        "dateCreated" : "2025-06-23T09:44:30Z",
+        "title" : "NSCalendar 解析事件"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "uuid" : "72917A38-4BB4-4E77-911F-B4D31CFAC464",
+            "note" : "",
+            "title" : "标签页",
+            "attachments" : [
+
+            ],
+            "dateCreated" : "2025-05-29T05:56:28Z",
+            "language" : "ObjectiveCLexer",
+            "content" : "  [UIView animateWithDuration:0.25 animations:^{\n    \n    if (SVUIManager.isPortrait) {\n      self.transform = CGAffineTransformMakeTranslation(0, self.frame.size.height);\n    } else {\n      self.transform = CGAffineTransformMakeTranslation(self.frame.size.width, 0);\n    }\n  } completion:^(BOOL finished) {\n    [self removeFromSuperview];\n  }];",
+            "dateModified" : "2025-05-29T05:56:34Z",
+            "noteAttributes" : [
+
+            ]
+          }
+        ],
+        "uuid" : "E25FD7FC-96AF-47FF-8BEF-0CA0B76FDB93",
+        "dateModified" : "2025-05-29T05:56:32Z",
+        "dateCreated" : "2025-05-29T05:56:28Z",
+        "title" : "hide 动画"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "note" : "",
+            "dateModified" : "2025-05-27T03:06:07Z",
+            "title" : "标签页",
+            "uuid" : "02D792FD-0332-4F2B-892C-3F75A69AAF0F",
+            "attachments" : [
+
+            ],
+            "content" : "SVDialog.tost().show('TK_SelectDevice'.tr);",
+            "noteAttributes" : [
+
+            ],
+            "dateCreated" : "2025-05-27T03:06:01Z",
+            "language" : "ObjectiveCLexer"
+          }
+        ],
+        "uuid" : "20C9A4E3-0CE0-455D-9721-5D7CA108ED66",
+        "dateModified" : "2025-05-27T03:06:06Z",
+        "dateCreated" : "2025-05-27T03:06:01Z",
+        "title" : "flutter toast"
+      },
+      {
+        "dateModified" : "2025-06-09T01:59:26Z",
+        "fragments" : [
+          {
+            "language" : "ObjectiveCLexer",
+            "dateModified" : "2025-06-09T01:59:27Z",
+            "dateCreated" : "2025-06-09T01:59:20Z",
+            "uuid" : "93FCC258-4234-43D3-87B1-D800FE2D1146",
+            "content" : "[SVAlertManager showAlertWithTitle:International(@\"TK_TourMaxLimit\") msg:@\"\"];",
+            "attachments" : [
+
+            ],
+            "note" : "",
+            "noteAttributes" : [
+
+            ],
+            "title" : "标签页"
+          }
+        ],
+        "dateCreated" : "2025-06-09T01:59:20Z",
+        "uuid" : "63EC90A5-2696-45E6-BB39-DD6C21C36062",
+        "dateDeleted" : "2025-06-11T11:53:57Z",
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "title" : "alert弹框"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "language" : "ObjectiveCLexer",
+            "dateModified" : "2025-06-09T03:58:54Z",
+            "dateCreated" : "2025-06-09T03:58:44Z",
+            "uuid" : "6C72B676-C143-4A0D-A7BA-2C235BD9DD20",
+            "content" : "- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {\n    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context){\n      NSLog(@\"转屏前调入\");\n      self.backgroundView.frame = self.containerView.bounds;\n    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context){\n      NSLog(@\"转屏后调入\");\n    }];\n    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];\n}",
+            "attachments" : [
+
+            ],
+            "note" : "",
+            "noteAttributes" : [
+
+            ],
+            "title" : "标签页"
+          }
+        ],
+        "uuid" : "68C19391-A11C-4620-975A-3DE9F82D64C2",
+        "dateModified" : "2025-06-09T03:58:52Z",
+        "dateCreated" : "2025-06-09T03:58:44Z",
+        "title" : "屏幕旋转"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "note" : "",
+            "dateModified" : "2025-06-19T07:18:46Z",
+            "title" : "标签页",
+            "uuid" : "BF83BFF2-03C9-4CBC-9A3B-CF175B258E9E",
+            "attachments" : [
+
+            ],
+            "content" : "\/\/ 创建一个图片\nUIImage *image = [UIImage systemImageNamed:@\"play.fill\"];\n\n\/\/ 调整大小\nUIImageSymbolConfiguration *config = [UIImageSymbolConfiguration configurationWithPointSize:24];\n\/\/ 也是调整大小，一些固定的枚举值\nUIImageSymbolConfiguration *config = [UIImageSymbolConfiguration configurationWithScale:UIImageSymbolScaleSmall];\n\n\/\/设置 weight\nUIImageSymbolConfiguration *config = [UIImageSymbolConfiguration configurationWithPointSize:24 weight:UIImageSymbolWeightBold];\n\n\/\/ 组合\nUIImageSymbolConfiguration *config = [[UIImageSymbolConfiguration configurationWithPointSize:30] configurationByApplyingConfiguration:[UIImageSymbolConfiguration configurationWithWeight:UIImageSymbolWeightBold]];\n\n",
+            "noteAttributes" : [
+
+            ],
+            "dateCreated" : "2025-06-19T07:15:06Z",
+            "language" : "ObjectiveCLexer"
+          }
+        ],
+        "uuid" : "6854A204-7D9E-4661-8793-A264C6B4DA68",
+        "dateModified" : "2025-06-19T07:15:09Z",
+        "dateCreated" : "2025-06-19T07:15:06Z",
+        "title" : "SF Symbols"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "title" : "标签页",
+            "dateModified" : "2025-06-11T11:49:41Z",
+            "attachments" : [
+
+            ],
+            "uuid" : "AA892887-B0B9-4FC9-BA15-C21E0A705309",
+            "language" : "ObjectiveCLexer",
+            "noteAttributes" : [
+
+            ],
+            "content" : "\/*\n actions 如果为空，默认显示一个确认按钮\n actions 最大支持2个按钮\n actions 有顺序，第一个放到左侧\n \n title 和 message 支持同时存在\n 如果两者只有一个，那么优先使用message\n*\/\n\nNSString * message = [NSString stringWithFormat:International(@\"TK_TourMaxLimit\"),max + 1];\nUIViewController * controller =  [SVAlertController alertWithTitle:nil message:message actions:nil actionHandler:nil];\n[UIViewController.topVC presentViewController:controller animated:true completion:nil];",
+            "dateCreated" : "2025-06-09T12:54:06Z",
+            "note" : ""
+          }
+        ],
+        "uuid" : "0EE810CB-F5A9-4895-BA76-FBD44EF39262",
+        "dateModified" : "2025-06-09T12:54:11Z",
+        "dateCreated" : "2025-06-09T12:54:06Z",
+        "title" : "Alert样式"
+      },
+      {
+        "folder" : "07F7574C-6875-42A8-AA3E-1CF11B1287E5",
+        "fragments" : [
+          {
+            "noteAttributes" : [
+
+            ],
+            "language" : "ObjectiveCLexer",
+            "content" : "\/\/\/ 查询首页信息流运营位 http:\/\/yapi.sui.work\/project\/626\/interface\/api\/184082\n- (void)queryFeedOperationWithIsNeedMonthCardStyle:(BOOL)isNeedMonthStyle\n                                   isNeedShareData:(BOOL)isNeedShareData\n                                        completion:(void (^)(HomeFeedOperation *operation, NSError *error))completion {\n    \n    NSDictionary *parameters = @{@\"include_message_box_log_style\": @(isNeedMonthStyle),\n                            @\"include_share_data\": @(isNeedShareData)};\n    NSMutableDictionary *requestHeaders = [NSMutableDictionary dictionary];\n    requestHeaders[@\"Content-Type\"] = @\"application\/json\";\n    \n    RESTClient *restClient = [RESTClient authClientWithBaseURLString:self.domainString];\n    [restClient POST:@\"\/cab-message-ws\/terminal\/widgets\/v2\/homepage\/infoFlow\/operation\" timeout:5 headers:requestHeaders parameters:parameters parameterEncoding:HTTPParameterJSONEncoding success:^(id operation, id responseObject) {\n        HomeFeedOperation *result;\n        if ([responseObject isKindOfClass:[NSData class]]) {\n            id dictData = [responseObject toJSONObject];\n            if ([dictData isKindOfClass:[NSDictionary class]]) {\n                HomeFeedOperation *operation = [HomeFeedOperation new];\n                [operation configWithDict:dictData];\n                \n                [[HomePageViewCacheManager shared] setCacheForOperation:operation];\n                \n                result = operation;\n            }\n        }\n        completion ? completion(result, nil) : nil;\n    } failure:^(id operation, NSError *error) {\n        completion ? completion(nil, error) : nil;\n    }];\n}",
+            "note" : "",
+            "uuid" : "BCBBDFA7-90EF-493E-BD5D-B7C7357ECDC8",
+            "title" : "标签页",
+            "attachments" : [
+
+            ],
+            "dateCreated" : "2025-08-25T05:53:10Z",
+            "dateModified" : "2025-08-25T05:53:16Z"
+          }
+        ],
+        "uuid" : "34ED96B0-F828-4040-A26F-8D1B67EA098A",
+        "dateModified" : "2025-08-25T05:53:14Z",
+        "dateCreated" : "2025-08-25T05:53:10Z",
+        "title" : "网络请求"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "note" : "",
+            "dateCreated" : "2025-05-14T01:41:41Z",
+            "noteAttributes" : [
+
+            ],
+            "attachments" : [
+
+            ],
+            "language" : "ObjectiveCLexer",
+            "content" : "\/\/ 创建&使用串行队列\ndispatch_queue_t serialQueue = dispatch_queue_create(\"SerialQueue\", DISPATCH_QUEUE_SERIAL);\ndispatch_async(serialQueue, ^{\n   NSLog(@\"1\");\n});\n\n\/\/ 创建&使用并行队列\ndispatch_queue_t concurrentQueue = dispatch_queue_create(\"ConcurrentQueue\", DISPATCH_QUEUE_CONCURRENT);\ndispatch_async(concurrentQueue, ^{\n   NSLog(@\"1\");\n});\n\n\/\/ 把任务放到并行队列中，不一定会开启新线程。要看当前已存在的线程执行情况。\n\/\/ 串行队列，系统一定会开启一个新的线程。大量的开启会造成上下文切换消耗\n \n- QOS_CLASS_USER_INTERACTIVE \/\/ 用于用户数据，希望快点返回\n- QOS_CLASS_USER_INITIATED  \/\/ 处理用户一般性数据\n- QOS_CLASS_DEFAULT     \/\/ 默认\n- QOS_CLASS_UTILITY  \/\/ 公共优先级偏低的\n- QOS_CLASS_BACKGROUND \/\/非常耗时的不重要数据\n\n\/\/ dispatch_group 组\n\/\/ 串行：DISPATCH_QUEUE_SERIAL   并行：DISPATCH_QUEUE_CONCURRENT\ndispatch_queue_t global = dispatch_queue_create(\"test\", DISPATCH_QUEUE_CONCURRENT);\ndispatch_group_t group = dispatch_group_create();\ndispatch_group_async(group, global, ^{\n    sleep(1);\n    NSLog(@\"1\");\n});\ndispatch_group_async(group, global, ^{\n    sleep(1);\n    NSLog(@\"2\");\n});\ndispatch_group_notify(group, global, ^{\n    sleep(1);\n    NSLog(@\"finish!\");\n});\n\/\/ 也可以用 dispatch_group_wait来替代相同效果\ndispatch_group_wait(group, DISPATCH_TIME_FOREVER);\nNSLog(@\"finish!\");\n\n\/\/ dispatch_barrier_async 栏栅函数\ndispatch_queue_t global = dispatch_queue_create(\"test\", DISPATCH_QUEUE_CONCURRENT);\ndispatch_async( global, ^{\n    sleep(1);\n    NSLog(@\"1\");\n});\n\ndispatch_barrier_async(global, ^{\n    sleep(3);\n    NSLog(@\"barrier\");\n});\nNSLog(@\"finish!\");\ndispatch_async( global, ^{\n    sleep(1);\n    NSLog(@\"11\");\n});\n\n\/\/ 快速迭代 dispatch_apply\ndispatch_queue_t global = dispatch_queue_create(\"test\", DISPATCH_QUEUE_CONCURRENT);\ndispatch_apply(100, global, ^(size_t iteration) {\n    sleep(1);\n    NSLog(@\"%lu\",iteration);\n});\nNSLog(@\"finish!\");\n\n\/\/ dispatch_semaphore\n\/\/ 建议使用Cpp的方式或者@property中用strong来修饰\n_semaphore = dispatch_semaphore_create(1); \/\/ 代表了允许通过的线程数\n- (void)concurrent:(int)idx{\n    dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER); \/\/ 信号 -1 ， 如果小于0 就会阻塞\n    sleep(1);\n    NSLog(@\"%d\",idx);\n    dispatch_semaphore_signal(_semaphore);\n}\n",
+            "uuid" : "07BEB751-60C8-4692-9A99-FC0BB3F8DDF5",
+            "dateModified" : "2025-05-14T03:10:52Z",
+            "title" : "标签页"
+          }
+        ],
+        "uuid" : "9DE20EF7-1EC9-46DF-A4C9-B90F9B8038DF",
+        "dateModified" : "2025-05-14T01:41:43Z",
+        "dateCreated" : "2025-05-14T01:41:41Z",
+        "title" : "GCD"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "dateModified" : "2025-06-18T07:08:49Z",
+            "uuid" : "A75B2077-1CE7-48FB-8FB3-A4816D7A762D",
+            "language" : "ObjectiveCLexer",
+            "noteAttributes" : [
+
+            ],
+            "title" : "标签页",
+            "content" : "CGContextRef context = UIGraphicsGetCurrentContext();\nCGContextMoveToPoint(context, startX, startY + leftRadius); \/\/ 起点：左上角（圆角起点）\nCGContextAddArcToPoint(context, startX, startY, startX + leftRadius, startY, leftRadius); \/\/ 左上圆角\nCGContextAddLineToPoint(context, endX - rightRadius, startY); \/\/ 上边到右上圆角起点\nCGContextAddArcToPoint(context, endX, startY, endX, startY + rightRadius, rightRadius); \/\/ 右上圆角\nCGContextAddLineToPoint(context, endX, endY - rightRadius); \/\/ 右边到右下圆角起点\nCGContextAddArcToPoint(context, endX, endY, endX - rightRadius, endY, rightRadius); \/\/ 右下圆角\nCGContextAddLineToPoint(context, startX + leftRadius, endY); \/\/ 下边到左下圆角起点\nCGContextAddArcToPoint(context, startX, endY, startX, endY - leftRadius, leftRadius); \/\/ 左下圆角\nCGContextAddLineToPoint(context, startX, startY + leftRadius); \/\/ 左边回到起点（左上角）\nCGContextClosePath(context);\nCGContextSetFillColorWithColor(context, [UIColor redColor].CGColor);\nCGContextFillPath(context);\n\n\n\/\/ 函数理解\nCGContextAddArcToPoint(context, startX, startY, startX + leftRadius, startY, leftRadius); \/\/ 左上圆角\n\/*\n\n第一个参数是：上下文\n第二、三个参数是：当前画笔已经移动到圆角的起点了，此时的参数表示矩形的顶点\n第四、五个参数是：表示圆角的终点\n第六个参数是：圆角\n\n例如当前的绘制区域为 200 x 100 ，圆角是 10。绘制右上角为例\n当前画笔已经到达了位置为：{190,0}\n第二三个参数用来表示一个点，应该是200，100（右上角顶点）\n第三四个参数为：{200,10} \n\n*\/\n\n",
+            "attachments" : [
+
+            ],
+            "note" : "",
+            "dateCreated" : "2025-06-18T07:02:54Z"
+          }
+        ],
+        "uuid" : "DFA44A6B-B34E-40EE-AD59-715E46145329",
+        "dateModified" : "2025-06-18T07:02:59Z",
+        "dateCreated" : "2025-06-18T07:02:54Z",
+        "title" : "绘制圆角"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "note" : "",
+            "content" : "直接在devicemanager中添加",
+            "title" : "标签页",
+            "dateModified" : "2025-05-19T06:14:21Z",
+            "language" : "ObjectiveCLexer",
+            "dateCreated" : "2025-05-19T06:13:55Z",
+            "attachments" : [
+
+            ],
+            "noteAttributes" : [
+
+            ],
+            "uuid" : "A2361802-E542-4F5A-97B9-5D68245392EC"
+          }
+        ],
+        "uuid" : "2012243B-20EE-4F4D-8C78-813CD48AC18E",
+        "dateModified" : "2025-05-19T06:14:09Z",
+        "dateCreated" : "2025-05-19T06:13:55Z",
+        "title" : "SDK添加函数2"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "note" : "",
+            "dateModified" : "2025-06-16T12:19:28Z",
+            "title" : "标签页",
+            "language" : "ObjectiveCLexer",
+            "attachments" : [
+
+            ],
+            "noteAttributes" : [
+
+            ],
+            "content" : "NSTimer *timer = [NSTimer timerWithTimeInterval:1.0\n                                          target:self\n                                        selector:@selector(timerFired:)\n                                        userInfo:nil\n                                         repeats:YES];\n\n[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];\n\n\n\n\/\/ 这种方式会自动加到Runloop中\nNSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0\n                                                  target:self\n                                                selector:@selector(timerFired:)\n                                                userInfo:nil\n                                                 repeats:YES];\n                                                 \n                                                 \n                                                 \/\/\n\n\n\/\/block形式的timer                                                 \/\/\nNSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0\n                                                  repeats:YES\n                                                    block:^(NSTimer * _Nonnull timer) {\n    NSLog(@\"Timer fired\");\n}];\n\n\n\/\/ gcd timer\ndispatch_queue_t queue = dispatch_get_main_queue(); \/\/ 或者自定义队列\ndispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);\ndispatch_source_set_timer(timer,\n                          dispatch_time(DISPATCH_TIME_NOW, 0),\n                          1 * NSEC_PER_SEC,\n                          0.1 * NSEC_PER_SEC); \/\/ 精度误差\n\ndispatch_source_set_event_handler(timer, ^{\n    NSLog(@\"GCD Timer fired\");\n});\ndispatch_resume(timer);\n\n\/\/ 需要手动 dispatch_source_cancel(timer) 停止",
+            "dateCreated" : "2025-06-16T12:17:18Z",
+            "uuid" : "8DE2EFAB-B442-4903-8A46-178C9BA61D3A"
+          }
+        ],
+        "uuid" : "B8095187-5E8B-4B93-B9DB-77031FF103BA",
+        "dateModified" : "2025-06-16T12:17:31Z",
+        "dateCreated" : "2025-06-16T12:17:18Z",
+        "title" : "timer"
+      },
+      {
+        "folder" : "8ADAC7A7-D855-46B4-A837-441521ACB897",
+        "fragments" : [
+          {
+            "title" : "标签页",
+            "noteAttributes" : [
+
+            ],
+            "language" : "ObjectiveCLexer",
+            "dateCreated" : "2025-05-14T08:54:35Z",
+            "content" : "if #available(iOS 14, *) {\n    \n}\n\n@available(iOS 15, *)",
+            "dateModified" : "2025-05-14T08:56:05Z",
+            "uuid" : "5EDA049C-0B75-4D67-8982-D898B24CCBB4",
+            "attachments" : [
+
+            ],
+            "note" : ""
+          }
+        ],
+        "uuid" : "F8BA53AF-B1DC-4632-9C02-CB91142659DA",
+        "dateModified" : "2025-05-14T08:54:40Z",
+        "dateCreated" : "2025-05-14T08:54:35Z",
+        "title" : "版本兼容"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "content" : "_Nonnull \/ _Nullable\n- (NSString * __nullable)method;\n@property (nonatomic, copy) NSString * _Nullable aString;",
+            "language" : "ObjectiveCLexer",
+            "dateCreated" : "2025-05-26T08:28:52Z",
+            "title" : "标签页",
+            "attachments" : [
+
+            ],
+            "noteAttributes" : [
+
+            ],
+            "dateModified" : "2025-05-26T08:30:11Z",
+            "note" : "",
+            "uuid" : "2385FC2B-57BF-45C5-93D6-E04D195F675C"
+          }
+        ],
+        "uuid" : "FB563D74-E55D-44C3-B81C-871295E30BAC",
+        "dateModified" : "2025-05-26T08:29:04Z",
+        "dateCreated" : "2025-05-26T08:28:52Z",
+        "title" : "Nullable"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "title" : "标签页",
+            "language" : "ObjectiveCLexer",
+            "noteAttributes" : [
+
+            ],
+            "dateModified" : "2025-05-28T08:08:13Z",
+            "uuid" : "FAE7C43B-6A96-4208-8FAF-BC59EDB1255C",
+            "attachments" : [
+
+            ],
+            "content" : "UIWindow *window = nil;\n  if (@available(iOS 15.0, *)) {\n    for (UIScene *scene in [UIApplication sharedApplication].connectedScenes) {\n      if ([scene isKindOfClass:[UIWindowScene class]]) {\n        UIWindowScene *windowScene = (UIWindowScene *)scene;\n        window = windowScene.windows.firstObject;\n        break;\n      }\n    }\n  } else {\n    window = [UIApplication sharedApplication].windows.firstObject;\n  }",
+            "note" : "",
+            "dateCreated" : "2025-05-28T02:35:21Z"
+          }
+        ],
+        "uuid" : "B5F605DA-BB57-4053-8126-3792C8E4FD37",
+        "dateModified" : "2025-05-28T08:08:11Z",
+        "dateCreated" : "2025-05-28T02:35:21Z",
+        "title" : "获取window"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "uuid" : "E6258AEE-1AA3-4E42-8282-98B5E7EB8919",
+            "note" : "",
+            "content" : "\/\/ 在 SdkSingleDevice.h 中添加头文件\nvoid controlPtzTourEx(int p_nChannelId,int p_tourId ,int m_opration,const char* tourName,int p_speed ,int p_time);\n\/\/ 在 SdkSingleDevice.cpp 中添加实现逻辑\nvoid SdkSingleDevice::controlPtzTourEx(int p_nChannelId, int p_tourId, int m_opration,const char* p_tourName,\n                                       int p_speed, int p_time) {\n    if(m_nSessionId < 1000 || !m_bIsOpenDevice || m_bIsCloseDevice.load(std::memory_order_acquire))\n        return;\n    ControlInfo *p_info = (ControlInfo *) malloc(sizeof(ControlInfo));\n    memset(p_info, 0, sizeof(ControlInfo));\n    p_info->commandType = CommandTourPTZEx; \/\/ 枚举需要自己重新定义\n    p_info->channelID = p_nChannelId;\n    p_info->ptz_operation = m_opration;\n    p_info->speed = p_speed;\n    p_info->during = p_time;\n    p_info->tourId = p_tourId;\n    p_info->tourName = p_tourName;\n    pushControlInfo(p_info);\n}\n\/\/ 在controlVideoCommand中实现枚举\nint SdkSingleDevice::controlVideoCommand() \ncase CommandTourPTZEx:{\n            sdks_dev_ptz_tour_ex(m_nSessionId, info.channelID, info.tourId,info.tourName,info.ptz_operation, info.speed, info.during);\n            break;\n}\n\n\/\/ 在VideoDeviceController中添加头文件\nvoid controlPtzTourEx(string p_sDeviceId,int p_nChannelId,int p_tourId ,int m_opration,const char* tourName,int p_speed,int p_time);\nvoid VideoDeviceController::controlPtzTourEx(string p_sDeviceId, int p_nChannelId, int p_tourId,\n                                             int m_opration,const char* tourName, int p_speed,\n                                             int p_time) {\n    sys_mutex_lock(m_pMutex);\n    SdkSingleDevice *obj = (SdkSingleDevice*)findSingleSocketController(p_sDeviceId);\n    if (obj == NULL)\n    {\n        sys_mutex_unlock(m_pMutex);\n        return;\n    }\n    obj->controlPtzTourEx(p_nChannelId, p_tourId, m_opration,tourName,p_speed, p_time);\n    sys_mutex_unlock(m_pMutex);\n}\n\n\/\/ 在 SVVideoPlayToolInfo 中定义OC层\n- (void)controlPTZTourEx:(NSString*)deviceId\n               channelId:(NSInteger)channelId\n                  tourId:(int) tourId\n                    name:(const char *)name\n                 control:(PTZTourControl)ctr\n                   speed:(int)speed\n                    time:(int)time;\n                    \n                      \/\/ 迅游相关操作\n- (void)controlPTZTourEx:(NSString*)deviceId\n               channelId:(NSInteger)channelId\n                  tourId:(int) tourId\n                    name:(const char *)name\n                 control:(PTZTourControl)ctr\n                   speed:(int)speed\n                    time:(int)time{\n  \n    \/\/ speed 和 time 仅在 tourId为32时有效\n  if (ctr != PTZTourControlAddPresetPoint) {\n    speed = 0 ;\n    time = 0;\n  }\n\n  _videoDeviceCtrl->controlPtzTourEx([self _stringOCStringToCppStr:deviceId], (int)channelId, tourId, (int)ctr, name, speed, time);\n}\n",
+            "attachments" : [
+
+            ],
+            "dateCreated" : "2025-05-14T01:11:30Z",
+            "noteAttributes" : [
+
+            ],
+            "title" : "标签页",
+            "language" : "ObjectiveCppLexer",
+            "dateModified" : "2025-05-14T01:17:57Z"
+          }
+        ],
+        "uuid" : "069677A0-A2F3-404F-914A-F477AB8E4C50",
+        "dateModified" : "2025-05-14T01:11:38Z",
+        "dateCreated" : "2025-05-14T01:11:30Z",
+        "title" : "SDK中添加Set方法"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "language" : "ObjectiveCLexer",
+            "attachments" : [
+
+            ],
+            "title" : "标签页",
+            "noteAttributes" : [
+
+            ],
+            "dateModified" : "2025-05-30T08:13:40Z",
+            "content" : "- (void)observerKeyboardNotification{\n  [[NSNotificationCenter defaultCenter] addObserver:self\n                                            selector:@selector(keyboardWillChangeFrame:)\n                                                name:UIKeyboardWillChangeFrameNotification\n                                              object:nil];\n   \n}\n- (void)keyboardWillChangeFrame:(NSNotification *)notification {\n  \n  NSDictionary * userInfo = notification.userInfo;\n  CGRect keyboardRect = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];\n  CGFloat duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];\n  CGRect rect = self.contentView.frame;\n  \n  \/\/ 键盘有遮挡\n  if (CGRectGetMinY(keyboardRect) < CGRectGetMaxY(self.contentView.frame)) {\n    \n    CGFloat y = CGRectGetMinY(keyboardRect) - rect.size.height - 15;\n    while (y > SVUIManager.navigationHeight + 10) { \/\/ 防止顶到屏幕外了\n      y += 10;\n    }\n    if ([SVUIManager isPortrait]) {\n      [UIView animateWithDuration:duration animations:^{\n        self.contentView.frame = CGRectMake(rect.origin.x, y , rect.size.width, rect.size.height);\n      }];\n    }\n    \n  }\n  \n}",
+            "note" : "",
+            "uuid" : "C3C66C24-8DA3-4FC3-854E-BC8E9CAD9DBC",
+            "dateCreated" : "2025-05-30T08:13:35Z"
+          }
+        ],
+        "uuid" : "D4BF2A67-AEE9-4C6E-ADB2-9817FE4C49B2",
+        "dateModified" : "2025-05-30T08:13:39Z",
+        "dateCreated" : "2025-05-30T08:13:35Z",
+        "title" : "键盘"
+      },
+      {
+        "folder" : "07F7574C-6875-42A8-AA3E-1CF11B1287E5",
+        "fragments" : [
+          {
+            "noteAttributes" : [
+
+            ],
+            "language" : "ObjectiveCLexer",
+            "uuid" : "1C698B85-FFF7-4359-A595-AA0203E1CFCC",
+            "title" : "标签页",
+            "dateCreated" : "2025-08-25T05:58:38Z",
+            "attachments" : [
+
+            ],
+            "content" : "\/\/\/ 是否登录\n- (BOOL)isLogin {\n    id<UserCenterProtocol> userService = [[SuiModuleProviderManager sharedManager] moduleSeriveWithProtocol:@protocol(UserCenterProtocol)];\n    return [userService isSignedIn];\n}\n\n\/\/ 去登录\n\/\/\/ 显示登录页\n- (void)showLoginViewController {\n    [SuiRoutes showPageWithURL:[[NSURL sui_routeURLWithRoutePattern:UserCenterLoginURLPattern] sui_routeURLByAppendingQueryPresent] userInfo:@{UserCenterLoginDelegateQueryKey: self}];\n",
+            "dateModified" : "2025-08-25T05:58:57Z",
+            "note" : ""
+          }
+        ],
+        "uuid" : "8EE503E1-7530-4E85-853F-CE6B798D5F22",
+        "dateModified" : "2025-08-25T05:58:43Z",
+        "dateCreated" : "2025-08-25T05:58:38Z",
+        "title" : "是否登录"
+      },
+      {
+        "folder" : "07F7574C-6875-42A8-AA3E-1CF11B1287E5",
+        "fragments" : [
+          {
+            "uuid" : "703041B1-EE29-4E59-8713-670A70D4717C",
+            "title" : "标签页",
+            "noteAttributes" : [
+
+            ],
+            "dateModified" : "2025-08-21T01:55:03Z",
+            "dateCreated" : "2025-08-21T01:16:12Z",
+            "content" : "## pod更新\n| --verbose 是输出详细信息\n`pod install --verbose`\n\n## carthage\n`carthage update --platform iOS --use-xcframeworks --no-use-binaries`\n\n## 不更新仓库\n`pod install --no-repo-update`\n\n## 添加本地自定义库到本地\n`pod repo add custom-repo git@m.sui.work:componentization\/CocoaPodSpec.git`",
+            "note" : "",
+            "language" : "MarkdownLexer",
+            "attachments" : [
+
+            ]
+          }
+        ],
+        "uuid" : "2D256FD3-4810-4D47-8C77-49E5783FA7E4",
+        "dateModified" : "2025-08-21T01:16:22Z",
+        "dateCreated" : "2025-08-21T01:16:12Z",
+        "title" : "第三方库更新"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "attachments" : [
+
+            ],
+            "dateModified" : "2025-05-29T09:27:01Z",
+            "content" : "  CAShapeLayer *shapeLayer = (CAShapeLayer *)self.layer;\n  shapeLayer.strokeColor = [SVUIManager isPortrait] ? [SVUIManager colorGray102].CGColor : [SVUIManager colorGray1].CGColor;  \/\/ 边框颜色\n  shapeLayer.fillColor = [UIColor clearColor].CGColor;    \/\/ 填充颜色为透明\n  shapeLayer.lineWidth = 1;                               \/\/ 边框宽度\n    \/\/ 设置虚线的样式\n  shapeLayer.lineDashPattern = @[@6, @2];  \/\/ 6为实线段长度，3为空白段长度\n    \/\/ 创建一个矩形路径，代表视图的边框\n  UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(10, 10)]; \/\/ 圆角\n  shapeLayer.path = path.CGPath;",
+            "note" : "",
+            "dateCreated" : "2025-05-29T09:26:41Z",
+            "uuid" : "8A82074F-C072-497E-B69F-27D39F5CD3B7",
+            "noteAttributes" : [
+
+            ],
+            "title" : "标签页",
+            "language" : "ObjectiveCLexer"
+          }
+        ],
+        "uuid" : "7F83ECAE-C4F3-4D8F-A633-E80DA241712A",
+        "dateModified" : "2025-05-29T09:26:47Z",
+        "dateCreated" : "2025-05-29T09:26:41Z",
+        "title" : "layer 虚线"
+      },
+      {
+        "folder" : "696C6935-F70E-4F09-BED5-7D6C8689BEC9",
+        "fragments" : [
+          {
+            "language" : "ObjectiveCLexer",
+            "dateCreated" : "2025-05-19T06:22:59Z",
+            "title" : "标签页",
+            "dateModified" : "2025-05-19T06:24:20Z",
+            "attachments" : [
+
+            ],
+            "note" : "",
+            "uuid" : "C533312F-593E-4DC5-B59A-8D4EF51BF817",
+            "noteAttributes" : [
+
+            ],
+            "content" : "\/\/  std::string 转为 NSString\n[NSString stringWithUTF8String:strResult.c_str()]\n\n\/\/  NSString 转为 std::string \n\n[strParams UTF8String]"
+          }
+        ],
+        "uuid" : "CF7EFF83-1F52-497D-8C45-FDDB0F55E76E",
+        "dateModified" : "2025-05-19T06:23:10Z",
+        "dateCreated" : "2025-05-19T06:22:59Z",
+        "title" : "std::string 和NSString互转"
+      },
+      {
+        "folder" : "07F7574C-6875-42A8-AA3E-1CF11B1287E5",
+        "fragments" : [
+          {
+            "attachments" : [
+
+            ],
+            "title" : "标签页",
+            "dateModified" : "2025-08-25T06:01:59Z",
+            "content" : "SMUIAlertView *theAlert = [[SMUIAlertView alloc] initWithTitle:@\"版本更新\"\n                                                                   message:@\"发现新版本，是否更新随手记呢～\"\n                                                         cancelButtonTitle:@\"取消\"\n                                                         otherButtonTitles:@\"确定\", nil];",
+            "noteAttributes" : [
+
+            ],
+            "dateCreated" : "2025-08-25T06:01:54Z",
+            "language" : "ObjectiveCLexer",
+            "note" : "",
+            "uuid" : "2CFF3017-2407-422A-A464-F7E51E158004"
+          }
+        ],
+        "uuid" : "2FC86060-25C3-4D89-A1E9-C5E1E84EB79B",
+        "dateModified" : "2025-08-25T06:01:56Z",
+        "dateCreated" : "2025-08-25T06:01:54Z",
+        "title" : "弹框"
+      },
+      {
+        "folder" : "07F7574C-6875-42A8-AA3E-1CF11B1287E5",
+        "fragments" : [
+          {
+            "title" : "标签页",
+            "noteAttributes" : [
+
+            ],
+            "note" : "",
+            "dateCreated" : "2025-08-26T07:58:36Z",
+            "content" : "SMUIToast.showTitleAtCenter(forAWhile: \"封账成功\")\n\n\/\/ loading\n SMUIToast.showIndicator()\n SMUIToast.dismiss()",
+            "language" : "ObjectiveCLexer",
+            "uuid" : "4C0D7513-7F70-46C2-AC20-50DA5003D143",
+            "attachments" : [
+
+            ],
+            "dateModified" : "2025-08-28T09:03:57Z"
+          }
+        ],
+        "uuid" : "D2673B3D-692A-4C45-8283-D3AE320A66F4",
+        "dateModified" : "2025-08-26T07:58:42Z",
+        "dateCreated" : "2025-08-26T07:58:36Z",
+        "title" : "Toast"
+      },
+      {
+        "folder" : "07F7574C-6875-42A8-AA3E-1CF11B1287E5",
+        "fragments" : [
+          {
+            "dateCreated" : "2025-09-01T07:26:12Z",
+            "note" : "",
+            "content" : "let image = UIImage(named: \"v12_navBar-more\")?.sui_image(withTintColor: UIColor(hexString: \"#AAAAAA\"))",
+            "title" : "标签页",
+            "noteAttributes" : [
+
+            ],
+            "uuid" : "03BF361D-49A8-4390-B015-00DF96A35296",
+            "attachments" : [
+
+            ],
+            "language" : "ObjectiveCLexer",
+            "dateModified" : "2025-09-01T07:26:24Z"
+          }
+        ],
+        "uuid" : "D44C7D82-234A-4533-9497-FAD8DA297F73",
+        "dateModified" : "2025-09-01T07:26:22Z",
+        "dateCreated" : "2025-09-01T07:26:12Z",
+        "title" : "更改图片tintColor"
+      },
+      {
+        "folder" : "8ADAC7A7-D855-46B4-A837-441521ACB897",
+        "fragments" : [
+          {
+            "content" : "public var isInDarkModeDefaultImpl: Bool {\n    if #available(iOS 13.0, *) {\n        return UITraitCollection.current.userInterfaceStyle == .dark\n    } else {\n        return false\n    }\n}",
+            "uuid" : "789B5D96-99A5-4D11-8435-57DC92505C9C",
+            "noteAttributes" : [
+
+            ],
+            "dateCreated" : "2025-09-03T05:55:27Z",
+            "dateModified" : "2025-09-03T05:55:39Z",
+            "attachments" : [
+
+            ],
+            "note" : "",
+            "title" : "标签页",
+            "language" : "SwiftLexer"
+          }
+        ],
+        "uuid" : "0FCA4568-2878-48DA-8715-9AD26FC1D8D2",
+        "dateModified" : "2025-09-03T05:55:33Z",
+        "dateCreated" : "2025-09-03T05:55:27Z",
+        "title" : "判断暗黑模式"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "note" : "",
+            "content" : " \n UIImageView * imageView = ...;\n imageView.tintColor = UIColor.blueColor;\n UIImage * image = [image imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];\n \n \/\/ UIImageRenderingModeAlwaysTemplate总是以容器的tintColor去绘制\n \/\/ UIImageRenderingModeAlwaysOriginal 始终以原图绘制\n \/\/ UIImageRenderingModeAutomatic 自动",
+            "title" : "标签页",
+            "attachments" : [
+
+            ],
+            "noteAttributes" : [
+
+            ],
+            "language" : "ObjectiveCLexer",
+            "uuid" : "FF8782E9-9537-497D-B07D-F5B479A4E846",
+            "dateModified" : "2025-09-03T06:07:42Z",
+            "dateCreated" : "2025-09-03T06:03:24Z"
+          }
+        ],
+        "uuid" : "0B53A8F1-5146-4587-8083-04B0B47D9520",
+        "dateModified" : "2025-09-03T06:03:36Z",
+        "dateCreated" : "2025-09-03T06:03:24Z",
+        "title" : "UIImage 使用tintColor"
+      },
+      {
+        "folder" : "07F7574C-6875-42A8-AA3E-1CF11B1287E5",
+        "fragments" : [
+          {
+            "title" : "标签页",
+            "uuid" : "A3BC782B-AB63-416C-ABC8-A3C1D80688E3",
+            "attachments" : [
+
+            ],
+            "dateCreated" : "2025-09-03T07:04:05Z",
+            "language" : "ObjectiveCLexer",
+            "dateModified" : "2025-09-03T07:04:11Z",
+            "note" : "",
+            "content" : "https:\/\/www.figma.com\/design\/ZfvmUnWkjnROsWd7CN3qKg\/%F0%9F%8C%9F%E7%A5%9E%E8%B1%A1%E4%BA%91%E7%BB%84%E4%BB%B6-%E9%A2%9C%E8%89%B2-%E5%AD%97%E4%BD%93-%E5%9B%BE%E6%A0%87%E8%A7%84%E8%8C%83?node-id=15987-7821&p=f&m=dev",
+            "noteAttributes" : [
+
+            ]
+          }
+        ],
+        "uuid" : "86745940-5A5A-4932-9DDC-7ADF6D7AB22C",
+        "dateModified" : "2025-09-03T07:04:10Z",
+        "dateCreated" : "2025-09-03T07:04:05Z",
+        "title" : "暗黑模式适配规范"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "attachments" : [
+
+            ],
+            "language" : "ObjectiveCLexer",
+            "noteAttributes" : [
+
+            ],
+            "content" : "\/\/ 系统颜色变化通知\n- (void)tintColorDidChange {\n    [super tintColorDidChange];\n    self.iconView.tintColor = self.tintColor; \/\/ 跟随更新\n}\n\n- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {\n    [super traitCollectionDidChange:previousTraitCollection];\n    \n    if (@available(iOS 13.0, *)) {\n        if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {\n            \/\/ 暗黑\/明亮模式切换\n            self.backgroundColor = [UIColor colorNamed:@\"DynamicBackground\"];\n        }\n    }\n}",
+            "note" : "",
+            "title" : "标签页",
+            "uuid" : "F88CE320-7008-41B1-8A6A-91282A1DE142",
+            "dateModified" : "2025-09-03T07:53:38Z",
+            "dateCreated" : "2025-09-03T07:52:51Z"
+          }
+        ],
+        "uuid" : "9A2C9158-0C18-4332-A747-554151D55706",
+        "dateModified" : "2025-09-03T07:52:52Z",
+        "dateCreated" : "2025-09-03T07:52:51Z",
+        "title" : "暗黑模式"
+      },
+      {
+        "folder" : "4EF58A1B-84F5-445F-A2EE-3E76525BC981",
+        "fragments" : [
+          {
+            "noteAttributes" : [
+
+            ],
+            "content" : "typedef NS_ENUM(NSUInteger, YPNavigationBarConfigurations) {\n    \/*\n     *  是否隐藏 navigation bar，默认是 show。\n     *\/\n    YPNavigationBarShow   = 0,\n    YPNavigationBarHidden = 1,\n    \/*\n     *  YPNavigationBarStyleLight = UIbarStyleDefault\n     *  YPNavigationBarStyleBlack = UIbarStyleBlack\n     *\n     *  bar style 会影响 status bar 的样式，为 black 的时候 status bar 是白色，light 的时候是黑色。\n     *  当没有自定义 background color 和 background image 的时候，navigation bar 的颜色也由 bar style 决定\n     *  另外如果没有提供有效的 tintColor，YPNavigationBarTransition 将根据 bar style 自动设置 tintColor\n     *\/\n    YPNavigationBarStyleLight = 0 << 4,  \/\/ UIbarStyleDefault\n    YPNavigationBarStyleBlack = 1 << 4,  \/\/ UIbarStyleBlack\n    \/*\n     *  translucent = 半透明，transparent = 全透明，opaque = 不透明\n     *\/\n    YPNavigationBarBackgroundStyleTranslucent = 0 << 8,\n    YPNavigationBarBackgroundStyleOpaque      = 1 << 8,\n    YPNavigationBarBackgroundStyleTransparent = 2 << 8,\n    \/*\n     *  使用颜色或者图片来配置 navigation bar 的 background image\n     *\/\n    YPNavigationBarBackgroundStyleNone  = 0 << 16,\n    YPNavigationBarBackgroundStyleColor = 1 << 16,\n    YPNavigationBarBackgroundStyleImage = 2 << 16,\n    YPNavigationBarConfigurationsDefault = 0,\n    \/*\n     *  是否显示 UINavigationBar 下方的横线，默认不显示\n     *  在全透明 （Transparent） 的时候，将忽略 shadow image 的设置\n     *\/\n     YPNavigationBarShowShadowImage = 1 << 20,\n};\n\n- (YPNavigationBarConfigurations) yp_navigtionBarConfiguration;\n\n\/\/ TintColor\n- (UIColor *) yp_navigationBarTintColor;\n\n\/\/ BackgroundColor\n- (UIColor *) yp_navigationBackgroundColor;",
+            "dateModified" : "2025-09-04T00:49:46Z",
+            "note" : "",
+            "language" : "ObjectiveCLexer",
+            "uuid" : "158A8CF6-20A7-4913-A5C8-FAE72A56C7A7",
+            "dateCreated" : "2025-09-04T00:48:51Z",
+            "attachments" : [
+
+            ],
+            "title" : "标签页"
+          }
+        ],
+        "uuid" : "3F724910-64DC-4E29-9D59-93F5977A9BBA",
+        "dateModified" : "2025-09-04T00:48:52Z",
+        "dateCreated" : "2025-09-04T00:48:51Z",
+        "title" : "YPNavigation"
+      }
+    ],
+    "shortcuts" : [
+
+    ],
+    "attachments" : [
+
+    ]
+  }
+}
