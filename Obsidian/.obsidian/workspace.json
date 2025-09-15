@@ -13,30 +13,15 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "iOS/Objc/YYKit线程.md",
+                "file": "iOS/通用/常用的库.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "YYKit线程"
-            }
-          },
-          {
-            "id": "618cf67fc719c709",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "iOS/设计模式.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "设计模式"
+              "title": "常用的库"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -109,9 +94,9 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "iOS/设计模式.md",
+                "file": "iOS/通用/常用的库.md",
                 "collapseAll": false,
-                "extraContext": false,
+                "extraContext": true,
                 "sortOrder": "alphabetical",
                 "showSearch": false,
                 "searchQuery": "",
@@ -119,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "设计模式 的反向链接列表"
+              "title": "常用的库 的反向链接列表"
             }
           },
           {
@@ -157,16 +142,17 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Welcome.md",
+                "file": "iOS/通用/常用的库.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Welcome"
+              "title": "常用的库 的大纲"
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -174,6 +160,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:创建新数据库": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
@@ -182,16 +169,43 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "618cf67fc719c709",
+  "active": "1ccd955edef409ec",
   "lastOpenFiles": [
-    "s.md",
-    "iOS/设计模式.md",
     "iOS/Objc/YYKit线程.md",
-    "2025-08-04.md",
-    "iOS/Swift",
-    "iOS/Objc",
-    "未命名",
-    "Welcome.md",
-    "iOS"
+    "iOS/设计模式.md",
+    "iOS/通用/基础知识.md",
+    "iOS/通用/原子操作.md",
+    "Mac/Mac.md",
+    "iOS/通用/Carthage.md",
+    "逆向/frida/官方文档.md",
+    "逆向/frida/ARM寄存器.md",
+    "逆向/frida/iOS逆向.md",
+    "逆向/frida/插件.md",
+    "逆向/frida/汇编指令.md",
+    "逆向/frida/工具链安装.md",
+    "逆向/frida/文档.md",
+    "逆向/frida/基础使用.md",
+    "Go/基础.md",
+    "逆向/frida",
+    "Rust/基础.md",
+    "Go",
+    "Codes/Swift/RxSwift.md",
+    "Rust",
+    "Codes/Objc/YYKit.md",
+    "Codes/Objc/代码库.md",
+    "Codes/Swift/Moya.md",
+    "iOS/通用/常用的库.md",
+    "Codes/Objc/Runtime.md",
+    "iOS/通用/创建framework.md",
+    "iOS/通用/NSOperation.md",
+    "iOS/通用/GCD.md",
+    "iOS/通用/FBPromise.md",
+    "Codes/Swift",
+    "Codes/Objc",
+    "iOS/通用",
+    "Nas",
+    "Profile",
+    "Mac",
+    "Sui"
   ]
 }
