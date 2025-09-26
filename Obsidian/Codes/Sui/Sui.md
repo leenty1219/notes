@@ -1,4 +1,5 @@
 ## 1.自定义弹框底部
+也可以参考自定义周期`SCCustomPeriodSelectView`的实现
 ```swift
 // 掉起弹框
 SCCommonViewPopManager.shareInstance().pop(with: sheet, canClickBgDismiss: true)
