@@ -26,6 +26,12 @@ carthage update
 carthage update --platform iOS
 # 安装库在指定平台使用 xcframeworks
 carthage update --platform iOS --use-xcframeworks
+
+carthage update --platform iOS --use-xcframeworks --no-use-binaries
+# 删除某个缓存
+rm -rf ~/Library/Caches/org.carthage.CarthageKit/dependencies/smuikit
 ```
 ## 5.工程引入
 在`General`的Frameworks中引入库
+
+## 6.创建自己的库

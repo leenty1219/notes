@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Codes/Sui/Sui.md",
+                "file": "iOS/通用/Carthage.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Sui"
+              "title": "Carthage"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Codes/Sui/Sui.md",
+                "file": "iOS/通用/Carthage.md",
                 "followCursor": true,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Sui 的大纲"
+              "title": "Carthage 的大纲"
             }
           }
         ],
@@ -171,13 +171,16 @@
   },
   "active": "c1eacbea6ea0fb2a",
   "lastOpenFiles": [
+    "iOS/通用/FBPromise.md",
+    "iOS/通用/Carthage.md",
+    "未命名.md",
+    "未命名.base",
+    "Sui/工作内容.md",
+    "Codes/Sui/Sui.md",
     "Codes/Objc/代码库.md",
     "iOS/Objc/YYKit线程.md",
     "iOS/通用/日期解析.md",
-    "Codes/Sui/Sui.md",
-    "Sui/工作内容.md",
     "Sui/未命名.md",
-    "未命名.base",
     "Pasted image 20250918101237.png",
     "iOS/通用/NSOperation.md",
     "iOS/Objc/Block 的全部定义形式.md",
@@ -190,7 +193,6 @@
     "iOS/通用/基础知识.md",
     "iOS/通用/原子操作.md",
     "Mac/Mac.md",
-    "iOS/通用/Carthage.md",
     "逆向/frida/官方文档.md",
     "逆向/frida/ARM寄存器.md",
     "逆向/frida/iOS逆向.md",
@@ -198,8 +200,6 @@
     "逆向/frida/汇编指令.md",
     "逆向/frida/工具链安装.md",
     "逆向/frida/文档.md",
-    "逆向/frida/基础使用.md",
-    "Go/基础.md",
     "逆向/frida",
     "Go",
     "Rust",
