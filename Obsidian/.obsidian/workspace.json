@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "iOS/通用/Carthage.md",
+                "file": "iOS/通用/FBPromise.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Carthage"
+              "title": "FBPromise"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "iOS/通用/Carthage.md",
+                "file": "iOS/通用/FBPromise.md",
                 "followCursor": true,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Carthage 的大纲"
+              "title": "FBPromise 的大纲"
             }
           }
         ],
@@ -171,13 +171,19 @@
   },
   "active": "c1eacbea6ea0fb2a",
   "lastOpenFiles": [
+    "Codes/Objc/代码库.md",
+    "Codes/Sui/Sui.md",
+    "iOS/通用/基础知识.md",
+    "iOS/通用/创建framework.md",
+    "iOS/通用/常用的库.md",
+    "未命名 1.base",
+    "未命名.base",
+    "Sui/工作内容.md",
+    "Codes/Objc/YYKit.md",
+    "Codes/Objc/Runtime.md",
     "iOS/通用/FBPromise.md",
     "iOS/通用/Carthage.md",
     "未命名.md",
-    "未命名.base",
-    "Sui/工作内容.md",
-    "Codes/Sui/Sui.md",
-    "Codes/Objc/代码库.md",
     "iOS/Objc/YYKit线程.md",
     "iOS/通用/日期解析.md",
     "Sui/未命名.md",
@@ -186,11 +192,7 @@
     "iOS/Objc/Block 的全部定义形式.md",
     "Codes/Sui",
     "2025-09-16.md",
-    "Codes/Objc/Runtime.md",
-    "Codes/Objc/YYKit.md",
-    "iOS/通用/常用的库.md",
     "iOS/设计模式.md",
-    "iOS/通用/基础知识.md",
     "iOS/通用/原子操作.md",
     "Mac/Mac.md",
     "逆向/frida/官方文档.md",
@@ -199,14 +201,12 @@
     "逆向/frida/插件.md",
     "逆向/frida/汇编指令.md",
     "逆向/frida/工具链安装.md",
-    "逆向/frida/文档.md",
     "逆向/frida",
     "Go",
     "Rust",
     "Codes/Swift",
     "Codes/Objc",
     "iOS/通用",
-    "Nas",
-    "Profile"
+    "Nas"
   ]
 }

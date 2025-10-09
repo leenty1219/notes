@@ -376,4 +376,5 @@ otherButtonTitles:@"确定", nil];
 
 }
 ```
-## 21.
+## 21.网络错误提示
+`SMUIToast.showTitleAtCenter(forAWhile: err.localizedDescription)`
