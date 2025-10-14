@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "iOS/通用/基础知识.md",
+                "file": "iOS/通用/混编操作符.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "基础知识"
+              "title": "混编操作符"
             }
           }
         ],
@@ -89,8 +89,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -149,7 +148,7 @@
                 "searchQuery": ""
               },
               "icon": "lucide-tags",
-              "title": "Tags"
+              "title": "标签"
             }
           },
           {
@@ -158,13 +157,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "iOS/通用/基础知识.md",
+                "file": "iOS/通用/混编操作符.md",
                 "followCursor": true,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "基础知识 的大纲"
+              "title": "混编操作符 的大纲"
             }
           }
         ],
@@ -187,14 +186,16 @@
   },
   "active": "da483b71c308b652",
   "lastOpenFiles": [
+    "iOS/Swift/基类.md",
+    "iOS/通用/混编操作符.md",
+    "未命名 1.base",
+    "iOS/通用/基础知识.md",
     "iOS/通用/创建framework.md",
     "Mac/Mac.md",
     "iOS/通用/FBPromise.md",
     "Codes/Objc/代码库.md",
     "Codes/Sui/Sui.md",
-    "iOS/通用/基础知识.md",
     "iOS/通用/常用的库.md",
-    "未命名 1.base",
     "未命名.base",
     "Sui/工作内容.md",
     "Codes/Objc/YYKit.md",
@@ -215,8 +216,6 @@
     "逆向/frida/ARM寄存器.md",
     "逆向/frida/iOS逆向.md",
     "逆向/frida/插件.md",
-    "逆向/frida/汇编指令.md",
-    "逆向/frida/工具链安装.md",
     "逆向/frida",
     "Go",
     "Rust",
