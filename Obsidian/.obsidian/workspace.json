@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "iOS/通用/混编操作符.md",
+                "file": "iOS/Swift/新特性.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "混编操作符"
+              "title": "新特性"
             }
           }
         ],
@@ -157,13 +157,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "iOS/通用/混编操作符.md",
+                "file": "iOS/Swift/新特性.md",
                 "followCursor": true,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "混编操作符 的大纲"
+              "title": "新特性 的大纲"
             }
           }
         ],
@@ -187,6 +187,7 @@
   "active": "da483b71c308b652",
   "lastOpenFiles": [
     "iOS/Swift/基类.md",
+    "iOS/Swift/新特性.md",
     "iOS/通用/混编操作符.md",
     "未命名 1.base",
     "iOS/通用/基础知识.md",
@@ -215,7 +216,6 @@
     "逆向/frida/官方文档.md",
     "逆向/frida/ARM寄存器.md",
     "逆向/frida/iOS逆向.md",
-    "逆向/frida/插件.md",
     "逆向/frida",
     "Go",
     "Rust",
