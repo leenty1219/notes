@@ -378,3 +378,47 @@ otherButtonTitles:@"确定", nil];
 ```
 ## 21.网络错误提示
 `SMUIToast.showTitleAtCenter(forAWhile: err.localizedDescription)`
+## 22.修改首页日历卡片
+
+在`CometHomeViewController`的`- (void)loadXMLData:(NSData *)xmlData`中遍历Node去找到日历CCalendarNode修改`time_range`属性来请求时间范围。
+```objc
+- (void)fetchWithDatasourceNode:(CDataSourceNode *)dsNode accountBookID:(NSString *)accountBookId atGroup:(dispatch_group_t)group completeHandler:(void(^)(CBindingData * _Nullable bindingData, NSData * _Nullable jsonData)) completion {
+
+    dispatch_group_enter(group);
+
+    QueryNode *queryNode = dsNode.queryNode;
+
+    NSAssert(accountBookId, @"账本 ID 不能为空");
+
+    NSString *path = [CEDataSourceQueryRequest pathForVTable:dsNode.vtableName];
+
+    id jsonQuery = queryNode.criteria;
+
+    if (_timeRangeProvider) { // 外部提供代理处理自定义时间
+
+        // change time range
+
+        CEDataSourceQuery *query = [DSQModelFromJSON dsqFromJSONObject:queryNode.criteria];
+
+        //  VC 提供过滤条件时改写时间，改写所有卡片的时间
+
+        if([_timeRangeProvider currentTimeRange].isValid) {
+
+            CETimeRange *newTimeRange = [_timeRangeProvider currentTimeRange];
+
+            query.timeRange.column = query.timeRange.column ? query.timeRange.column : newTimeRange.column;
+
+            query.timeRange.fromTime = newTimeRange.fromTime;
+
+            query.timeRange.toTime = newTimeRange.toTime;
+
+            query.timeRange.modeType = CETimeRangeModeAbsolute;
+
+            jsonQuery = [query convertParameter];
+
+        }
+
+    }
+}
+```
+## 23.
