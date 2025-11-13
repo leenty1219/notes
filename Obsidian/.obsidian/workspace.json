@@ -11,10 +11,14 @@
             "id": "5607d06f62dba173",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "关系图谱"
+              "type": "markdown",
+              "state": {
+                "file": "iOS/Swift/Combine.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Combine"
             }
           }
         ]
@@ -49,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "notification",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -139,12 +143,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "iOS/Swift/Combine.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "Combine 的大纲"
             }
           }
         ],
@@ -167,19 +172,26 @@
   },
   "active": "5607d06f62dba173",
   "lastOpenFiles": [
-    "逆向/frida/基础使用.md",
-    "iOS/Swift/新特性.md",
     "iOS/Swift/基类.md",
+    "Codes/Swift/RxSwift.md",
+    "iOS/Swift/async&await.md",
+    "iOS/Swift/新特性.md",
+    "iOS/Swift/Combine.md",
+    "逆向/frida/基础使用.md",
+    "逆向/frida/工具链安装.md",
+    "Codes/Sui/Sui.md",
+    "逆向/frida/文档.md",
+    "逆向/frida/汇编指令.md",
+    "逆向/frida/插件.md",
+    "逆向/frida/官方文档.md",
+    "逆向/frida/iOS逆向.md",
+    "Mac/Mac.md",
     "Codes/Objc/YYKit.md",
     "Codes/Objc/Runtime.md",
-    "Codes/Sui/Sui.md",
     "Codes/Swift/Moya.md",
-    "Codes/Swift/RxSwift.md",
     "Sui/工作内容.md",
     "iOS/设计模式.md",
     "iOS/Swift/Property Wrapper.md",
-    "iOS/Swift/Combine.md",
-    "iOS/Swift/async&await.md",
     "iOS/通用/UI.md"
   ]
 }

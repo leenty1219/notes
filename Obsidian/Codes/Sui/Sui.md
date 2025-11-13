@@ -421,4 +421,7 @@ otherButtonTitles:@"确定", nil];
     }
 }
 ```
-## 23.
+## 23.代理忽略
+```swift
+timestamp.apple.com,sequoia.apple.com,seed-sequoia.siri.apple.com,172.16.*,172.17.*,172.18.*,172.19.*,172.2*,172.30.*,172.31.*,192.168.*,*.cn,*.apple.com,*.aliyun.com,*.work,*.ssjlicai.com,*.baidu.com,*.qq.com,*.yunzhijia.com,*.jetbrains.com,*.feidee.net,*.sui.com,*.sui.work,*.julicai.com,*.deepseek.com,*.doubao.com,*.feidee.com,*.pglstatp-toutiao.com
+```

@@ -93,3 +93,6 @@ Output Files 输入 `$SRCROOT/Locate/Others/R.generated.swift`
 
 ### 12.2.maple-font 
 [下载地址](https://github.com/subframe7536/maple-font/blob/variable/README_CN.md](https://github.com/subframe7536/maple-font/blob/variable/README_CN.md)
+
+## 12.安装鼠须管
+brew install squirrel-app
