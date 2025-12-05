@@ -30,7 +30,64 @@ carthage update --platform iOS --use-xcframeworks
 carthage update --platform iOS --use-xcframeworks --no-use-binaries
 # 删除某个缓存
 rm -rf ~/Library/Caches/org.carthage.CarthageKit/dependencies/smuikit
+
+#更新其中一个，名称为下面的名称
+sui@iMac-M1 Project % carthage update smuikit --use-xcframeworks --platform iOS
+
+******* Fetching **SuiDB-iOS**
+
+******* Fetching **smuikit**
+
+******* Fetching **datasource-formula-ios**
+
+******* Fetching **KissXML**
+
+******* Fetching **Osprey-iOS**
+
+******* Fetching **Masonry**
+
+******* Fetching **SuiModuleKit**
+
+******* Fetching **PieChart**
+
+******* Fetching **scuikit**
+
+******* Fetching **AFNetworking**
+
+******* Fetching **SuiAppMigration**
+
+******* Fetching **SnapKit**
+
+******* Fetching **SuiMonitor-iOS**
+
+******* Fetching **suihybrid**
+
+******* Fetching **Statistics-iOS**
+
+******* Fetching **JLRoutes**
+
+******* Fetching **SuiNetworking-iOS**
+
+******* Fetching **MJRefresh**
+
+******* Fetching **MyMoneyDAO**
+
+******* Fetching **MyMoneyVendor-iOS**
+
+******* Fetching **lottie-ios**
+
+******* Fetching **YYModel**
+
+******* Fetching **SDWebImage**
+
+******* Fetching **SuiFoundation-iOS**
+
+******* Fetching **fmdb**
+
+
 ```
+
+
 ## 5.工程引入
 在`General`的Frameworks中引入库
 
