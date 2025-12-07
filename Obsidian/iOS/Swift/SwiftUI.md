@@ -1,3 +1,5 @@
+
+[Github 教程地址](https://github.com/SwiftfulThinking/SwiftUI-Bootcamp)
 ## 1.修饰符
 ### 1.1 @Bindable
 ### 1.2 @Environment
@@ -137,3 +139,81 @@ struct TextFieldWrapper: UIViewRepresentable {
 TextFieldWrapper(text: $name)
 Text("Entered: \(name)")
 ```
+## 3.present dismiss
+```swift
+@Environment(\.presentationMode) var presentationMode
+
+presentationMode.warppedValue.dismiss()
+
+// ⚠️不要在 .sheet 添加逻辑操作
+
+// 如果使用transition来做动画的话
+
+```
+
+## 4动画
+如果使用`transition`来做类似 sheet 动画的话，可能在`dismiss`的时候没有动画。此时需要吧它包装在一个`ZStack`里面，同时记得设置v的偏移量
+```swift
+ZStack{
+
+.....
+
+}.zIndex(2.0)
+
+// 使用 .animation()
+var body: some View {
+
+	VStack {
+	
+		Button("Button") {
+			isAnimated.toggle()
+		}
+		Spacer()
+		RoundedRectangle(cornerRadius: isAnimated ? 50 : 25)
+	
+			.fill(isAnimated ? Color.red : Color.green)
+			.animation(Animation
+						.default
+						.repeatForever(autoreverses: true))
+			.frame(
+				width: isAnimated ? 100 : 300,
+				height: isAnimated ? 100 : 300)
+			.rotationEffect(Angle(degrees: isAnimated ? 360 : 0))
+			.offset(y: isAnimated ? 300 : 0)
+		Spacer()
+	}
+}
+
+// 使用withAnimation
+var body: some View {
+
+	ZStack(alignment: .bottom) {
+		VStack {
+			Button("BUTTON") {
+				withAnimation(.easeInOut) { // <- animation here
+					showView.toggle()
+				}
+			}
+			Spacer()
+		}
+
+		if showView {
+			RoundedRectangle(cornerRadius: 30)
+				.frame(height: UIScreen.main.bounds.height * 0.5)
+				.transition(.asymmetric(
+					insertion: .move(edge: .bottom),
+					removal: AnyTransition.opacity.animation(.easeInOut)
+				))
+		}
+	}
+	.edgesIgnoringSafeArea(.bottom)
+}
+
+
+
+```
+
+
+## 5 测试api
+`dummyjson.com`
+ 
