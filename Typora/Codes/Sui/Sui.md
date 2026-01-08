@@ -425,3 +425,74 @@ otherButtonTitles:@"确定", nil];
 ```swift
 timestamp.apple.com,sequoia.apple.com,seed-sequoia.siri.apple.com,172.16.*,172.17.*,172.18.*,172.19.*,172.2*,172.30.*,172.31.*,192.168.*,*.cn,*.apple.com,*.aliyun.com,*.work,*.ssjlicai.com,*.baidu.com,*.qq.com,*.yunzhijia.com,*.jetbrains.com,*.feidee.net,*.sui.com,*.sui.work,*.julicai.com,*.deepseek.com,*.doubao.com,*.feidee.com,*.pglstatp-toutiao.com
 ```
+
+## 24.查询单条流水
+
+```objc
+id<SCTransactionService> transactionService;
+if (bookID.length) {
+    transactionService = [SCCommonRemoteServiceFactory.sharedFactory makeRemoteTransactionService:bookID];
+} else {
+    transactionService = [SCCurrentRemoteServiceFactory.sharedFactory makeRemoteTransactionService];
+}
+[transactionService queryTransactionWithID:transaction_id completion:^(SCTransaction * _Nullable transaction, NSError * _Nullable error) {
+    [RecordTransactionRouter gotoEditRecordWith:self.navigationController transaction:transaction delegate:nil];
+}];
+```
+
+## 25.查询多条流水<使用Filter>
+
+```objc
+id<SCSearchProtocol> accountBookService = [self makeSearchService];
+__weak typeof(self) weakSelf = self;
+NSNumber *pageOffset = [NSNumber numberWithInteger:self.transactionList.count];
+NSNumber *size = [NSNumber numberWithInteger:kTransactionSearchSize];
+[accountBookService searchTransactionWithFilter:_filter page:pageOffset size:size completion:^(NSArray<SCTransaction *> * _Nullable transactions, BOOL hasMore, NSError * _Nullable error)  {
+    if(!error) {
+
+    } else {
+
+    }
+}];
+```
+
+## 26.金额千分符号显示
+
+```objc
+@property (nonatomic, strong) NSNumberFormatter *numberFormatter;
+
+self.incomeLabel.text = [self.numberFormatter stringFromNumber:[NSNumber numberWithDouble:[income doubleValue]]];
+
+- (NSNumberFormatter *)numberFormatter {
+    if (!_numberFormatter) {
+        _numberFormatter = [[NSNumberFormatter alloc] init];
+        _numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+        _numberFormatter.maximumFractionDigits = 2;
+        _numberFormatter.minimumFractionDigits = 2;
+    }
+    return _numberFormatter;
+}
+```
+
+## 27 fastlane 修改版本号和Build号
+
+```shell
+fastlane prompt_for_version_number # 执行成功后，会让你输入一个版本号
+fastlane prompt_for_build_number # 执行成功后，会让你输入一个build号
+
+# 测试来看似乎是修改plist文件来达到的，如果没有配置需求
+#    <key>CFBundleShortVersionString</key>
+#    <string>13.2.41</string>
+#    <key>CFBundleVersion</key>
+#    <string>12479</string>
+#
+#
+```
+
+```plist
+<key>CFBundleShortVersionString</key>
+<string>13.2.41</string>
+<key>CFBundleVersion</key>
+<string>12479</string>
+```
+
