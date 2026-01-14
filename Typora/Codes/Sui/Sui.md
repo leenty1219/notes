@@ -496,3 +496,48 @@ fastlane prompt_for_build_number # 执行成功后，会让你输入一个build�
 <string>12479</string>
 ```
 
+
+
+## 28 sheet弹框
+
+```objc
+ SMUIActionSheet *actionSheet = [[SMUIActionSheet alloc] initWithTitle:NSLocalizedString(@"Detected accounting data on this device, whether to restore?", nil)
+                                                                    style:SMUIActionSheetStyleForm];
+    
+    SMUIActionSheetAction *restoreAction = [SMUIActionSheetAction actionWithTitle:NSLocalizedString(@"Restore", nil)
+                                                                            style:SMUIActionSheetActionStyleDefault
+                                                                          handler:^{
+        //用户点击恢复
+        if (transactionVerifyWrongTimes < TransactionVerifyMaximumWrongTimes) {
+            //还可以继续选流水, 跳转到选流水页面
+            DeviceTransactionVerifyViewController *viewController = [DeviceTransactionVerifyViewController new];
+            [self showController:viewController];
+        } else {
+            //提交用户信息验证
+            NSString *title = NSLocalizedString(@"submit verify", nil);
+            PersonalInfoVerifyTableHeaderView *tableHeaderView = [[PersonalInfoVerifyTableHeaderView alloc] init];
+            PersonalInfoUploadViewController *uploadViewController = [[PersonalInfoUploadViewController alloc] initWithHeader:tableHeaderView submitButtonTitle:title];
+            [self showController:uploadViewController];
+        }
+    }];
+    [actionSheet addAction:restoreAction];
+    
+    SMUIActionSheetAction *cancelAction = [SMUIActionSheetAction actionWithTitle:NSLocalizedString(@"Cancel and delete all data", nil)
+                                                                           style:SMUIActionSheetActionStyleCancel
+                                                                         handler:^{
+        //用户点击清空数据
+        [[FDDeviceSyncAPIManager new] clearSyncedDataWithCompletionHandler:^(NSString *errorMessage) {
+            if (errorMessage) {
+                return;
+            }
+
+            [UserDefaultUtil setDeviceAccountState:DeviceAccountStateUnknown];
+            [UserDefaultUtil resetTransactionVerifyWrongTimes];
+            [FDDeviceStatusRefreshHelper refreshDeviceStatusWithCompletion:nil];
+        }];
+    }];
+    [actionSheet addAction:cancelAction];
+    
+    [actionSheet showWithAnimated:YES];
+```
+
