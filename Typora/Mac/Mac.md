@@ -18,7 +18,11 @@ source "$HOME/.cargo/env”
 
 ## 5. 改键宏
 
-[https://docs.qmk.fm/keycodes](https://docs.qmk.fm/keycodes) [https://docs.qmk.fm/keycodes_basic](https://docs.qmk.fm/keycodes_basic)
+[在线改键](https://www.caniusevia.com/)
+
+键盘定义：[https://docs.qmk.fm/keycodes](https://docs.qmk.fm/keycodes)
+
+ [https://docs.qmk.fm/keycodes_basic](https://docs.qmk.fm/keycodes_basic)
 
 ## 6. 定时休眠
 
