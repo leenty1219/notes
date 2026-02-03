@@ -48,3 +48,12 @@ contentView.backgroundColor = UIColor(hexString:"#FFFFFF").addDarkColor(UIColor(
 |            |          |          |
 |            |          |          |
 
+## 6 UIView
+
+| UI位置 | 亮色模式 | 暗色模式 |
+| :----: | :------: | :------: |
+| 分割线 | \#F1F1F1 | #2C2D33  |
+|        |          |          |
+|        |          |          |
+
+ 

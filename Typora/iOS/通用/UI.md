@@ -4,3 +4,5 @@
 label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 ```
+
+self.edgesForExtendedLayout = UIRectEdgeBottom; // 只允许底部延伸 安全区
