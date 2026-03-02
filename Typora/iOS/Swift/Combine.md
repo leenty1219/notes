@@ -746,6 +746,122 @@ let scheduler = ImmediateScheduler.shared
 
  
 
+### 3.29 handleEvents
+
+| 回调                | 触发时机           |
+| ------------------- | ------------------ |
+| receiveSubscription | 订阅建立时         |
+| receiveOutput       | 每次输出值时       |
+| receiveCompletion   | 完成或失败时       |
+| receiveCancel       | 被取消时           |
+| receiveRequest      | 下游请求 demand 时 |
+
+```swift 
+publisher
+    .handleEvents(receiveOutput: { value in
+        print("输出:", value)
+    })
+    .sink { _ in }
+```
+
+```swift
+networkPublisher
+    .handleEvents(
+        receiveSubscription: { _ in
+            print("开始请求")
+            LoadingManager.show()
+        },
+        receiveCompletion: { _ in
+            print("请求结束")
+            LoadingManager.hide()
+        }
+    )
+    .sink(receiveCompletion: { _ in },
+          receiveValue: { data in
+              print(data)
+          })
+```
+
+### 3.30 Fail
+
+立即发送一个失败
+
+```swift
+Fail<Int, MyError>(error: .xxx)
+```
+
+### 3.31 Result.Publisher
+
+```swift
+Result<Int, Error>.Publisher(.success(1))
+```
+
+### 3.32 setFailureType
+
+把 Never 转成 Error
+
+```swift
+Just(1)
+    .setFailureType(to: Error.self)
+```
+
+### 3.33 eraseToAnyPublisher
+
+```swift
+```
+
+### 3.34 timeout
+
+### 3.35 reduce
+
+### 3.36 collect
+
+### 3.37 append / prepend
+
+### 3.38 measureInterval
+
+测量两个事件的间隔
+
+### 3.39 assertNoFailure
+
+### 3.40 share
+
+### 3.41 ConnectablePublisher
+
+订阅不会开始，要手动 connect。
+
+```swift
+let timer = Timer.publish(every: 1, on: .main, in: .common)
+timer.connect()
+timer.autoconnect() // 也可以用auto版本
+```
+
+### 3.42 multicast
+
+share() 很好用，但它“自动开始、自动共享”，控制力有限。
+multicast 允许你指定一个 Subject 来承接上游，并且可以手动 connect，适合精细控制、多个订阅者同时起跑：
+
+什么时候用：
+
+你想让多个订阅者拿到同一份数据，而且要“同一时刻开始”
+
+或者你要延迟启动（比如等 UI ready、等权限、等 token）
+
+（记笔记时写：multicast = 可控版 share）
+
+### 3.43 publisher.values（Publisher → AsyncSequence）
+
+`for await` 的循环退出会取消订阅（相当于 cancel）
+
+错误会以 `throw` 形式抛出（如果 Failure != Never）
+
+线程/调度依然受 Publisher 自己影响（并不自动主线程）
+
+``` swift
+for await value in publisher.values {
+    print(value)
+}
+```
 
 
- 
+
