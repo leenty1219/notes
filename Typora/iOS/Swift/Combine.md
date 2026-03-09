@@ -865,3 +865,23 @@ for await value in publisher.values {
 
 
 
+### 3.44 assign
+
+```swift
+publisher.assign(to: \.property, on: object) // 注意会强引用
+// 示例 方式1
+viewModel.$title
+    .assign(to: \.text, on: label)
+    .store(in: &cancellables)
+
+// iOS14 + 方式2
+publisher.assign(to: &$property)
+class ViewModel {
+    @Published var text: String = ""
+}
+publisher.assign(to: &$text)
+
+// ⚠️一定顺从 assigh 给自己，assigh没办法设置weak self，用sink手动设置
+// 自己给自己的情况，使用上面的方式2
+```
+
