@@ -874,7 +874,7 @@ viewModel.$title
     .assign(to: \.text, on: label)
     .store(in: &cancellables)
 
-// iOS14 + 方式2
+// iOS14 + 方式2 <不需要store来管理生命周期，系统自动管理来>
 publisher.assign(to: &$property)
 class ViewModel {
     @Published var text: String = ""
