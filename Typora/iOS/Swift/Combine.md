@@ -502,7 +502,7 @@ publisher2.send(2)    // 输出: B: 2
 
 ### 3.17 debounce
 
-防抖，等待指定时间后发布最新值。
+防抖，等待指定时间后发布最新值。典型场景：搜索框
 
 ```swift
 // debounce：在一段时间内没有新值时，才把「最后一次收到的值」发出去（适合搜索框）
@@ -521,7 +521,7 @@ subject.send("Hello") // 0.5 秒内无新值，输出: Hello
 
 ### 3.18 throttle
 
-节流，在指定时间间隔内只发布第一个值。
+节流，在指定时间间隔内只发布第一个值。典型场景：按钮点击
 
 ```swift
 // throttle：在时间窗口内只取一个值；latest: false 取窗口内第一个，true 取最后一个
@@ -884,4 +884,14 @@ publisher.assign(to: &$text)
 // ⚠️一定顺从 assigh 给自己，assigh没办法设置weak self，用sink手动设置
 // 自己给自己的情况，使用上面的方式2
 ```
+
+### 3.45 switchToLatest
+
+‘遗弃’取消订阅旧的，只保留最新的
+
+### 3.46 prepend
+
+在订阅开始前先插入一个值
+
+
 
