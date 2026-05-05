@@ -161,6 +161,14 @@ struct SimpleSwiftUIView: View {
 // 使用
 let vc = UIHostingController(rootView: SimpleSwiftUIView())
 navigationController?.pushViewController(vc, animated: true)
+
+
+// 如果是部分嵌入的话，
+let hostingVC = UIHostingController(rootView: MySwiftUIView())
+addChild(hostingVC)
+view.addSubview(hostingVC.view)
+hostingVC.view.frame = view.bounds
+hostingVC.didMove(toParent: self) // 要通知到
 ```
 ### 2.2.在SwiftUI中嵌入UIKit
 ```swift
@@ -277,7 +285,42 @@ struct TextFieldWrapper: UIViewRepresentable {
 TextFieldWrapper(text: $name)
 Text("Entered: \(name)")
 ```
+### 2.7 数据混用
+
+#### 2.7.1 使用Binding
+
+```swift
+struct MySwiftUIView: View {
+    @Binding var text: String // 要传递给SwiftUI的值，由于在UIKit中持有所以这里使用的是@Binding
+}
+// 在UIKit中创建Binding指
+let binding = Binding<String>(
+    get: { text },
+    set: { text = $0 }
+)
+```
+
+#### 2.7.2 使用ObservableObject
+
+```swift
+/// viewModel 遵守ObservableObject协议
+class ViewModel: ObservableObject {
+    @Published var text: String = ""
+}
+// 在SwiftUI中使用
+@ObservedObject var vm: ViewModel
+
+// eg.
+let vm = ViewModel()
+let vc = UIHostingController(rootView: MySwiftUIView(vm: vm))
+```
+
+
+
+
+
 ## 3.present dismiss
+
 ```swift
 @Environment(\.presentationMode) var presentationMode
 
