@@ -24,6 +24,8 @@
 User *user = [User yy_modelWithJSON:json];
 // 将 Model 转换为 JSON 对象:
 NSDictionary *json = [user yy_modelToJSONObject];
+// 数组
+NSArray *models = [NSArray yy_modelArrayWithClass:[UserModel class] json:json];
 ```
 
 ## 2.自定义Key映射转换
