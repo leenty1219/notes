@@ -100,3 +100,7 @@ Output Files 输入 `$SRCROOT/Locate/Others/R.generated.swift`
 
 ## 12.安装鼠须管
 brew install squirrel-app
+
+## 13.截图软件
+
+[Snapzy](https://github.com/duongductrong/Snapzy)
