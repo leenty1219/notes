@@ -1,0 +1,1528 @@
+abbreviation,snippet,label
+[OC]create UILabel,"UILabel * {{?label}} = [[UILabel alloc]init];
+{{?label}}.text = <#text#>;
+{{?label}}.font = ;
+{{?label}}.textAlignment = NSTextAlignmentLeft;
+{{?label}}.textColor = [SVUIManager colorTitle];
+[<#superView#> addSubview:{{?label}}];
+[{{?label}} mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.
+}];",[OC]create UILabel
+[OC]创建UIButton,"  UIButton * {{?button}} = [[UIButton alloc]init];
+  UIImage *{{?image}} = [UIImage imageNamed:@""图片名称""];
+  [{{?button}}button__ setImage:{{?image}} forState:UIControlStateNormal];
+  [{{?button}} setTitle:<#(nullable NSString *)#> forState:UIControlStateNormal];
+  [{{?button}}.titleLabel setFont:[UIFont systemFontOfSize:<#17#>]];
+  [{{?button}} setTitleColor:<#(nullable UIColor *)#> forState:UIControlStateNormal];
+  [{{?button}} addTarget:self action:@selector(<#selector#>) forControlEvents:UIControlEventTouchUpInside];
+  [<#superView#> addSubview:{{?button}}];
+  [{{?button}} mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.
+  }];",[OC]创建UIButton
+[OC]Create UIView,"  UIView * {{?view}} = [[UIView alloc]init];
+  {{?view}}.backgroundColor = <#UIColor#>;
+  {{?view}}.layer.cornerRadius = 5;
+  [<#super#> addSubview:{{?view}}];
+  [{{?view}} mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.
+  }];",[OC]Create UIView
+[OC]interface,"@interface <#ClassName#>()
+@end",[OC]interface
+[OC]fori循环,"for (int {{?i}} =0; {{?i}} < <#10#>; {{?i}}++) {
+  <#statements#>
+}",[OC]fori循环
+[OC]UIImageView创建,"    UIImage *{{?image}} = [UIImage imageNamed:@""""];
+    UIImageView * {{?imgView}} = [[UIImageView alloc]initWithImage:{{?image}}];
+    [<#superview#> addSubview:{{?imgView}}];
+    [{{?imgView}} mas_makeConstraints:^(MASConstraintMaker *make) {
+      make.<#mas#>
+    }];",[OC]UIImageView创建
+[OC]NSStringFormat,"[NSString stringWithFormat:@""""];",[OC]NSStringFormat
+[OC] property block,"@property(nonatomic , copy) void(^{^})();",[OC] property block
+-log,"NSLog(@""[zhoukai] {^}=%@"",{^});",-log
+[OC]@implementation,"@implementation <#ClassName#>
+
+@end",[OC]@implementation
+[OC]NSLog,"NSLog(@""<#content#>"");",[OC]NSLog
+[OC]创建NSMutableArray,NSMutableArray * arrayM = [NSMutableArray array];,[OC]创建NSMutableArray
+[OC]MjExtension Class,"+ (NSDictionary *)mj_objectClassInArray {
+    return @{
+//      @""detection_area"" : [SVSmartMotionDetectionAreaModel class],
+//      @""region"" : [SVSmartMotionReigonItemModel class]
+    };
+}
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+  return @{
+//    @""schedules"" : @""ScheduleTimeList""
+  };
+}",[OC]MjExtension Class
+[OC]init,"- (instancetype)init{
+  if (self = [super init]) {
+    {^}
+  }
+  return self;
+}",[OC]init
+[OC]UIView override initWithFrame,"- (instancetype)initWithFrame:(CGRect)frame{
+    if (self = [super initWithFrame:frame]) {
+        {^}
+    }
+    return self;
+}",[OC]UIView override initWithFrame
+[OC]重写cell初始化,"- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        {^}    
+    }
+    return self;
+}",[OC]重写cell初始化
+[OC]dispatch_async_Main,"dispatch_async(dispatch_get_main_queue(), ^{
+  {^}
+});",[OC]dispatch_async_Main
+[OC]dispatch_after,"dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<#delayInSeconds#> * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    <#Task#>
+});",[OC]dispatch_after
+[OC]GCD dispatch_async_global,"dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+    {^}
+});",[OC]GCD dispatch_async_global
+[OC]dispatch_once,"static dispatch_once_t onceToken;
+dispatch_once(&onceToken, ^{
+    <#code to be executed once#>
+});",[OC]dispatch_once
+[OC]Notification Observer,"[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(<#selector#>) name:<#NotificationName#> object:nil];
+/// <#通知#>通知
+- (void)notification{^}:(NSNotification *)notification{
+  
+}",[OC]Notification Observer
+[OC]Post Notification,[[NSNotificationCenter defaultCenter] postNotificationName:{^} object:nil];,[OC]Post Notification
+[OC]Lazy,"  if (!_{{?test}}) {
+    _{{?test}} = [{^}];
+  }
+  return _{{?test}};",[OC]Lazy
+[OC]Create UITextField,"UITextField * {{?textField}} = [[UITextField alloc]initWithFrame:CGRectZero];
+{{?textField}}.placeholder = @""..."";
+{{?textField}}.textColor = ;
+{{?textField}}.font = [UIFont systemFontOfSize:17];
+{{?textField}}.backgroundColor = ;
+[<#self.contentView#> addSubview:textField];",[OC]Create UITextField
+[OC]UITapGestureRecognizer,"    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(<#Selector#>)];
+    tap.numberOfTouchesRequired = 1;
+    tap.numberOfTapsRequired = 1;
+    // tap.cancelsTouchesInView = NO; // 取消手势拦截
+    [<#view#> addGestureRecognizer:tap];",[OC]UITapGestureRecognizer
+Mac System sleep shotdown,sudo shutdown -s +40,Mac System sleep shotdown
+[OC]UIView Line,"    UIView * line = [[UIView alloc]init];
+    line.backgroundColor = {^};
+    [<#self.contentView#> addSubview:line];",[OC]UIView Line
+DEBUG宏,"#if DEBUG
+
+#endif",DEBUG宏
+[OC]Lazy UICollectionView,"- (UICollectionView *){{?collectionView}} {
+    if (!_{{?collectionView}}) {
+        UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
+        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        layout.minimumLineSpacing = 0;
+        layout.minimumInteritemSpacing = 10;
+        layout.itemSize = CGSizeMake(44, itemHeight);
+        _{{?collectionView}} = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
+        _{{?collectionView}} = self;
+        _{{?collectionView}}.dataSource = self;
+        _{{?collectionView}}.showsHorizontalScrollIndicator = false;
+        _{{?collectionView}}.backgroundColor = [UIColor colorWithRed:161/255.0 green:214/255.0 blue:248/255.0 alpha:1.0];
+        [_{{?collectionView}} registerClass:SVHomeCalendarCell.class forCellWithReuseIdentifier:identifier];
+        [<#superview#> addSubview:_{{?collectionView}}];
+    }
+    return _{{?collectionView}};
+}",[OC]Lazy UICollectionView
+-//,"/*
+*  {^}
+*/",-//
+[OC]Protocol,"@protocol {{?protocolName}}Delegate <NSObject>
+/// 代理
+@property (nonatomic , weak) id<{{?protocolName}}delegate> delegate;
+
+- (void)functionName:(id)param;
+@end",[OC]Protocol
+-warn,// WARN: - <#mark#>,-warn
+-todo,// TODO: - <#todo#>,-todo
+-fix,// FIXME: - <#fix#>,-fix
+mail kai_zhou@feidee.com,kai_zhou@feidee.com,mail kai_zhou@feidee.com
+[Swift]创建cancellables,private var cancellables = Set<AnyCancellable>(),[Swift]创建cancellables
+[Swift]withCheckedContinuation,"withCheckedContinuation { continuation in
+     <#code#>
+}",[Swift]withCheckedContinuation
+[Swift]withCheckedThrowingContinuation,"withCheckedThrowingContinuation { continuation in
+     <#code#>
+}",[Swift]withCheckedThrowingContinuation
+create PassthroughSubject,"let subject = PassthroughSubject<String,Never>()",create PassthroughSubject
+[Swift]create CurrentValueSubject,"let subject = CurrentValueSubject<String,Never>("""")",[Swift]create CurrentValueSubject
+[Swift]subscribe on main,.receive(on: DispatchQueue.main),[Swift]subscribe on main
+[Swift]lazy,"lazy var view:UIView = {
+        UIView().then{
+            $0.
+        }
+    }()",[Swift]lazy
+[Swift]create UILabel,"        let {{?label}} = UILabel()
+        {{?label}}.text = ""<#text value#>""
+        {{?label}}.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        {{?label}}.textColor = UIColor.red
+        {{?label}}.textAlignment = .left
+        <#view#>.addSubview({{?label}})",[Swift]create UILabel
+[Swift]create UIImageView,"let {{?imageView}} = UIImageView()
+{{?imageView}}.image = UIImage(named: ""<#image name#>"")
+{{?imageView}}.contentMode = .scaleAspectFill
+{{?imageView}}.clipsToBounds = true
+<#view#>.addSubview({{?imageView}})
+",[Swift]create UIImageView
+[Swift]create UIButton,"let {{?button}} = UIButton()
+{{?button}}.setTitle(""<#button title#>"", for: .normal)
+{{?button}}.setTitleColor(.white, for: .normal)
+{{?button}}.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+<#view#>.addSubview({{?button}})
+",[Swift]create UIButton
+[Swift]create UITextField,"let {{?textField}} = UITextField()
+{{?textField}}.placeholder = ""<#placeholder#>""
+{{?textField}}.font = UIFont.systemFont(ofSize: 14)
+{{?textField}}.textColor = .label
+{{?textField}}.borderStyle = .roundedRect
+<#view#>.addSubview({{?textField}})
+",[Swift]create UITextField
+[Swift]create UITextView,"let {{?textView}} = UITextView()
+{{?textView}}.font = UIFont.systemFont(ofSize: 14)
+{{?textView}}.textColor = .label
+{{?textView}}.isEditable = true
+{{?textView}}.layer.cornerRadius = 6
+{{?textView}}.layer.borderWidth = 1
+{{?textView}}.layer.borderColor = UIColor.separator.cgColor
+<#view#>.addSubview({{?textView}})
+",[Swift]create UITextView
+[Swift]create UIView,"let {{?view}} = UIView()
+{{?view}}.backgroundColor = .secondarySystemBackground
+{{?view}}.layer.cornerRadius = 8
+<#superview#>.addSubview({{?view}})
+",[Swift]create UIView
+[Swift]create UISwitch,"let {{?switchView}} = UISwitch()
+{{?switchView}}.isOn = true
+{{?switchView}}.onTintColor = .systemGreen
+<#view#>.addSubview({{?switchView}})
+",[Swift]create UISwitch
+[Swift]create UISlider,"let {{?slider}} = UISlider()
+{{?slider}}.minimumValue = 0
+{{?slider}}.maximumValue = 100
+{{?slider}}.value = 50
+{{?slider}}.tintColor = .systemBlue
+<#view#>.addSubview({{?slider}})
+",[Swift]create UISlider
+[Swift]create UIStackView,"let {{?stackView}} = UIStackView(arrangedSubviews: [<#views#>])
+{{?stackView}}.axis = .vertical
+{{?stackView}}.spacing = 8
+{{?stackView}}.alignment = .fill
+{{?stackView}}.distribution = .fill
+<#view#>.addSubview({{?stackView}})
+",[Swift]create UIStackView
+[Swift]create UICollectionView,"let layout = UICollectionViewFlowLayout()
+layout.scrollDirection = .vertical
+layout.minimumLineSpacing = 8
+layout.minimumInteritemSpacing = 8
+
+let {{?collectionView}} = UICollectionView(frame: .zero, collectionViewLayout: layout)
+{{?collectionView}}.backgroundColor = .clear
+{{?collectionView}}.delegate = self
+{{?collectionView}}.dataSource = self
+<#view#>.addSubview({{?collectionView}})
+",[Swift]create UICollectionView
+[Swift]create UITableView,"let {{?tableView}} = UITableView(frame: .zero, style: .plain)
+{{?tableView}}.backgroundColor = .clear
+{{?tableView}}.separatorStyle = .none
+{{?tableView}}.delegate = self
+{{?tableView}}.dataSource = self
+{{?tableView}}.showsVerticalScrollIndicator = false
+{{?tableView}}.register(UITableViewCell.self, forCellReuseIdentifier: """")
+<#view#>.addSubview({{?tableView}})
+",[Swift]create UITableView
+[Swift]create UIPageControl,"let {{?pageControl}} = UIPageControl()
+{{?pageControl}}.numberOfPages = <#count#>
+{{?pageControl}}.currentPage = 0
+{{?pageControl}}.pageIndicatorTintColor = .lightGray
+{{?pageControl}}.currentPageIndicatorTintColor = .systemBlue
+<#view#>.addSubview({{?pageControl}})
+",[Swift]create UIPageControl
+[Swift] NSLayoutConstraint,"{{?view}}.translatesAutoresizingMaskIntoConstraints = false
+NSLayoutConstraint.activate([
+    {{?view}}.topAnchor.constraint(equalTo: <#superview#>.topAnchor, constant: <#top#>),
+    {{?view}}.leadingAnchor.constraint(equalTo: <#superview#>.leadingAnchor, constant: <#left#>),
+    {{?view}}.trailingAnchor.constraint(equalTo: <#superview#>.trailingAnchor, constant: -<#right#>),
+    {{?view}}.heightAnchor.constraint(equalToConstant: <#height#>)
+])
+",[Swift] NSLayoutConstraint
+[Swift]do catch," do {
+        {^}        
+            } catch(let _){ }",[Swift]do catch
+[Swift]protocol delegate,"protocol <#RefoundTransactionListHeaderViewDelegate#> : NSObjectProtocol {
+    func 
+}",[Swift]protocol delegate
+[Swift] tableviewcell override initwithstyle,"override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    super.init(style: style, reuseIdentifier: reuseIdentifier)
+    
+    
+}
+
+required init?(coder: NSCoder) {
+    fatalError(""init(coder:) has not been implemented"")
+}",[Swift] tableviewcell override initwithstyle
+[Swift]tableview delegate datasource,"    func numberOfSections(in tableView: UITableView) -> Int {
+        1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        10
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        56
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: """") as! UITableViewCell
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    /*
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+         return 10
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        <#code#>
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        <#code#>
+    }
+    */",[Swift]tableview delegate datasource
+[Swift]publisher kvo," self.view.publisher(for: \.backgroundColor).sink { color in
+            print(""color = 111"")
+        }.store(in: &cancel)",[Swift]publisher kvo
+[Swift]UIView override initframe,"   override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError(""init(coder:) has not been implemented"")
+    }",[Swift]UIView override initframe
+-mark,// MARK: - <#mark#>,-mark
+[Swift]loadui actions,"// MARK: - UI
+extension {{?ViewController}} {
+    
+    func loadUI(){
+        
+    }
+    
+}
+
+// MARK: - Actions
+extension {{?ViewController}} {
+    
+}
+
+
+// MARK: - Delegate
+extension {{?ViewController}} {
+    
+}
+",[Swift]loadui actions
+[Swift]debug log,"
+func debugLog<T>(
+    _ message: T,
+    file: String = #file,
+    function: String = #function,
+    line: Int = #line
+) {
+#if DEBUG
+    let fileName = (file as NSString).lastPathComponent
+    print(""📘 [\(fileName):\(line)] \(function) ➜ \(message)"")
+#endif
+}",[Swift]debug log
+[Swift]Task main,"Task{  @MainActor in
+            {^}
+        }",[Swift]Task main
+[Swift]json decode,"let user = try JSONDecoder().decode(User.self, from: jsonData)
+
+// let data = try JSONEncoder().encode(user)",[Swift]json decode
+[Swift]暗黑模式  traitCollection,"    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+    
+        // 当前模式
+         let isDark = traitCollection.userInterfaceStyle == .dark
+
+    }",[Swift]暗黑模式  traitCollection
+原生布局 constraint,"<#view#>.translatesAutoresizingMaskIntoConstraints = NO;
+[NSLayoutConstraint activateConstraints:@[    
+    [cancelButton.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant:-16],
+    [cancelButton.bottomAnchor constraintEqualToAnchor:self.customNavigationView.bottomAnchor],
+    [cancelButton.widthAnchor constraintEqualToConstant:44],
+    [cancelButton.heightAnchor constraintEqualToConstant:44],
+    
+]];",原生布局 constraint
+for循环,"for (int {{?i}} = items.count - 1 ; {{?i}} >= 0; {{?i}}--) {
+  <#statements#>
+}",for循环
+-00,$0.,-00
+-then,".then{
+    $0.{^}
+}",-then
+Carthage update,carthage update smuikit --use-xcframeworks --platform iOS,Carthage update
+woodpecker debug ios pod,"pod 'WoodPeckeriOS', :configurations => ['Debug']",woodpecker debug ios pod
+[Swift]storyboard,"let storyboard = UIStoryboard(name: ""<#name#>"", bundle: nil)
+let controlelr = storyboard.instantiateViewController(identifier: ""<#id#>"")",[Swift]storyboard
+[Swift]after,"DispatchQueue.main.asyncAfter(deadline: .now() + {{?time}}) {
+    
+}",[Swift]after
+-sj,@date @time,-sj
+-date,@date,-date
+-time,@time,-time
+-exten,"// MARK: - loadUI
+extension {{?controller}} {
+    
+}
+
+// MARK: - actions
+extension {{?controller}} {
+    
+}
+
+// MARK: - delegate
+extension {{?controller}} {
+    
+}",-exten
+-weak,"__weak typeof(self) weakSelf = self;
+
+__strong typeof(weakSelf) strongSelf = weakSelf;",-weak
+-kddz,"周先生  18018799275
+广东省深圳市龙岗区布吉街道 布龙路37号怡馨苑3B栋3单元702",-kddz
+-debug,"#if DEBUG
+
+#else
+   
+#endif",-debug
+-snp,"<#view#>.snp.makeConstraints{
+    $0.<#constaint#>
+    $0.<#constaint#>
+    $0.<#constaint#>
+    $0.<#constaint#>
+}",-snp
+-lazy,"private lazy var <#var#> = {
+    <#content#>
+}()",-lazy
+combine debounce,"debounce(for: .milliseconds(300), scheduler: Runloop.main)",combine debounce
+SwiftUI Fond PingFang SC,"font(Font.custom(""PingFang SC"", size: 12).weight(.regular))",SwiftUI Fond PingFang SC
+combine notification UITextfield text,"@Published var searchContent:String?
+NotificationCenter.default
+    .publisher(for: UITextField.textDidChangeNotification, object: textField)
+    .map { ($0.object as? UITextField)?.text }
+    .eraseToAnyPublisher()
+    .assign(to: &$searchContent)",combine notification UITextfield text
+创建 metric,"fileprivate enum Metric {
+    static let id:String = """"
+}",创建 metric
+-mm,MMDI-19,-mm
+字符串json data 转字典dict,"do {
+                        if let dict = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] , let status = dict[""status""] as? String{
+                            continuation.resume(returning: status)
+                        }
+                    } catch {
+                        continuation.resume(returning: nil)
+                    }",字符串json data 转字典dict
+task main,"Task { @MainActor in
+{^}
+}",task main
+-codeai,"1.针对这个需求拆解若干个子需求
+2.为每个",-codeai
+await main actor run," await MainActor.run {
+        
+ }",await main actor run
+OC Extension Create,"@interface UIApplication (Screen)
+@end
+
+@implementation UIApplication (Screen)
+@end",OC Extension Create
+系统版本号,"/// Swift
+if #available(iOS 15.4.1, *) {
+    // On iOS, this branch runs in versions 15.4.1 and greater. 
+    // On any other OS, this branch runs in any version of that OS.
+} else {
+   // This branch runs in earlier iOS versions.
+}
+
+/// Objective-C
+if (@available(iOS 15.4.1, *)) {
+    // On iOS, this branch runs in versions 15.4.1 and greater. 
+    // On any other OS, this branch runs in any version of that OS.
+} else {
+   // This branch runs in earlier iOS versions.
+}",系统版本号
+模拟器环境,"/// objc
+#if TARGET_OS_SIMULATOR
+    // 模拟器环境
+    NSLog(@""Running on Simulator"");
+#else
+    // 真机环境
+    NSLog(@""Running on Device"");
+#endif
+
+// Swift 高性能模拟器检测
+#if targetEnvironment(simulator)
+    // 模拟器环境
+    // 此处放置模拟器专用代码
+#else
+    // 真机环境
+    // 此处放置真机专用代码
+#endif",模拟器环境
+Cluade glm 代码review,"请对当前 git 未提交改动进行严格 Code Review。
+重要：
+这不是代码开发任务
+
+========================
+上下文读取规则（非常重要）
+========================
+
+执行分析前，请不要默认读取：
+
+- AGENTS.md
+- skills 文件
+- coding rules
+- 代码规范文档
+- 架构规范文档
+- 开发流程文档
+背景：
+这些代码通常由 AI Coding Agent（Codex）完成，请作为资深 iOS 工程师进行审核。
+不要只判断代码是否能够运行，需要从工程长期维护、线上稳定性和代码质量角度进行分析。
+
+项目特点：
+这是一个长期维护的 iOS 项目，包含旧代码和新代码。
+
+Review 时请遵循以下原则：
+
+1. 对 Bug 修复类修改：
+- 优先保证行为正确和风险可控
+- 尊重现有代码结构和设计方式
+- 避免为了局部问题引入大规模重构
+- 不要简单以现代架构标准否定旧代码
+- 如果当前实现虽然不完美，但符合项目现状，可以接受
+- 重点关注是否引入新的风险
+
+2. 对新功能开发类修改：
+- 可以评估更现代、更合理的实现方式
+- 关注架构扩展性和长期维护成本
+- 判断新设计是否能够与现有项目平滑融合
+- 避免引入只有理论价值但实际维护成本过高的方案
+
+
+========================
+第一步：理解修改意图
+========================
+
+请先分析：
+
+1. 本次 git diff 主要目的是什么？
+2. 判断属于：
+   - Bug 修复
+   - 功能新增
+   - 重构优化
+   - 性能优化
+   - 其他
+
+3. 当前实现是否真正解决了目标问题？
+
+如果发现：
+- 修改范围超过需求
+- AI 进行了无必要扩展
+- 存在过度设计
+
+请明确指出。
+
+
+========================
+第二步：影响范围分析
+========================
+
+结合整个仓库代码分析，不仅查看修改文件。
+
+重点检查：
+
+- 修改代码的调用链
+- 上游和下游依赖
+- 数据流变化
+- 状态变化
+- 生命周期变化
+- 是否影响其他模块
+- 是否改变已有行为
+
+重点关注：
+
+- 隐藏影响
+- 边界条件
+- 异常流程
+- 兼容性问题
+
+
+风险等级：
+
+🔴 高风险：
+可能导致线上 Bug、崩溃、数据错误、性能问题
+
+🟡 中风险：
+存在潜在问题，但需要特定场景触发
+
+🟢 低风险：
+代码质量或维护性优化建议
+
+
+========================
+第三步：代码质量 Review
+========================
+
+请从以下维度分析：
+
+## 1. 代码设计
+
+检查：
+
+- 是否符合当前项目架构
+- 是否符合现有代码风格
+- 是否职责清晰
+- 是否存在过度封装
+- 是否存在重复逻辑
+- 是否可以复用已有能力
+
+对于旧代码：
+不要为了追求理论上的最佳实践提出大规模重构建议。
+
+对于新增代码：
+评估是否采用合理的现代设计。
+
+
+## 2. 可维护性
+
+检查：
+
+- 命名是否准确
+- 方法职责是否合理
+- 类职责是否清晰
+- 代码阅读成本
+- 后续扩展难度
+
+
+## 3. 性能
+
+重点关注：
+
+- CPU 消耗
+- 内存占用
+- 对象生命周期
+- 重复计算
+- 数据结构选择
+- IO
+- 网络请求
+- UI 性能
+
+如果存在性能问题：
+说明影响场景和优化方案。
+
+
+## 4. iOS 专项检查
+
+### UIKit
+
+检查：
+
+- 是否在非主线程更新 UI
+- ViewController 生命周期
+- layout 性能
+- UITableView / UICollectionView 使用
+- 重绘和刷新问题
+
+
+### 内存管理
+
+检查：
+
+- weak / strong 是否合理
+- Block 循环引用
+- delegate 生命周期
+- Notification 是否移除
+- Timer / CADisplayLink 是否释放
+- Swift Task 生命周期
+
+
+### Objective-C
+
+检查：
+
+- nil 安全
+- 属性修饰符
+- Category 方法冲突
+- Runtime 使用风险
+- KVC/KVO 使用
+
+
+### Swift
+
+检查：
+
+- Optional 使用
+- async/await 是否合理
+- Task 生命周期
+- MainActor 使用
+- Actor 隔离
+- Swift 与 Objective-C 混编问题
+
+
+========================
+第四步：实现方案评价
+========================
+
+对于发现的问题，请按照：
+
+问题：
+当前实现存在什么问题？
+
+原因：
+为什么会产生问题？
+
+影响：
+什么情况下会出现？
+
+建议：
+推荐如何修改？
+
+示例：
+如果需要，可以提供优化代码。
+
+
+========================
+第五步：最终结论
+========================
+
+请最后输出：
+
+## 修改类型
+Bug修复 / 新功能 / 重构 / 优化
+
+## 是否建议合并
+
+✅ 可以直接合并
+
+⚠️ 建议修改后合并
+
+❌ 不建议合并
+
+
+## 主要问题列表
+
+按照优先级排序。
+
+
+## 综合评分（10分制）
+
+分别评分：
+
+- 正确性：
+- 稳定性：
+- 可维护性：
+- 性能：
+- 架构合理性：
+- AI 修改质量：
+
+
+最后给出：
+“如果我是这个项目的负责人，我是否会接受这个 Pull Request，以及原因。”",Cluade glm 代码review
+codex 分析 crash logs,"当前任务模式：iOS线上 Crash Investigation（事故分析模式）
+
+重要：
+这不是代码开发任务，也不是代码 Review 任务。
+
+你的目标不是立即修改代码，而是作为线上稳定性负责人，通过 Crash 日志和代码分析，尽可能定位真实根因。
+
+========================
+上下文读取规则（非常重要）
+========================
+
+执行分析前，请不要默认读取：
+
+- AGENTS.md
+- skills 文件
+- coding rules
+- 代码规范文档
+- 架构规范文档
+- 开发流程文档
+
+除非这些文件明确包含以下内容：
+
+- Crash 分析规范
+- 日志系统说明
+- Debug 工具说明
+- 线上环境信息
+
+
+原因：
+
+当前任务重点是寻找 Crash 根因，而不是生成符合项目规范的新代码。
+
+请优先关注：
+
+一级信息：
+1. Crash 日志
+2. Exception 信息
+3. Thread Stack
+4. 崩溃线程状态
+5. Registers（如果存在）
+
+二级信息：
+1. Crash 相关源码
+2. 调用链
+3. 对象生命周期
+4. 异步关系
+5. 最近 git 修改记录
+
+三级信息：
+1. 业务流程
+2. 项目结构
+3. 架构设计
+
+不要让低优先级信息影响高优先级证据判断。
+
+
+========================
+项目背景
+========================
+
+项目特点：
+
+- iOS 老项目
+- Objective-C + Swift 混编
+- 长期维护
+- 历史代码和新代码并存
+- Crash 多数低概率偶现
+- 很难本地稳定复现
+
+
+分析原则：
+
+1. 不要因为旧代码“不现代”判断它一定有问题。
+2. 不要为了符合最佳实践推荐大规模重构。
+3. 优先寻找真正导致 Crash 的条件。
+4. 优先考虑线上稳定性。
+5. 如果证据不足，不要假装确定。
+
+
+========================
+第一阶段：Crash 日志分析
+========================
+
+请先独立分析 Crash 日志。
+
+输出：
+
+## Crash 类型
+
+判断：
+
+- EXC_BAD_ACCESS
+- SIGABRT
+- NSException
+- Watchdog
+- Deadlock
+- Swift Runtime Error
+- Memory Issue
+- 其他
+
+
+分析：
+
+- Exception Type
+- Exception Code
+- 崩溃线程
+- 调用栈
+- 最后一帧
+- 上下文信息
+
+
+重点：
+
+不要认为：
+
+“Crash 最后一行代码 = Bug 所在位置”
+
+请区分：
+
+Crash发生位置：
+
+和
+
+真正问题产生位置：
+
+
+========================
+第二阶段：定位可信度判断
+========================
+
+请给当前分析结果评分：
+
+★★★★★ 可以确定根因
+
+★★★★ 高概率原因
+
+★★★ 可能原因，需要验证
+
+★★ 只有排查方向
+
+★ 信息不足
+
+
+并说明：
+
+为什么。
+
+
+如果无法确定：
+
+请明确：
+
+“当前 Crash 日志不足以确定唯一根因。”
+
+
+不要强行输出单一答案。
+
+
+========================
+第三阶段：代码关联分析
+========================
+
+结合仓库代码分析。
+
+重点分析 Crash 相关代码：
+
+## 调用链
+
+Crash 方法：
+
+↓
+
+调用来源：
+
+↓
+
+对象创建：
+
+↓
+
+对象持有：
+
+↓
+
+对象释放：
+
+↓
+
+最终 Crash 条件
+
+
+## 生命周期分析
+
+重点检查：
+
+- 对象是否提前释放
+- weak 引用失效
+- Block 延迟执行
+- callback 生命周期
+- delegate 生命周期
+- Notification
+- Timer
+- GCD queue
+- Task 生命周期
+
+
+## Objective-C专项
+
+检查：
+
+- EXC_BAD_ACCESS
+- Zombie
+- 野指针
+- ARC 生命周期
+- Block capture
+- KVO
+- Category runtime 风险
+- C/C++ 内存问题
+
+
+## Swift专项
+
+检查：
+
+- force unwrap
+- async/await
+- Task 生命周期
+- MainActor
+- Actor隔离
+- Swift/OC桥接
+
+
+## UIKit专项
+
+检查：
+
+- ViewController 生命周期
+- UI线程问题
+- reload/layout时机
+- 异步更新已释放对象
+
+
+========================
+第四阶段：建立原因假设
+========================
+
+不要只给一个答案。
+
+请建立多个假设。
+
+格式：
+
+## 假设1
+
+可能原因：
+
+概率：
+
+支持证据：
+
+反向证据：
+
+涉及代码：
+
+需要验证：
+
+---
+
+## 假设2
+
+可能原因：
+
+概率：
+
+支持证据：
+
+反向证据：
+
+涉及代码：
+
+需要验证：
+
+
+最后排序：
+
+最高概率：
+
+第二概率：
+
+低概率可能：
+
+
+========================
+第五阶段：修复策略
+========================
+
+对于每个问题：
+
+请提供三个层级。
+
+
+## 方案A：线上止血方案
+
+目标：
+
+快速降低 Crash 风险。
+
+要求：
+
+- 修改范围小
+- 风险低
+- 不破坏现有结构
+
+
+## 方案B：验证方案
+
+如果无法确定：
+
+不要直接修改逻辑。
+
+优先增加：
+
+- 日志
+- 状态记录
+- 生命周期监控
+- 线程信息
+- 调用链记录
+
+
+## 方案C：长期优化方案
+
+如果确认问题：
+
+再考虑：
+
+- 架构优化
+- 生命周期管理优化
+- 异步模型调整
+
+
+不要为了理论最佳实践重构。
+
+
+========================
+第六阶段：无法复现问题处理
+========================
+
+如果 Crash 无法稳定复现：
+
+你的首要任务：
+
+帮助下一次 Crash 收集更多证据。
+
+
+请设计：
+
+## 1. 辅助日志
+
+输出：
+
+添加位置：
+
+记录内容：
+
+目的：
+
+例如：
+
+对象生命周期：
+
+记录：
+
+- class
+- address
+- 创建时间
+- 释放时间
+- 当前线程
+
+
+线程问题：
+
+记录：
+
+- thread id
+- queue name
+- 状态变化
+
+
+异步问题：
+
+记录：
+
+- Task创建
+- callback调用
+- cancel状态
+
+
+========================
+## 2. 提高问题暴露概率
+========================
+
+注意：
+
+不是主动制造 Crash。
+
+不要写人为崩溃代码。
+
+
+而是：
+
+根据怀疑方向增加问题暴露概率。
+
+
+例如：
+
+怀疑生命周期问题：
+
+可以：
+
+- 增加生命周期检查
+- 记录释放时机
+- 增强状态校验
+
+
+怀疑线程竞争：
+
+可以：
+
+- 增加线程切换记录
+- 记录访问顺序
+- 增加竞争窗口观察
+
+
+怀疑异步：
+
+可以：
+
+- 记录执行顺序
+- 记录时间间隔
+- 记录取消状态
+
+
+请说明：
+
+为什么这个辅助代码可以帮助验证。
+
+
+========================
+第七阶段：需要补充的信息
+========================
+
+如果当前无法定位：
+
+请告诉我：
+
+下一步需要提供什么信息。
+
+例如：
+
+- 完整 Crash Log
+- 崩溃前日志
+- 用户操作路径
+- 版本信息
+- 最近代码修改
+- 对象生命周期日志
+
+
+========================
+最终输出格式
+========================
+
+
+# Crash 总结
+
+类型：
+
+定位可信度：
+
+是否可以确定根因：
+
+
+
+
+# 最大嫌疑点
+
+1.
+
+2.
+
+3.
+
+
+
+# 推荐下一步
+
+1.
+2.
+3.
+
+
+
+# 线上负责人决策
+
+如果我是负责线上稳定性的负责人：
+
+我会选择：
+
+A. 立即修复
+
+B. 增加观测后修复
+
+C. 收集更多样本
+
+选择：
+
+原因：",codex 分析 crash logs
+codex 修改bugfix,"你现在是一名 Staff iOS Engineer，负责大型商业 App 的线上问题定位和修复。
+
+你的目标：
+不是快速修改代码，而是：
+1. 找到真实根因
+2. 使用最小修改解决问题
+3. 不引入新的风险
+4. 保持现有工程设计和代码风格
+
+
+执行规则：
+
+【第一阶段：问题分析】
+
+在修改任何代码之前，先分析：
+
+1. 当前问题现象
+2. 可能原因
+3. 根因判断
+4. 为什么当前代码会导致问题
+5. 修复方案
+
+此阶段禁止修改代码。
+
+
+【第二阶段：制定修改方案】
+
+确定方案后，明确：
+
+修改文件：
+- xxx
+
+修改位置：
+- xxx
+
+修改原因：
+- xxx
+
+影响范围：
+- xxx
+
+如果发现其他潜在问题：
+只说明，不修改。
+
+
+【第三阶段：代码修改】
+
+开始修改时遵守：
+
+1. 只修改解决当前问题必须的代码。
+2. 不允许顺手重构。
+3. 不允许修改无关文件。
+4. 不允许调整代码风格。
+5. 不允许引入新的架构。
+6. 不允许增加没有实际价值的抽象。
+
+
+代码要求：
+
+1. 优先使用最简单实现。
+
+避免：
+- 无意义变量
+- 多余方法包装
+- 过度拆分
+- 重复判断
+- 不必要 guard
+
+
+2. 避免假设性代码。
+
+不要为了不存在的问题增加：
+- 防御代码
+- 兼容逻辑
+- 异常处理
+
+
+3. 优先遵循已有工程：
+
+修改前参考：
+- 同模块代码
+- 已有工具类
+- 当前架构方式
+- 当前线程模型
+
+
+【第四阶段：修改后 Review】
+
+完成修改后检查：
+
+1. 是否真正解决问题？
+2. 是否引入新的 crash？
+3. 是否存在生命周期问题？
+4. 是否存在循环引用？
+5. 是否改变线程行为？
+6. 是否可以进一步减少代码？
+
+
+最终输出：
+
+1. 问题原因
+2. 修改方案
+3. 修改代码
+4. 风险说明
+5. Review结果
+
+
+你的代码应该像一个维护多年大型 iOS 项目的高级工程师提交的 PR：
+小改动、低风险、容易 Review。
+
+具体任务：
+",codex 修改bugfix
+code新需求 future,"你现在是一名 Staff iOS Engineer，负责大型商业 App 的新功能设计和开发。
+
+你的目标：
+不是快速堆代码。
+
+而是设计一个：
+- 简单
+- 清晰
+- 易维护
+- 符合现有工程习惯
+
+的实现。
+
+
+执行规则：
+
+【第一阶段：需求分析】
+
+开始编码前，先分析：
+
+1. 需求目标
+2. 当前工程已有能力
+3. 推荐实现方案
+4. 涉及模块
+5. 潜在风险
+
+
+如果存在多个方案：
+
+进行比较：
+
+方案A：
+优点：
+缺点：
+
+方案B：
+优点：
+缺点：
+
+选择维护成本最低的方案。
+
+
+【第二阶段：设计方案】
+
+设计时遵守：
+
+1. 优先复用已有代码。
+
+不要重复创建：
+- Manager
+- Service
+- Helper
+- Base 类
+
+除非已有代码无法满足。
+
+
+2. 避免过度设计。
+
+不要为了未来可能需求：
+
+- 提前增加抽象层
+- 创建大量接口
+- 引入设计模式
+
+
+只有真实存在多个使用场景时才抽象。
+
+
+3. 保持职责清晰。
+
+避免：
+
+ViewController
+里面：
+- 网络请求
+- 数据处理
+- 状态管理
+- 大量业务逻辑
+
+
+但也不要为了拆分而拆分。
+
+
+【第三阶段：编码】
+
+编码要求：
+
+1. 修改范围明确。
+
+新增文件必须说明：
+
+为什么需要存在。
+
+
+2. 保持项目风格。
+
+遵循：
+
+- 命名方式
+- 架构模式
+- 数据流方式
+- 错误处理方式
+
+
+3. 简洁优先。
+
+优先：
+
+简单直接的代码。
+
+避免：
+
+- 包装层
+- 转发方法
+- 无意义变量
+- 过度封装
+
+
+【第四阶段：代码 Review】
+
+完成后检查：
+
+架构：
+
+- 是否过度设计？
+- 是否增加未来维护成本？
+
+代码：
+
+- 是否可以减少代码？
+- 是否存在重复逻辑？
+- 是否有更简单实现？
+
+工程：
+
+- 是否影响已有功能？
+- 是否存在生命周期问题？
+- 是否存在线程安全问题？
+
+
+最终输出：
+
+1. 设计方案
+2. 修改文件
+3. 实现代码
+4. 设计原因
+5. Review结果
+
+
+你的实现标准：
+
+像一个负责维护多年大型 iOS App 的 Staff Engineer 提交的代码。
+
+具体需求：
+",code新需求 future
