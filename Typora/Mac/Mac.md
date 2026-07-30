@@ -108,3 +108,12 @@ brew install squirrel-app
 ## 14.我的软件
 
 BBEdit、Woodpeker、Xcode、Xcodes、VSCode、Lookin、Typora、ImageOptim、Proxyman、Alfred、IINA、Codex、SnippetsLab、Things、Fork、Dash、clang-format、SwiftFormatter、爱思助手、IDAPro、Bob、Beyond Compare、Bitwarden、iShot Pro、KaleiDoscope
+
+## 15 配置本机Claude
+
+```bash
+export ANTHROPIC_BASE_URL=http://172.22.151.244:3030   #配置自定义的url
+export ANTHROPIC_API_KEY=sk-336a2bb48d34deeecd768da8b024c97681907f1cf70a1b3c673a4e1acfb3e8ea #配置api key
+export ANTHROPIC_MODEL=glm-5.2 # 配置模型名称
+```
+
