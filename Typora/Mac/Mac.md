@@ -107,7 +107,15 @@ brew install squirrel-app
 
 ## 14.我的软件
 
-BBEdit、Woodpeker、Xcode、Xcodes、VSCode、Lookin、Typora、ImageOptim、Proxyman、Alfred、IINA、Codex、SnippetsLab、Things、Fork、Dash、clang-format、SwiftFormatter、爱思助手、IDAPro、Bob、Beyond Compare、Bitwarden、iShot Pro、KaleiDoscope、Typinator
+BBEdit、Woodpeker、Xcode、Xcodes、VSCode、Lookin、Typora、ImageOptim、Proxyman、Alfred、IINA、Codex、SnippetsLab、Things、Fork、Dash、clang-format、SwiftFormatter、爱思助手、IDAPro、Bob、Beyond Compare、Bitwarden、iShot Pro、KaleiDoscope、Typinator(snippets)、espanso(snippets)
+
+Stacher7 SnapZy Clock BleUnlock Umbra 
+
+
+
+herdr：一个终端的agent集合
+
+EdgeEver：自部署的免费笔记软件
 
 ## 15 配置本机Claude
 
