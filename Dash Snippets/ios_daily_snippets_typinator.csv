@@ -1,0 +1,759 @@
+abbreviation,snippet,label
+[OC] property strong,"@property (nonatomic, strong) <#ClassName#> *{{?name}};",[OC] property strong
+[OC] property copy NSString,"@property (nonatomic, copy) NSString *{{?name}};",[OC] property copy NSString
+[OC] property weak delegate,"@property (nonatomic, weak) id<<#ProtocolName#>> delegate;",[OC] property weak delegate
+[OC] block typedef,"typedef void(^{{?BlockName}})(<#id result#>);",[OC] block typedef
+[OC] weak strong self,"__weak typeof(self) weakSelf = self;
+<#callback#> = ^{
+    __strong typeof(weakSelf) self = weakSelf;
+    if (!self) {
+        return;
+    }
+    {^}
+};",[OC] weak strong self
+[OC] NS_ENUM,"typedef NS_ENUM(NSInteger, {{?EnumName}}) {
+    {{?EnumName}}Unknown = 0,
+    {{?EnumName}}Normal,
+};",[OC] NS_ENUM
+[OC] pragma mark,"#pragma mark - <#Section#>",[OC] pragma mark
+[Swift] weak self guard,"{ [weak self] in
+    guard let self = self else { return }
+    {^}
+}",[Swift] weak self guard
+[Swift] closure callback property,"var {{?completion}}: ((<#Result#>) -> Void)?",[Swift] closure callback property
+[Swift] enum,"enum {{?State}} {
+    case idle
+    case loading
+    case success
+    case failure(Error)
+}",[Swift] enum
+[Swift] MARK,"// MARK: - <#Section#>",[Swift] MARK
+[Swift] computed property,"var {{?title}}: String {
+    <#return value#>
+}",[Swift] computed property
+[Swift] typealias closure,"typealias {{?Completion}} = (<#Result#>) -> Void",[Swift] typealias closure
+[Swift] optional guard unwrap,"guard let {{?value}} = {{?optionalValue}} else {
+    return
+}
+{^}",[Swift] optional guard unwrap
+[OC] UIViewController viewDidLoad setup,"- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self setupUI];
+    [self setupData];
+}
+
+- (void)setupUI {
+    {^}
+}
+
+- (void)setupData {
+    
+}",[OC] UIViewController viewDidLoad setup
+[OC] UIView init setupSubviews,"- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self setupSubviews];
+    }
+    return self;
+}
+
+- (void)setupSubviews {
+    {^}
+}",[OC] UIView init setupSubviews
+[OC] UITableViewCell init,"- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        [self setupSubviews];
+    }
+    return self;
+}
+
+- (void)setupSubviews {
+    {^}
+}",[OC] UITableViewCell init
+[OC] UICollectionViewCell init,"- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self setupSubviews];
+    }
+    return self;
+}
+
+- (void)setupSubviews {
+    {^}
+}",[OC] UICollectionViewCell init
+[OC] dealloc log,"- (void)dealloc {
+    NSLog(@""%@ dealloc"", NSStringFromClass(self.class));
+}",[OC] dealloc log
+[Swift] UIViewController viewDidLoad setup,"override func viewDidLoad() {
+    super.viewDidLoad()
+    setupUI()
+    setupData()
+}
+
+private func setupUI() {
+    {^}
+}
+
+private func setupData() {
+    
+}",[Swift] UIViewController viewDidLoad setup
+[Swift] UIView init setupSubviews,"override init(frame: CGRect) {
+    super.init(frame: frame)
+    setupSubviews()
+}
+
+required init?(coder: NSCoder) {
+    fatalError(""init(coder:) has not been implemented"")
+}
+
+private func setupSubviews() {
+    {^}
+}",[Swift] UIView init setupSubviews
+[Swift] UITableViewCell init,"override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    super.init(style: style, reuseIdentifier: reuseIdentifier)
+    selectionStyle = .none
+    setupSubviews()
+}
+
+required init?(coder: NSCoder) {
+    fatalError(""init(coder:) has not been implemented"")
+}
+
+private func setupSubviews() {
+    {^}
+}",[Swift] UITableViewCell init
+[Swift] UICollectionViewCell init,"override init(frame: CGRect) {
+    super.init(frame: frame)
+    setupSubviews()
+}
+
+required init?(coder: NSCoder) {
+    fatalError(""init(coder:) has not been implemented"")
+}
+
+private func setupSubviews() {
+    {^}
+}",[Swift] UICollectionViewCell init
+[Swift] deinit log,"deinit {
+    print(""\(type(of: self)) deinit"")
+}",[Swift] deinit log
+[OC] create UILabel,"UILabel *{{?label}} = [[UILabel alloc] init];
+{{?label}}.text = @""<#text#>"";
+{{?label}}.font = [UIFont systemFontOfSize:<#14#> weight:UIFontWeightRegular];
+{{?label}}.textColor = <#UIColor#>;
+{{?label}}.textAlignment = NSTextAlignmentLeft;
+[<#superView#> addSubview:{{?label}}];",[OC] create UILabel
+[OC] create UIButton,"UIButton *{{?button}} = [UIButton buttonWithType:UIButtonTypeCustom];
+[{{?button}} setTitle:@""<#title#>"" forState:UIControlStateNormal];
+[{{?button}} setTitleColor:<#UIColor#> forState:UIControlStateNormal];
+{{?button}}.titleLabel.font = [UIFont systemFontOfSize:<#16#> weight:UIFontWeightMedium];
+[{{?button}} addTarget:self action:@selector(<#action:#>) forControlEvents:UIControlEventTouchUpInside];
+[<#superView#> addSubview:{{?button}}];",[OC] create UIButton
+[OC] create UIImageView,"UIImageView *{{?imageView}} = [[UIImageView alloc] init];
+{{?imageView}}.image = [UIImage imageNamed:@""<#imageName#>""];
+{{?imageView}}.contentMode = UIViewContentModeScaleAspectFill;
+{{?imageView}}.clipsToBounds = YES;
+[<#superView#> addSubview:{{?imageView}}];",[OC] create UIImageView
+[OC] create UITextField,"UITextField *{{?textField}} = [[UITextField alloc] init];
+{{?textField}}.placeholder = @""<#placeholder#>"";
+{{?textField}}.font = [UIFont systemFontOfSize:<#15#>];
+{{?textField}}.textColor = <#UIColor#>;
+{{?textField}}.clearButtonMode = UITextFieldViewModeWhileEditing;
+[<#superView#> addSubview:{{?textField}}];",[OC] create UITextField
+[OC] create UITextView,"UITextView *{{?textView}} = [[UITextView alloc] init];
+{{?textView}}.font = [UIFont systemFontOfSize:<#15#>];
+{{?textView}}.textColor = <#UIColor#>;
+{{?textView}}.backgroundColor = UIColor.clearColor;
+[<#superView#> addSubview:{{?textView}}];",[OC] create UITextView
+[OC] create UIStackView,"UIStackView *{{?stackView}} = [[UIStackView alloc] initWithArrangedSubviews:@[<#views#>]];
+{{?stackView}}.axis = UILayoutConstraintAxisVertical;
+{{?stackView}}.alignment = UIStackViewAlignmentFill;
+{{?stackView}}.distribution = UIStackViewDistributionFill;
+{{?stackView}}.spacing = <#8#>;
+[<#superView#> addSubview:{{?stackView}}];",[OC] create UIStackView
+[OC] create UIView separator,"UIView *{{?line}} = [[UIView alloc] init];
+{{?line}}.backgroundColor = <#UIColor#>;
+[<#superView#> addSubview:{{?line}}];",[OC] create UIView separator
+[Swift] create UILabel,"let {{?label}} = UILabel()
+{{?label}}.text = ""<#text#>""
+{{?label}}.font = .systemFont(ofSize: <#14#>, weight: .regular)
+{{?label}}.textColor = <#UIColor#>
+{{?label}}.textAlignment = .left
+<#superView#>.addSubview({{?label}})",[Swift] create UILabel
+[Swift] create UIButton,"let {{?button}} = UIButton(type: .custom)
+{{?button}}.setTitle(""<#title#>"", for: .normal)
+{{?button}}.setTitleColor(<#UIColor#>, for: .normal)
+{{?button}}.titleLabel?.font = .systemFont(ofSize: <#16#>, weight: .medium)
+{{?button}}.addTarget(self, action: #selector(<#action#>), for: .touchUpInside)
+<#superView#>.addSubview({{?button}})",[Swift] create UIButton
+[Swift] create UIImageView,"let {{?imageView}} = UIImageView()
+{{?imageView}}.image = UIImage(named: ""<#imageName#>"")
+{{?imageView}}.contentMode = .scaleAspectFill
+{{?imageView}}.clipsToBounds = true
+<#superView#>.addSubview({{?imageView}})",[Swift] create UIImageView
+[Swift] create UITextField,"let {{?textField}} = UITextField()
+{{?textField}}.placeholder = ""<#placeholder#>""
+{{?textField}}.font = .systemFont(ofSize: <#15#>)
+{{?textField}}.textColor = <#UIColor#>
+{{?textField}}.clearButtonMode = .whileEditing
+<#superView#>.addSubview({{?textField}})",[Swift] create UITextField
+[Swift] create UITextView,"let {{?textView}} = UITextView()
+{{?textView}}.font = .systemFont(ofSize: <#15#>)
+{{?textView}}.textColor = <#UIColor#>
+{{?textView}}.backgroundColor = .clear
+<#superView#>.addSubview({{?textView}})",[Swift] create UITextView
+[Swift] create UIStackView,"let {{?stackView}} = UIStackView(arrangedSubviews: [<#views#>])
+{{?stackView}}.axis = .vertical
+{{?stackView}}.alignment = .fill
+{{?stackView}}.distribution = .fill
+{{?stackView}}.spacing = <#8#>
+<#superView#>.addSubview({{?stackView}})",[Swift] create UIStackView
+[Swift] create UIView separator,"let {{?line}} = UIView()
+{{?line}}.backgroundColor = <#UIColor#>
+<#superView#>.addSubview({{?line}})",[Swift] create UIView separator
+[OC] Masonry edges equal superview,"[{{?view}} mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.edges.equalTo(<#superView#>);
+}];",[OC] Masonry edges equal superview
+[OC] Masonry center size,"[{{?view}} mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.center.equalTo(<#superView#>);
+    make.size.mas_equalTo(CGSizeMake(<#width#>, <#height#>));
+}];",[OC] Masonry center size
+[OC] Masonry update constraints,"[{{?view}} mas_updateConstraints:^(MASConstraintMaker *make) {
+    make.<#constraint#>.mas_equalTo(<#value#>);
+}];",[OC] Masonry update constraints
+[OC] Masonry safeArea,"[{{?view}} mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.top.equalTo(<#superView#>.mas_safeAreaLayoutGuideTop);
+    make.left.right.bottom.equalTo(<#superView#>);
+}];",[OC] Masonry safeArea
+[Swift] NSLayoutConstraint edges equal superview,"{{?view}}.translatesAutoresizingMaskIntoConstraints = false
+NSLayoutConstraint.activate([
+    {{?view}}.topAnchor.constraint(equalTo: <#superView#>.topAnchor),
+    {{?view}}.leadingAnchor.constraint(equalTo: <#superView#>.leadingAnchor),
+    {{?view}}.trailingAnchor.constraint(equalTo: <#superView#>.trailingAnchor),
+    {{?view}}.bottomAnchor.constraint(equalTo: <#superView#>.bottomAnchor)
+])",[Swift] NSLayoutConstraint edges equal superview
+[Swift] NSLayoutConstraint center size,"{{?view}}.translatesAutoresizingMaskIntoConstraints = false
+NSLayoutConstraint.activate([
+    {{?view}}.centerXAnchor.constraint(equalTo: <#superView#>.centerXAnchor),
+    {{?view}}.centerYAnchor.constraint(equalTo: <#superView#>.centerYAnchor),
+    {{?view}}.widthAnchor.constraint(equalToConstant: <#width#>),
+    {{?view}}.heightAnchor.constraint(equalToConstant: <#height#>)
+])",[Swift] NSLayoutConstraint center size
+[Swift] NSLayoutConstraint safeArea,"{{?view}}.translatesAutoresizingMaskIntoConstraints = false
+NSLayoutConstraint.activate([
+    {{?view}}.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+    {{?view}}.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+    {{?view}}.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+    {{?view}}.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+])",[Swift] NSLayoutConstraint safeArea
+[Swift] NSLayoutConstraint height width,"NSLayoutConstraint.activate([
+    {{?view}}.widthAnchor.constraint(equalToConstant: <#width#>),
+    {{?view}}.heightAnchor.constraint(equalToConstant: <#height#>)
+])",[Swift] NSLayoutConstraint height width
+[OC] UITableView create plain,"UITableView *{{?tableView}} = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+{{?tableView}}.delegate = self;
+{{?tableView}}.dataSource = self;
+{{?tableView}}.separatorStyle = UITableViewCellSeparatorStyleNone;
+{{?tableView}}.tableFooterView = [UIView new];
+[<#superView#> addSubview:{{?tableView}}];",[OC] UITableView create plain
+[OC] UITableView register cell,"static NSString * const {{?CellIdentifier}} = @""{{?CellIdentifier}}"";
+[{{?tableView}} registerClass:<#CellClass#>.class forCellReuseIdentifier:{{?CellIdentifier}}];",[OC] UITableView register cell
+[OC] UITableView datasource delegate basic,"#pragma mark - UITableViewDataSource, UITableViewDelegate
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return <#count#>;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    <#CellClass#> *cell = [tableView dequeueReusableCellWithIdentifier:<#identifier#> forIndexPath:indexPath];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    {^}
+}",[OC] UITableView datasource delegate basic
+[OC] UITableView cellForRow,"- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    <#CellClass#> *cell = [tableView dequeueReusableCellWithIdentifier:<#identifier#> forIndexPath:indexPath];
+    <#configure cell#>
+    return cell;
+}",[OC] UITableView cellForRow
+[OC] UITableView didSelectRow,"- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    {^}
+}",[OC] UITableView didSelectRow
+[OC] UITableView reload main thread,"dispatch_async(dispatch_get_main_queue(), ^{
+    [{{?tableView}} reloadData];
+});",[OC] UITableView reload main thread
+[Swift] UITableView create plain,"let {{?tableView}} = UITableView(frame: .zero, style: .plain)
+{{?tableView}}.delegate = self
+{{?tableView}}.dataSource = self
+{{?tableView}}.separatorStyle = .none
+{{?tableView}}.tableFooterView = UIView()
+<#superView#>.addSubview({{?tableView}})",[Swift] UITableView create plain
+[Swift] UITableView register cell,"private let {{?cellIdentifier}} = ""{{?cellIdentifier}}""
+{{?tableView}}.register(<#CellClass#>.self, forCellReuseIdentifier: {{?cellIdentifier}})",[Swift] UITableView register cell
+[Swift] UITableView datasource delegate basic,"extension <#ViewController#>: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return <#count#>
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: <#identifier#>, for: indexPath)
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        {^}
+    }
+}",[Swift] UITableView datasource delegate basic
+[Swift] UITableView cellForRow,"func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: <#identifier#>, for: indexPath)
+    <#configure cell#>
+    return cell
+}",[Swift] UITableView cellForRow
+[Swift] UITableView didSelectRow,"func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
+    {^}
+}",[Swift] UITableView didSelectRow
+[Swift] UITableView reload main thread,"DispatchQueue.main.async {
+    {{?tableView}}.reloadData()
+}",[Swift] UITableView reload main thread
+[OC] UICollectionView create flow layout,"UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+layout.minimumLineSpacing = <#lineSpacing#>;
+layout.minimumInteritemSpacing = <#itemSpacing#>;
+UICollectionView *{{?collectionView}} = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+{{?collectionView}}.delegate = self;
+{{?collectionView}}.dataSource = self;
+{{?collectionView}}.backgroundColor = UIColor.clearColor;
+[<#superView#> addSubview:{{?collectionView}}];",[OC] UICollectionView create flow layout
+[OC] UICollectionView register cell,"static NSString * const {{?CellIdentifier}} = @""{{?CellIdentifier}}"";
+[{{?collectionView}} registerClass:<#CellClass#>.class forCellWithReuseIdentifier:{{?CellIdentifier}}];",[OC] UICollectionView register cell
+[OC] UICollectionView datasource delegate basic,"#pragma mark - UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return <#count#>;
+}
+
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    <#CellClass#> *cell = [collectionView dequeueReusableCellWithReuseIdentifier:<#identifier#> forIndexPath:indexPath];
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    {^}
+}",[OC] UICollectionView datasource delegate basic
+[OC] UICollectionView cellForItem,"- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    <#CellClass#> *cell = [collectionView dequeueReusableCellWithReuseIdentifier:<#identifier#> forIndexPath:indexPath];
+    <#configure cell#>
+    return cell;
+}",[OC] UICollectionView cellForItem
+[OC] UICollectionView didSelectItem,"- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    {^}
+}",[OC] UICollectionView didSelectItem
+[OC] UICollectionView item size,"- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(<#width#>, <#height#>);
+}",[OC] UICollectionView item size
+[Swift] UICollectionView create flow layout,"let layout = UICollectionViewFlowLayout()
+layout.scrollDirection = .vertical
+layout.minimumLineSpacing = <#lineSpacing#>
+layout.minimumInteritemSpacing = <#itemSpacing#>
+let {{?collectionView}} = UICollectionView(frame: .zero, collectionViewLayout: layout)
+{{?collectionView}}.delegate = self
+{{?collectionView}}.dataSource = self
+{{?collectionView}}.backgroundColor = .clear
+<#superView#>.addSubview({{?collectionView}})",[Swift] UICollectionView create flow layout
+[Swift] UICollectionView register cell,"private let {{?cellIdentifier}} = ""{{?cellIdentifier}}""
+{{?collectionView}}.register(<#CellClass#>.self, forCellWithReuseIdentifier: {{?cellIdentifier}})",[Swift] UICollectionView register cell
+[Swift] UICollectionView datasource delegate basic,"extension <#ViewController#>: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return <#count#>
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: <#identifier#>, for: indexPath)
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        {^}
+    }
+}",[Swift] UICollectionView datasource delegate basic
+[Swift] UICollectionView cellForItem,"func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: <#identifier#>, for: indexPath)
+    <#configure cell#>
+    return cell
+}",[Swift] UICollectionView cellForItem
+[Swift] UICollectionView didSelectItem,"func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    {^}
+}",[Swift] UICollectionView didSelectItem
+[Swift] UICollectionView item size,"func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    return CGSize(width: <#width#>, height: <#height#>)
+}",[Swift] UICollectionView item size
+[OC] UIButton addTarget action,"[{{?button}} addTarget:self action:@selector({{?action}}:) forControlEvents:UIControlEventTouchUpInside];
+
+- (void){{?action}}:(UIButton *)sender {
+    {^}
+}",[OC] UIButton addTarget action
+[OC] UITapGestureRecognizer,"UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector({{?tapAction}}:)];
+tap.numberOfTapsRequired = 1;
+[{{?view}} addGestureRecognizer:tap];
+
+- (void){{?tapAction}}:(UITapGestureRecognizer *)gesture {
+    {^}
+}",[OC] UITapGestureRecognizer
+[OC] delegate protocol,"@protocol {{?ClassName}}Delegate <NSObject>
+
+- (void){{?className}}DidTapAction:(<#ClassName#> *)view;
+
+@end
+
+@property (nonatomic, weak) id<{{?ClassName}}Delegate> delegate;",[OC] delegate protocol
+[OC] block callback,"@property (nonatomic, copy) void(^{{?callback}})(<#id value#>);
+
+if (self.{{?callback}}) {
+    self.{{?callback}}(<#value#>);
+}",[OC] block callback
+[OC] Notification add observer,"[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector({{?handleNotification}}:) name:<#NotificationName#> object:nil];
+
+- (void){{?handleNotification}}:(NSNotification *)notification {
+    {^}
+}",[OC] Notification add observer
+[OC] Notification post,"[[NSNotificationCenter defaultCenter] postNotificationName:<#NotificationName#> object:nil userInfo:<#userInfo#>];",[OC] Notification post
+[Swift] UIButton addTarget action,"{{?button}}.addTarget(self, action: #selector({{?buttonAction}}(_:)), for: .touchUpInside)
+
+@objc private func {{?buttonAction}}(_ sender: UIButton) {
+    {^}
+}",[Swift] UIButton addTarget action
+[Swift] UITapGestureRecognizer,"let tap = UITapGestureRecognizer(target: self, action: #selector({{?handleTap}}(_:)))
+{{?view}}.addGestureRecognizer(tap)
+
+@objc private func {{?handleTap}}(_ gesture: UITapGestureRecognizer) {
+    {^}
+}",[Swift] UITapGestureRecognizer
+[Swift] delegate protocol,"protocol {{?ClassName}}Delegate: AnyObject {
+    func {{?className}}DidTapAction(_ view: <#ClassName#>)
+}
+
+weak var delegate: {{?ClassName}}Delegate?",[Swift] delegate protocol
+[Swift] closure callback,"var {{?callback}}: ((<#Value#>) -> Void)?
+
+{{?callback}}?(<#value#>)",[Swift] closure callback
+[Swift] Notification add observer,"NotificationCenter.default.addObserver(
+    self,
+    selector: #selector({{?handleNotification}}(_:)),
+    name: <#Notification.Name#>,
+    object: nil
+)
+
+@objc private func {{?handleNotification}}(_ notification: Notification) {
+    {^}
+}",[Swift] Notification add observer
+[Swift] Notification post,"NotificationCenter.default.post(name: <#Notification.Name#>, object: nil, userInfo: <#userInfo#>)",[Swift] Notification post
+[OC] dispatch main async,"dispatch_async(dispatch_get_main_queue(), ^{
+    {^}
+});",[OC] dispatch main async
+[OC] dispatch global async,"dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+    {^}
+});",[OC] dispatch global async
+[OC] dispatch after,"dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<#delay#> * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    {^}
+});",[OC] dispatch after
+[Swift] DispatchQueue main async,"DispatchQueue.main.async {
+    {^}
+}",[Swift] DispatchQueue main async
+[Swift] DispatchQueue global async,"DispatchQueue.global(qos: .default).async {
+    {^}
+}",[Swift] DispatchQueue global async
+[Swift] DispatchQueue asyncAfter,"DispatchQueue.main.asyncAfter(deadline: .now() + <#delay#>) {
+    {^}
+}",[Swift] DispatchQueue asyncAfter
+[Swift] Task MainActor,"Task { @MainActor in
+    {^}
+}",[Swift] Task MainActor
+[Swift] async await do catch,"Task {
+    do {
+        let result = try await <#asyncCall#>
+        {^}
+    } catch {
+        print(error)
+    }
+}",[Swift] async await do catch
+[OC] NSString stringWithFormat,"NSString *{{?text}} = [NSString stringWithFormat:@""<#format#>"", <#value#>];",[OC] NSString stringWithFormat
+[OC] NSArray enumerate,"[{{?array}} enumerateObjectsUsingBlock:^(<#ObjectType#> *obj, NSUInteger idx, BOOL *stop) {
+    {^}
+}];",[OC] NSArray enumerate
+[OC] NSDictionary safe read,"id {{?value}} = {{?dict}}[@""<#key#>""];
+if ([{{?value}} isKindOfClass:<#ClassName#>.class]) {
+    {^}
+}",[OC] NSDictionary safe read
+[OC] NSDateFormatter,"NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+formatter.dateFormat = @""yyyy-MM-dd HH:mm:ss"";
+NSString *{{?dateString}} = [formatter stringFromDate:<#date#>];",[OC] NSDateFormatter
+[OC] NSUserDefaults set get,"[[NSUserDefaults standardUserDefaults] setObject:<#value#> forKey:@""<#key#>""];
+[[NSUserDefaults standardUserDefaults] synchronize];
+
+id {{?value}} = [[NSUserDefaults standardUserDefaults] objectForKey:@""<#key#>""];",[OC] NSUserDefaults set get
+[OC] JSONSerialization decode,"NSError *error = nil;
+id json = [NSJSONSerialization JSONObjectWithData:<#data#> options:0 error:&error];
+if (error) {
+    NSLog(@""JSON decode error: %@"" , error);
+}",[OC] JSONSerialization decode
+[Swift] String interpolation,"let {{?text}} = ""\(<#value#>)""",[Swift] String interpolation
+[Swift] Array map filter compactMap,"let {{?values}} = {{?items}}
+    .filter { <#condition#> }
+    .compactMap { <#transform#> }
+    .map { <#map#> }",[Swift] Array map filter compactMap
+[Swift] Dictionary safe read,"if let {{?value}} = {{?dict}}[""<#key#>""] as? <#Type#> {
+    {^}
+}",[Swift] Dictionary safe read
+[Swift] DateFormatter,"let formatter = DateFormatter()
+formatter.dateFormat = ""yyyy-MM-dd HH:mm:ss""
+let {{?dateString}} = formatter.string(from: <#date#>)",[Swift] DateFormatter
+[Swift] UserDefaults set get,"UserDefaults.standard.set(<#value#>, forKey: ""<#key#>"")
+let {{?value}} = UserDefaults.standard.object(forKey: ""<#key#>"")",[Swift] UserDefaults set get
+[Swift] Codable decode encode,"let decoder = JSONDecoder()
+let {{?model}} = try decoder.decode(<#Model#>.self, from: <#data#>)
+
+let encoder = JSONEncoder()
+let data = try encoder.encode({{?model}})",[Swift] Codable decode encode
+[OC] push viewController,"<#ViewController#> *vc = [[<#ViewController#> alloc] init];
+[self.navigationController pushViewController:vc animated:YES];",[OC] push viewController
+[OC] present viewController,"<#ViewController#> *vc = [[<#ViewController#> alloc] init];
+vc.modalPresentationStyle = UIModalPresentationFullScreen;
+[self presentViewController:vc animated:YES completion:nil];",[OC] present viewController
+[OC] dismiss pop,"[self dismissViewControllerAnimated:YES completion:nil];
+// [self.navigationController popViewControllerAnimated:YES];",[OC] dismiss pop
+[OC] UIAlertController alert,"UIAlertController *alert = [UIAlertController alertControllerWithTitle:@""<#title#>"" message:@""<#message#>"" preferredStyle:UIAlertControllerStyleAlert];
+[alert addAction:[UIAlertAction actionWithTitle:@""取消"" style:UIAlertActionStyleCancel handler:nil]];
+[alert addAction:[UIAlertAction actionWithTitle:@""确定"" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    {^}
+}]];
+[self presentViewController:alert animated:YES completion:nil];",[OC] UIAlertController alert
+[OC] UIAlertController actionSheet,"UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+[sheet addAction:[UIAlertAction actionWithTitle:@""取消"" style:UIAlertActionStyleCancel handler:nil]];
+[sheet addAction:[UIAlertAction actionWithTitle:@""<#Action#>"" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    {^}
+}]];
+[self presentViewController:sheet animated:YES completion:nil];",[OC] UIAlertController actionSheet
+[Swift] push viewController,"let vc = <#ViewController#>()
+navigationController?.pushViewController(vc, animated: true)",[Swift] push viewController
+[Swift] present viewController,"let vc = <#ViewController#>()
+vc.modalPresentationStyle = .fullScreen
+present(vc, animated: true)",[Swift] present viewController
+[Swift] dismiss pop,"dismiss(animated: true)
+// navigationController?.popViewController(animated: true)",[Swift] dismiss pop
+[Swift] UIAlertController alert,"let alert = UIAlertController(title: ""<#title#>"", message: ""<#message#>"", preferredStyle: .alert)
+alert.addAction(UIAlertAction(title: ""取消"", style: .cancel))
+alert.addAction(UIAlertAction(title: ""确定"", style: .default) { _ in
+    {^}
+})
+present(alert, animated: true)",[Swift] UIAlertController alert
+[Swift] UIAlertController actionSheet,"let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+sheet.addAction(UIAlertAction(title: ""取消"", style: .cancel))
+sheet.addAction(UIAlertAction(title: ""<#Action#>"", style: .default) { _ in
+    {^}
+})
+present(sheet, animated: true)",[Swift] UIAlertController actionSheet
+[OC] keyboard notification,"[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    CGRect frame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    {^}
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    
+}",[OC] keyboard notification
+[OC] UITextField delegate,"{{?textField}}.delegate = self;
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}",[OC] UITextField delegate
+[OC] limit text length,"if ({{?textField}}.text.length > <#maxLength#>) {
+    {{?textField}}.text = [{{?textField}}.text substringToIndex:<#maxLength#>];
+}",[OC] limit text length
+[OC] hide keyboard tap,"UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditing)];
+tap.cancelsTouchesInView = NO;
+[self.view addGestureRecognizer:tap];
+
+- (void)endEditing {
+    [self.view endEditing:YES];
+}",[OC] hide keyboard tap
+[Swift] keyboard notification,"NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+
+@objc private func keyboardWillShow(_ notification: Notification) {
+    guard let frame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+    {^}
+}
+
+@objc private func keyboardWillHide(_ notification: Notification) {
+    
+}",[Swift] keyboard notification
+[Swift] UITextField delegate,"{{?textField}}.delegate = self
+
+func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    textField.resignFirstResponder()
+    return true
+}",[Swift] UITextField delegate
+[Swift] limit text length,"if let text = {{?textField}}.text, text.count > <#maxLength#> {
+    {{?textField}}.text = String(text.prefix(<#maxLength#>))
+}",[Swift] limit text length
+[Swift] hide keyboard tap,"let tap = UITapGestureRecognizer(target: self, action: #selector(endEditing))
+tap.cancelsTouchesInView = false
+view.addGestureRecognizer(tap)
+
+@objc private func endEditing() {
+    view.endEditing(true)
+}",[Swift] hide keyboard tap
+[OC] UIColor hex,"UIColor *{{?color}} = [UIColor colorWithRed:<#0xFF#> / 255.0 green:<#0xFF#> / 255.0 blue:<#0xFF#> / 255.0 alpha:1.0];",[OC] UIColor hex
+[OC] add shadow corner radius,"{{?view}}.layer.cornerRadius = <#radius#>;
+{{?view}}.layer.shadowColor = <#UIColor#>.CGColor;
+{{?view}}.layer.shadowOpacity = <#0.12#>;
+{{?view}}.layer.shadowOffset = CGSizeMake(0, <#2#>);
+{{?view}}.layer.shadowRadius = <#6#>;",[OC] add shadow corner radius
+[OC] UIView animate,"[UIView animateWithDuration:<#0.25#> animations:^{
+    {^}
+} completion:^(BOOL finished) {
+    
+}];",[OC] UIView animate
+[Swift] UIColor hex,"let {{?color}} = UIColor(red: <#0xFF#> / 255.0, green: <#0xFF#> / 255.0, blue: <#0xFF#> / 255.0, alpha: 1.0)",[Swift] UIColor hex
+[Swift] add shadow corner radius,"{{?view}}.layer.cornerRadius = <#radius#>
+{{?view}}.layer.shadowColor = <#UIColor#>.cgColor
+{{?view}}.layer.shadowOpacity = <#0.12#>
+{{?view}}.layer.shadowOffset = CGSize(width: 0, height: <#2#>)
+{{?view}}.layer.shadowRadius = <#6#>",[Swift] add shadow corner radius
+[Swift] UIView animate,"UIView.animate(withDuration: <#0.25#>) {
+    {^}
+} completion: { finished in
+    
+}",[Swift] UIView animate
+[SUI] View basic,"struct {{?ContentView}}: View {
+    var body: some View {
+        {^}
+    }
+}",[SUI] View basic
+[SUI] VStack HStack ZStack,"VStack(alignment: .leading, spacing: <#12#>) {
+    HStack(spacing: <#8#>) {
+        {^}
+    }
+}
+.padding(<#16#>)",[SUI] VStack HStack ZStack
+[SUI] Text style,"Text(""<#title#>"")
+    .font(.system(size: <#16#>, weight: .medium))
+    .foregroundColor(<#Color#>)
+    .lineLimit(<#1#>)",[SUI] Text style
+[SUI] Image system name,"Image(systemName: ""<#systemName#>"")
+    .font(.system(size: <#18#>, weight: .medium))
+    .foregroundColor(<#Color#>)",[SUI] Image system name
+[SUI] Button action,"Button {
+    {^}
+} label: {
+    Text(""<#Title#>"")
+}",[SUI] Button action
+[SUI] State Binding,"@State private var {{?isOn}} = false
+
+Binding(
+    get: { {{?isOn}} },
+    set: { {{?isOn}} = $0 }
+)",[SUI] State Binding
+[SUI] ObservableObject StateObject,"final class {{?ViewModel}}: ObservableObject {
+    @Published var {{?items}}: [<#Item#>] = []
+}
+
+@StateObject private var viewModel = {{?ViewModel}}()",[SUI] ObservableObject StateObject
+[SUI] List ForEach,"List {
+    ForEach({{?items}}) { item in
+        Text(<#item.title#>)
+    }
+}",[SUI] List ForEach
+[SUI] ScrollView LazyVStack,"ScrollView {
+    LazyVStack(alignment: .leading, spacing: <#12#>) {
+        ForEach({{?items}}) { item in
+            {^}
+        }
+    }
+    .padding(<#16#>)
+}",[SUI] ScrollView LazyVStack
+[SUI] NavigationView push,"NavigationView {
+    List {
+        NavigationLink(destination: <#DetailView#>()) {
+            Text(""<#Title#>"")
+        }
+    }
+    .navigationTitle(""<#Title#>"")
+}",[SUI] NavigationView push
+[SUI] sheet presentation,"@State private var {{?isPresented}} = false
+
+.sheet(isPresented: ${{?isPresented}}) {
+    <#SheetView#>()
+}",[SUI] sheet presentation
+[SUI] alert,"@State private var {{?showAlert}} = false
+
+.alert(""<#Title#>"", isPresented: ${{?showAlert}}) {
+    Button(""确定"") {
+        {^}
+    }
+} message: {
+    Text(""<#Message#>"")
+}",[SUI] alert
+[SUI] toolbar,".toolbar {
+    ToolbarItem(placement: .navigationBarTrailing) {
+        Button(""<#Title#>"") {
+            {^}
+        }
+    }
+}",[SUI] toolbar
+[SUI] onAppear onDisappear,".onAppear {
+    {^}
+}
+.onDisappear {
+    
+}",[SUI] onAppear onDisappear
+[SUI] task modifier,".task {
+    await <#loadData#>()
+}",[SUI] task modifier
+[SUI] loading empty error state,"Group {
+    if {{?isLoading}} {
+        ProgressView()
+    } else if {{?items}}.isEmpty {
+        Text(""<#Empty#>"")
+    } else {
+        {^}
+    }
+}",[SUI] loading empty error state
+[SUI] TextField SecureField,"TextField(""<#Placeholder#>"", text: ${{?text}})
+    .textFieldStyle(.roundedBorder)
+
+SecureField(""<#Password#>"", text: ${{?password}})
+    .textFieldStyle(.roundedBorder)",[SUI] TextField SecureField
+[SUI] Toggle Picker Slider,"Toggle(""<#Title#>"", isOn: ${{?isOn}})
+
+Picker(""<#Title#>"", selection: ${{?selection}}) {
+    ForEach({{?items}}, id: \.self) { item in
+        Text(""\(item)"").tag(item)
+    }
+}
+
+Slider(value: ${{?value}}, in: <#0...1#>)",[SUI] Toggle Picker Slider
+[SUI] custom ViewModifier,"struct {{?ModifierName}}: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            {^}
+    }
+}
+
+extension View {
+    func {{?modifierName}}() -> some View {
+        modifier({{?ModifierName}}())
+    }
+}",[SUI] custom ViewModifier
+[SUI] PreviewProvider,"struct {{?ContentView}}_Previews: PreviewProvider {
+    static var previews: some View {
+        {{?ContentView}}()
+    }
+}",[SUI] PreviewProvider

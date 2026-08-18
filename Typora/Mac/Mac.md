@@ -123,5 +123,13 @@ EdgeEver：自部署的免费笔记软件
 export ANTHROPIC_BASE_URL=http://172.22.151.244:3030   #配置自定义的url
 export ANTHROPIC_API_KEY=sk-336a2bb48d34deeecd768da8b024c97681907f1cf70a1b3c673a4e1acfb3e8ea #配置api key
 export ANTHROPIC_MODEL=glm-5.2 # 配置模型名称
+
+#更新环境生效
+source ~/.zshrc
+source ~/.bash_profile
+source ~/.bashrc
+
+#codex figma登录
+codex mcp login figma
 ```
 

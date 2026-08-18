@@ -633,3 +633,26 @@ cell.contentConfiguration = UIHostingConfigurationBackport(content: {
 })
 ```
 
+## GeometryReader读取预大小
+
+```swift
+struct MyView: View {
+    var body: some View {
+        GeometryReader { geometry in
+            VStack {
+                Text("宽度: \(geometry.size.width)")
+                Text("高度: \(geometry.size.height)")
+            }
+        }
+    }
+}
+```
+
+## 暗黑模式
+
+```swift
+@Environment(\.colorScheme) var colorScheme // 取环境值
+Text("This color is locally adaptive!")
+                        .foregroundColor(colorScheme == .light ? .green : .yellow)
+```
+
