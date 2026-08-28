@@ -1,0 +1,5 @@
+  
+   // 负债，应付，信用卡
+    _selectedAccount = selectedAccount;
+    BOOL isLiabilityAccount = selectedAccount.accountType == SCAccountTypeLiability || selectedAccount.accountType == SCAccountTypePayable || selectedAccount.accountType == SCAccountTypeCreditCard;
+    self.transactionTableViewModel.isFitLiabilityAccount = isLiabilityAccount;

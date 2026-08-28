@@ -121,9 +121,10 @@ EdgeEver：自部署的免费笔记软件
 
 ```bash
 export ANTHROPIC_BASE_URL=http://172.22.151.244:3030   #配置自定义的url
-export ANTHROPIC_API_KEY=sk-336a2bb48d34deeecd768da8b024c97681907f1cf70a1b3c673a4e1acfb3e8ea #配置api key
+export ANTHROPIC_API_KEY=xxx #配置api key
 export ANTHROPIC_MODEL=glm-5.2 # 配置模型名称
-
+#目录未知
+/Users/sui/.claude/setting.json
 #更新环境生效
 source ~/.zshrc
 source ~/.bash_profile
@@ -131,5 +132,51 @@ source ~/.bashrc
 
 #codex figma登录
 codex mcp login figma
+```
+
+## 16 配置GitHub Copilot CLI 支持DeepSeek
+
+参考[链接](https://api-docs.deepseek.com/zh-cn/quick_start/agent_integrations/copilot_cli/)
+
+```bash
+npm install -g @github/copilot
+export COPILOT_PROVIDER_TYPE=anthropic
+export COPILOT_PROVIDER_BASE_URL=https://api.deepseek.com/anthropic
+export COPILOT_PROVIDER_API_KEY=sk-your-deepseek-api-key
+# 模型名称
+export COPILOT_MODEL=deepseek-v4-pro
+# 限制模型最大token数量
+export COPILOT_PROVIDER_MAX_PROMPT_TOKENS=840000
+#注意：提示词仍会发送到 api.deepseek.com — 离线模式仅阻止 GitHub 的 API 调用
+export COPILOT_OFFLINE=true
+
+#检查环境
+copilot help providers
+```
+
+## 17 GitNexus
+
+```bash
+# 安装
+npm install -g gitnexus
+# 对项目索引
+
+# --embeddings 启用语义搜索
+# --skills 把 Leiden 算法识别的每个功能社区生成独立的 SKILL.md，写到 .claude/skills/generated/<area>/，让 Claude Code 在不同模块工作时拿到精准的局部架构上下文
+# --verbose 打印被跳过的文件，方便诊断索引覆盖率
+gitnexus analyze --embeddings --skills --verbose
+
+gitnexus list      # 查看所有已索引的仓库
+gitnexus status    # 查看当前仓库索引状态
+
+# 启动本地 HTTP 服务来浏览图谱：
+gitnexus serve
+# 如果你不想长期占着一个终端，可以把服务放到后台：
+nohup gitnexus serve > ~/.gitnexus/serve.log 2>&1 &
+
+# 需要停止时执行 
+pkill -f "gitnexus serve" 
+#或 
+lsof -ti:4747 | xargs kill。
 ```
 

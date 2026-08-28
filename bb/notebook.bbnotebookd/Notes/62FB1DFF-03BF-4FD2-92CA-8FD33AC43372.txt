@@ -1,0 +1,88 @@
+
+
+我当前在做一个空间需求，现在你根据项目现状来分析：一个账本有免费的额度空间，比如500M（只计算图片），当用户空间使用完后，
+随手记账本表现：记账也会直接成功，但是在同步的时候图片会被拦截。在另外一个手机同步后只看到不带图片的流水
+神象云账本表现：目前已经有一套拦截机制了，沿用之前的逻辑
+
+我现在要本地管理成功流水和本地待同步图片对应关系。
+我需要支持用户扩容后继续同步图片到对应的流水上。
+目前同步图片以流水为单位，不会出现流水多张图片部分同步的情况。
+当前随手记账本已经支持在本地存储记账图片了，不要修改当前的同步逻辑，只做辅助性同步图片
+必须要兼容当前已有的随手记同步逻辑，我们只在部分节点判断空间额度以及对流水和图片对应关系记录
+
+
+1.如果流水从服务端同步完成后不见了，那么本地就清理掉相关的图片资源，我们认为流水被删除了，图片没有同步意义
+2.当前流水ID确实可能存在2套，一套是本地生成一套是服务端同步后的id，不过这两个ID存在正负关系，查询的时候可以取反再次验证
+3.重新读取流水没意义，你读取的图可能是别的端传的，这里我们只管同步图片到服务器，具体由服务器决断
+4.这里不会部分同步的意思是，比如当前可用空间还剩1mb，传的图片有4张每个500kb，不会出现只传2张，目前的策略是看作一个整体，只要还有空间就允许一次性上传。这里有个特殊的场景，比如一开始有4张，网络原因同步成功2张失败2张，下次同步依然把属于这条流水的待同步2张看作一个整体
+5.对，上传的图片要有顺序
+6.服务端还在开发中，我们目前是模拟本地环境，来处理本地数据
+7.对，触发场景很多
+8.看一下当前随手记的图片放到哪里，这里用户是手动清理不掉的
+9.目前我想到的是，记录里面要有成功流水ID，当前条资源容量（这里要和Windows的计算保持一致，1G是1024M）
+要支持全查待同步图片，支持展示到列表中按时间/容量大小排序
+
+
+对于SwiftUI在模型的处理，针对常见的列表情况
+对于ViewModel使用Class可观察，观察里面的products，这个是我能理解的
+对于Cell来说，为什么还是观察viewModel，而不是观察具体的类型
+
+claude mcp add figma -- npx -y figma-developer-mcp --figma-api-key=密钥 --stdio
+
+
+ 好的，现在产品要求是“用户点击屏幕开始对焦->对焦完成对焦框变弱（30%透明度）->如用户未拍照3秒后对焦框消失”
+ 点击对焦框使用icon来实现，icon的名称是“camera_focus_icon”
+ 你现在根据代码出一个计划，然后我审核
+ 
+ 这个计划很完美了，现在把这个计划交给Claude来实现，Claude完成后你对代码改动来审核是否符合预期，不符合预期你给出指导意见让Claude继续修改直到你验收通过
+ 验收不单要求能跑，还要架构符合设计，不能出现循环引用以及冗余代码，对性能/命名/结构都要考核
+ 
+ 
+ 既然你不能确定问题点，我不能做验收。现在对关键功能添加日志，我们根据日志分析。
+ 你来指挥Claude添加日志，你对修改点
+ 
+  Amp, Antigravity, Antigravity CLI, Cline, Codex, Cursor, Deep Agents, Gemini CLI, GitHub Copilot, Kimi Code CLI, OpenCode, Warp, Zed
+ 
+ 你现在在 Herdr 里。请用 herdr CLI 完成以下协作：
+1. 运行 herdr agent list，确认另一个 pane 里的 codex 已启动且空闲
+2. 如果还没有 codex，就 split 一个 pane 并用 herdr agent start 启动它（kind=codex）
+3. 把我们刚刚制定的计划原样发给 codex，让它执行，并等待它结束或 blocked：
+4. 完成后用 herdr agent read 读结果并汇报给我
+
+
+用 herdr CLI 把计划交给旁边的 codex 执行，并等待结果：
+
+
+现在把你的计划使用herdr cli交给copilot去执行，执行完毕后你要对它的改动进行审核，审核不通过的部分重新修改，直到符合你的预期。审核要
+
+
+
+
+现在已经验证通过表有效，现在需要你做一个计划：
+在RecordCapacityManager本地缓存的plist方案需要废弃，它有很多弊端在处理账本复制/升级为神象云时要做大量的工作。
+现在升级为一个表处理，放到账本数据库中，注意这个表只有在全量同步的时候才去同步上去（当前应该已经支持），在全量拉取后替换本地已有表，这个应该也是支持的，目前是整个替换数据库文件，你可以核查一下
+在处理表的时候，有一点一定需要额外注意，第一表名称和字段还没确定下来，你可以先按照你的想法补充一些。这里预留一个xcode todo标记给我，我也会记录到代办中
+第二一定要考虑表迁移和升级，因为别的表服务端会读取解析，未来可能会有迁移以及增加字段。
+
+1.把SCMySpaceBrowerView的点击和外面联动，保持一致的选中状态
+2.SCMySpaceTrasnPicturesView底部的选中数量和容量对接真实数据
+
+SCMySpaceBrowerView的transactionInfo方法对接真实数据
+
+使用YPNavgationControllerDelegate对SCMySpaceBrowerView所有的controller进行配置，不要展示导航栏
+
+查看SCMySpaceTrasnPicturesView图片右上角的选中实现原理，在SCMySpaceBrowerView中右上角未选中的话和SCMySpaceTrasnPicturesView中的保持一致，选中的仅保持大小一致
+
+
+https://www.figma.com/design/eZ3f6J3CgsmBVR8LCAFjTH/260622-%E5%A4%96%E5%B8%81%E6%98%BE%E7%A4%BA%E4%BC%98%E5%8C%96-wan?node-id=152-4268&m=dev
+https://www.figma.com/design/eZ3f6J3CgsmBVR8LCAFjTH/260622-%E5%A4%96%E5%B8%81%E6%98%BE%E7%A4%BA%E4%BC%98%E5%8C%96-wan?node-id=152-5149&m=dev
+是记一笔中RecordInputCell账户展示外币的样式，分析一下当前是否符合
+
+
+https://www.figma.com/design/eZ3f6J3CgsmBVR8LCAFjTH/260622-%E5%A4%96%E5%B8%81%E6%98%BE%E7%A4%BA%E4%BC%98%E5%8C%96-wan?node-id=152-4312&m=dev
+https://www.figma.com/design/eZ3f6J3CgsmBVR8LCAFjTH/260622-%E5%A4%96%E5%B8%81%E6%98%BE%E7%A4%BA%E4%BC%98%E5%8C%96-wan?node-id=152-4320&m=dev
+是SCCommonDataManageCell展示账户信息的样式，看一下当前是否符合
+
+
+
+

@@ -7,7 +7,7 @@ git commit --amend -m "MMDI-19580【AI记账】退款类型需要显示绿色和
 git push origin bugfix/MMDI-19580 --force
 ```
 
-## 本地忽略
+## 本地Git忽略
 
 对于已经添加追踪的文件
 

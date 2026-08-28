@@ -656,3 +656,14 @@ Text("This color is locally adaptive!")
                         .foregroundColor(colorScheme == .light ? .green : .yellow)
 ```
 
+## 强制充满固定宽高
+
+```swift
+image
+   .resizable()
+   .scaledToFill()                       // ← 图片：充满 + 允许裁切
+   .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+   .aspectRatio(4/3, contentMode: .fit)  // ← 容器：强制保持 4:3
+   .clipped()                            // ← 裁掉超出部分
+```
+
