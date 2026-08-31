@@ -1,0 +1,1 @@
+{"timestamp":"2026-08-28T10:09:22.198Z","type":"native_hook_dispatch_error","hook_event_name":"SessionStart","session_id":"01a047d7-aa77-7883-b859-09aa1195086f","error":"ENOENT: no such file or directory, open '/Users/sui/Documents/notes/.git/info/exclude'"}

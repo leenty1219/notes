@@ -1,0 +1,14 @@
+{
+  "session_id": "01a047d7-aa77-7883-b859-09aa1195086f",
+  "native_session_id": "01a047d7-aa77-7883-b859-09aa1195086f",
+  "started_at": "2026-08-28T10:09:22.025Z",
+  "cwd": "/Users/sui/Documents/notes",
+  "state_root": "/Users/sui/Documents/notes/.omx/state/sessions/01a047d7-aa77-7883-b859-09aa1195086f",
+  "pid": 58910,
+  "platform": "darwin",
+  "identity_schema_version": 2,
+  "process_identity": {
+    "platform": "darwin",
+    "birth": "1787911709.225788"
+  }
+}

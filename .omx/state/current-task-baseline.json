@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "branch_name": "main",
+      "worktree_path": "/Users/sui/Documents/notes",
+      "status": "active",
+      "created_at": "2026-08-28T10:09:25.942Z",
+      "updated_at": "2026-08-28T10:19:52.207Z"
+    }
+  ]
+}

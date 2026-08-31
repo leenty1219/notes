@@ -1,0 +1,14 @@
+{
+  "sessions": {
+    "01a047d7-aa77-7883-b859-09aa1195086f": {
+      "ordinary_no_progress_guard": {
+        "fingerprint": "ordinary|已处理并成功推送。 - 将 `2b268a8` 和 `994676b` 重写为净化后的单一提交 `b9e7b73` - `main`、`dev`、`origin/main` 均已指向 `b9e7b73` - 远端历史不再包含敏感提交 - github 已接受推送，无需强制推送 - 保留了未提交的 `56a62...txt` 改动和未跟踪的 `.omx/` 如果泄露内容是 token、密码或私钥，仍应立即撤销并重新生成，因为历史清理不能保证凭据从未被读取。",
+        "first_seen_at": "2026-08-28T10:19:51.734Z",
+        "last_seen_at": "2026-08-28T10:19:51.734Z",
+        "repeat_count": 1,
+        "last_turn_id": "01a047d8-6f70-7bf2-a1b9-466f241741d4",
+        "last_thread_id": null
+      }
+    }
+  }
+}
