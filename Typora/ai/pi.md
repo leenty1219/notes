@@ -430,3 +430,20 @@ pi update --self                   # 只更新 pi
 **完整快捷键**：`/hotkeys` 查看，自定义改 `~/.pi/agent/keybindings.json`（改后 `/reload` 生效）。
 
 **项目信任**：首次在含 `.pi/settings.json` 的目录启动会询问是否信任；用 `/trust` 保存决定。
+
+## 15 安装插件
+
+```bash
+# 对文件操作授权
+pi install npm:pi-file-protection 
+# subagents
+pi install npm:pi-subagents
+# pi-diet
+pi install npm:pi-diet
+# 网页能力
+pi install npm:pi-web-access
+
+#
+pi-simplify
+```
+
