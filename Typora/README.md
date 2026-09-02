@@ -21,13 +21,16 @@
 
 ## 当前结构建议
 
-当前不移动、不删除任何原始内容，先通过 README 建立导航。后续如果要继续整理，建议按下面的优先级处理：
+当前通过 README 建立导航，目录整理遵循“先建立索引，再减少重复”的原则。后续如果要继续整理，建议按下面的优先级处理：
 
-1. 合并 SwiftUI 重复和分散内容：`iOS/Swift/SwiftUI/`、`iOS/SwiftUI/`、`Codes/SwiftUI.md`。
-2. 明确 `iOS` 与 `Codes` 的边界：`iOS` 放知识原理和专题总结，`Codes` 放可复用片段和实践模板。
-3. 检查重复文件：`iOS/Swift/SwiftUI/Animates.md` 与 `iOS/SwiftUI/Animates.md` 当前内容完全一致。
-4. 给大文档拆分二级目录，优先考虑 `iOS/设计模式.md`、`iOS/通用/基础知识.md`、`iOS/Swift/Combine.md`。
-5. 将 `.DS_Store` 这类系统文件加入忽略或清理，但清理前建议确认是否需要保留目录元数据。
+1. 明确 `iOS` 与 `Codes` 的边界：`iOS` 放知识原理和专题总结，`Codes` 放可复用片段和实践模板。
+2. 给大文档拆分二级目录，优先考虑 `iOS/设计模式.md`、`iOS/通用/基础知识.md`、`iOS/Swift/Combine.md`。
+3. 将 `.DS_Store` 这类系统文件加入忽略或清理，但清理前建议确认是否需要保留目录元数据。
+
+## 已完成整理
+
+- SwiftUI 内容已统一放入 `iOS/SwiftUI/`，并新增 [iOS/SwiftUI/README.md](iOS/SwiftUI/README.md) 作为专题索引。
+- `iOS/Swift/` 目录只保留 Swift 语言特性、并发、Combine、Property Wrapper 等内容。
 
 ## 内容维护规则
 
@@ -39,4 +42,4 @@
 
 ## 重要说明
 
-本次优化只新增索引与整理说明，没有移动或删除已有笔记，原内容保持不变。
+当前 README 用于维护笔记库导航和整理规则。目录整理时优先保护已有内容，确认重复或旧副本后再清理。

@@ -11,7 +11,7 @@
 5. [Swift/新特性.md](Swift/新特性.md)
 6. [Swift/async&await.md](Swift/async%26await.md)
 7. [Swift/Combine.md](Swift/Combine.md)
-8. [SwiftUI/SwiftUI.md](SwiftUI/SwiftUI.md)
+8. [SwiftUI/README.md](SwiftUI/README.md)
 
 ## 通用专题
 
@@ -48,14 +48,15 @@
 
 ## SwiftUI
 
+SwiftUI 已独立为 [SwiftUI/README.md](SwiftUI/README.md)，不再放在 `Swift/` 子目录下。
+
 | 文件 | 内容 |
 | --- | --- |
+| [SwiftUI/README.md](SwiftUI/README.md) | SwiftUI 专题索引 |
 | [SwiftUI/SwiftUI.md](SwiftUI/SwiftUI.md) | SwiftUI 综合笔记 |
 | [SwiftUI/模型处理.md](SwiftUI/模型处理.md) | SwiftUI 模型处理 |
 | [SwiftUI/Animates.md](SwiftUI/Animates.md) | SwiftUI 动画 |
 | [SwiftUI/Codes.md](SwiftUI/Codes.md) | SwiftUI 代码片段 |
-| [Swift/SwiftUI/模型处理.md](Swift/SwiftUI/模型处理.md) | Swift 子目录下的 SwiftUI 模型处理 |
-| [Swift/SwiftUI/Animates.md](Swift/SwiftUI/Animates.md) | Swift 子目录下的 SwiftUI 动画 |
 
 ## ObjC
 
@@ -73,6 +74,5 @@
 
 ## 待整理提示
 
-- `SwiftUI/Animates.md` 与 `Swift/SwiftUI/Animates.md` 当前内容完全一致，后续可保留一个主文件，另一个改成跳转说明。
-- `SwiftUI/模型处理.md` 与 `Swift/SwiftUI/模型处理.md` 内容接近但不完全相同，合并前需要人工比对。
+- SwiftUI 内容已统一放入 `SwiftUI/`，`Swift/` 目录只保留 Swift 语言与相关系统框架笔记。
 - `通用/Untitled.md` 建议重命名为更明确的主题名。
