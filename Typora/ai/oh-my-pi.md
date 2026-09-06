@@ -104,6 +104,41 @@ omp -- "以-开头会被当 flag"  # -- 之后全部按字面文本处理
 - 思考等级：`off → minimal → low → medium → high → xhigh → max`（`auto` 由本地分类器决定），`Shift+Tab` 循环，默认 `high`。
 - 角色值可带思考后缀：`anthropic/claude-opus-4-5:high`。
 
+### 按任务难度/意图路由 API（角色配置速查）
+
+核心思路：**不是"难度探测器自动选 API"，而是按意图分档手动切 + 几个环节自动触发**。
+
+示例配置（`~/.omp/agent/config.yml`）：
+
+```yaml
+modelRoles:
+  default: anthropic/claude-sonnet-4-5    # 日常主力
+  smol:    openai/gpt-4.1-mini            # 廉价快速（子代理 fan-out）
+  slow:    anthropic/claude-opus-4-5:high # 深度推理（可带思考档后缀）
+  plan:    <model>                        # 计划模式
+  commit:  <model>                        # changelog 草稿
+  task:    <model>                        # 子代理默认
+  advisor: <model>                        # 第二模型把关
+  tiny:    本地小模型                      # 后台杂活（标题/记忆/思考分级）
+cycleOrder: [smol, default, slow]         # Ctrl+P 循环顺序
+```
+
+- 命令改：`omp config set modelRoles.slow anthropic/claude-opus-4-5:high`；**数组是整体替换**（项目 cycleOrder 会顶掉全局）。
+
+**切换方式（手动档）**：`Ctrl+P` / `Shift+Ctrl+P` 按 `cycleOrder` 前后循环；`Alt+P` 临时换；`Alt+M` 角色分配选择器；`/model` 直换；启动 `--model <id-or-role>`。
+
+**真正自动的点**：
+
+| 环节 | 自动逻辑 |
+|------|---------|
+| 子代理 fan-out | `task`/`smol` 角色默认派给子代理便宜快模型（`task.agentModelOverrides` 可逐个覆盖） |
+| auto 思考分级 | `defaultThinkingLevel: auto` 时本地 tiny 分类器（`providers.autoThinkingModel`）按问题复杂度自动定档——这是最接近"按难度"的，但分的是思考预算不是换 API |
+| plan 落地降档 | `plan` 角色 + `prewalk.enabled` / `--plan-yolo`：强模型做计划、便宜模型执行 |
+| advisor 把关 | `advisor.enabled` 第二模型复核主回答（`advisor.immuneTurns` 免检轮数） |
+| 故障回退 | `retry.fallbackChains` + `retry.modelFallback`：主模型 429/配额墙自动切备用链，`fallbackRevertPolicy: cooldown-expiry` 冷却后回切 |
+
+**主动上强模型**：提示词里写关键词 `ultrathink`（多步推理 + 当前模型最高思考档）；或手动切 `slow` / `/plan` 走 `plan` 角色。
+
 ### 认证 `/login`
 
 ```text
@@ -142,6 +177,90 @@ providers:
 - 验证：`omp models spark`（或 `omp models find <substr>`）。
 - 无凭据本地 provider 加 `auth: none`；自动发现用 `discovery.type: ollama|llama.cpp|lm-studio|openai-models-list|proxy|litellm`。
 - 预置默认路由：`~/.omp/agent/config.yml` 里 `modelRoles: { default: spark/minimax-m3 }`，或会话里 `/model` 分配。
+
+### 接入内网/自建 API 的完整模板（models.yml + config.yml 联动）
+
+分工：**`models.yml` 定义"服务端"（URL / 模型名 / 协议 / 凭据）**，**`config.yml` 只做"路由"（角色 → `provider/model`）**。
+
+`~/.omp/agent/models.yml`：
+
+```yaml
+providers:
+  myapi:                            # provider 名随意，路由时用 `myapi/<模型id>`
+    baseUrl: http://192.168.1.10:8000/v1   # 自建网关（one-api/new-api/vLLM/…），注意结尾 /v1
+    api: openai-completions         # 按上游协议选，见下“允许的 api”清单
+    apiKey: dummy                   # 无鉴权可留空或 dummy；也可写环境变量名，!前缀=执行命令取 stdout
+    authHeader: true                # 注入 Authorization: Bearer
+    disableStrictTools: true        # 兼容代理不支持 strict tool 时必开（Anthropic 系代理尤其）
+    # discovery: { type: openai-models-list }   # 自动拉上游 /models 列表，替代手写 models 列表
+    models:
+      - id: deepseek-v4-flash        # 上游真实模型 id（调用时实际传的名字）
+        name: DeepSeek V4 Flash (内网)  # 显示名，随便起
+        contextWindow: 131072        # 务必填对，omp 用它做上下文/压缩预算
+        maxTokens: 8192
+        # thinking: true             # 模型支持 reasoning 才开，否则别加
+      - id: minimax-m3               # 同一网关可继续加第二、第三个…模型
+        name: MiniMax M3
+        contextWindow: 100000
+        maxTokens: 32000
+```
+
+`~/.omp/agent/config.yml`：
+
+```yaml
+modelRoles:
+  default: myapi/deepseek-v4-flash:high   # provider/模型id（:思考档 可选，需模型真支持）
+  smol:    myapi/deepseek-v4-flash
+  slow:    myapi/deepseek-v4-flash:max
+  commit:  myapi/deepseek-v4-flash
+  task:    myapi/deepseek-v4-flash         # 子代理默认也指到内建 API
+cycleOrder: [smol, default, slow]
+# enabledModels: [myapi/*]                 # 只留内建 API 的模型（数组整体替换！）
+# disabledProviders: [openai, anthropic]   # 可选：屏蔽官方发现源（数组整体替换！）
+```
+
+使用注意：
+
+- **网关同时支持 OpenAI + Anthropic 两套协议**时：`api` 是 **provider 级**字段，不能在同一个 provider 里混配；做法是同一 `baseUrl` 下注册两个 provider 对拍，哪个好用就把 `modelRoles` 指到哪个：
+
+```yaml
+providers:
+  myapi-oa:                      # OpenAI 兼容面：工具调用兼容性最稳、通用性最好
+    baseUrl: http://192.168.1.10:8000/v1
+    api: openai-completions
+    apiKey: dummy
+    models:
+      - id: deepseek-v4-flash
+        name: DeepSeek V4 Flash (oa)
+        contextWindow: 131072
+        maxTokens: 8192
+      - id: minimax-m3
+        name: MiniMax M3 (oa)
+        contextWindow: 100000
+        maxTokens: 32000
+  myapi-ano:                     # Anthropic 兼容面：支持 thinking（:high/:max）、流式更接近 Claude
+    baseUrl: http://192.168.1.10:8000/v1
+    api: anthropic-messages
+    apiKey: dummy
+    authHeader: true
+    disableStrictTools: true     # 兼容代理不支持 strict tool 时必开
+    models:
+      - id: deepseek-v4-flash
+        name: DeepSeek V4 Flash (ano)
+        contextWindow: 131072
+        maxTokens: 8192
+        # thinking: true
+      - id: minimax-m3
+        name: MiniMax M3 (ano)
+        contextWindow: 100000
+        maxTokens: 32000
+```
+
+  两个面都 `omp models <名>` 验证能拉到后，各跑一轮同一任务对比：想要 `:high`/`:max` 思考档但 OpenAI 面不支持，就切到 anthropic 面；纯工具/低成本场景留 openai 面。
+- 验证一条龙：`omp models refresh` → `omp models myapi` → `omp models find <模型名>`，能列出即接入成功；不行多半是 baseUrl 拼错（缺 `/v1`）或 `api` 协议选错。
+- 换配置即时生效不必重启：会话里 `/reload-plugins`，或干脆新开会话；改了 models.yml 建议 `omp models refresh` 先。
+- 数组键（`enabledModels` / `disabledProviders` / `cycleOrder`）**整体替换不合并**，写全局时要包含全部想保留的项。
+- `:high`/`:max` 思考档后缀只对真支持 reasoning 的模型有效，普通开源/蒸馏模型请去掉。
 
 ### 路由四个旋钮
 
