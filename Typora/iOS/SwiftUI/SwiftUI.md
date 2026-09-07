@@ -11,6 +11,7 @@
 - [5. 页面展示与关闭](#5-页面展示与关闭)
 - [6. UIKit 与 SwiftUI 互嵌](#6-uikit-与-swiftui-互嵌)
 - [7. 调试与测试资源](#7-调试与测试资源)
+- [8. AsyncImage 缓存策略](#8-asyncimage-缓存策略)
 
 ## 1. 状态与数据流
 
@@ -712,3 +713,85 @@ cell.contentConfiguration = UIHostingConfigurationBackport(content: {
 ```text
 dummyjson.com
 ```
+
+## 8. AsyncImage 缓存策略
+
+`AsyncImage` 本身**没有内置的缓存策略 API**，底层走 `URLSession`，缓存行为取决于 URLSession 配置。常见三种方案：
+
+### 8.1 自定义 URLSession + URLCache（最简单）
+
+```swift
+let cache = URLCache(
+    memoryCapacity: 50 * 1024 * 1024,   // 50MB 内存
+    diskCapacity: 200 * 1024 * 1024     // 200MB 磁盘
+)
+
+let session: URLSession = {
+    let config = URLSessionConfiguration.default
+    config.urlCache = cache
+    config.requestCachePolicy = .returnCacheDataElseLoad
+    return URLSession(configuration: config)
+}()
+
+AsyncImage(url: url, transaction: Transaction(animation: .easeInOut)) { phase in
+    switch phase {
+    case .success(let image): image.resizable()
+    case .failure: Image(systemName: "photo")
+    default: ProgressView()
+    }
+}
+```
+
+> 注意：`AsyncImage` 内部使用 `URLSession.shared`，**无法直接传入自定义 session**。方案 1 需配合 `URLSession.shared.configuration.urlCache = cache` 全局设置，或改用方案 2。
+
+### 8.2 自定义 ImageLoader（推荐，可控性强）
+
+用 `NSCache` 做内存缓存，`FileManager` 做磁盘缓存：
+
+```swift
+final class ImageCache {
+    static let shared = ImageCache()
+    private let cache = NSCache<NSURL, UIImage>()
+
+    func image(for url: URL) -> UIImage? { cache.object(forKey: url as NSURL) }
+    func insert(_ image: UIImage, for url: URL) { cache.setObject(image, forKey: url as NSURL) }
+}
+
+struct CachedAsyncImage: View {
+    let url: URL
+    @State private var image: UIImage?
+
+    var body: some View {
+        Group {
+            if let image {
+                Image(uiImage: image).resizable()
+            } else {
+                ProgressView()
+            }
+        }
+        .task {
+            if let cached = ImageCache.shared.image(for: url) {
+                image = cached
+            } else if let data = try? Data(contentsOf: url),
+                      let img = UIImage(data: data) {
+                ImageCache.shared.insert(img, for: url)
+                image = img
+            }
+        }
+    }
+}
+```
+
+### 8.3 第三方库（生产环境最省心）
+
+- **Kingfisher**：`KFImage(url)`，自带内存+磁盘缓存、占位图、失败重试
+- **Nuke**：`LazyImage(url:)`，性能好、支持预加载
+- **SDWebImageSwiftUI**：`WebImage(url:)`
+
+### 8.4 方案对比
+
+| 需求 | 推荐 |
+| --- | --- |
+| 简单演示 | 方案 1（全局 URLCache） |
+| 需要精细控制缓存 | 方案 2（NSCache + 磁盘） |
+| 生产项目 | Kingfisher / Nuke |
