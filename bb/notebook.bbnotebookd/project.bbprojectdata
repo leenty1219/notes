@@ -29,6 +29,30 @@
 				<string>4F3674F3-6164-43B5-BDA7-6994D394E762</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CollectionID</key>
+			<string>D20DE33F-6435-4F05-ADF2-65555241CDB1</string>
+			<key>CollectionItems</key>
+			<array>
+				<string>F19CBA78-A682-467C-8234-9E3FEAC0DE65</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CollectionID</key>
+			<string>7D92CF3B-541B-4FA3-AB87-1E09D160DEBC</string>
+			<key>CollectionItems</key>
+			<array>
+				<string>5D75A410-D204-40E2-82C5-6AD07B3FD5A4</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CollectionID</key>
+			<string>FDB2EDBF-6C1C-487C-9CE2-81BE37AC66D5</string>
+			<key>CollectionItems</key>
+			<array>
+				<string>99E7A299-EF76-4F46-8F20-71F88C70EA4D</string>
+			</array>
+		</dict>
 	</array>
 	<key>ProjectItems</key>
 	<dict>
@@ -299,6 +323,59 @@
 			<key>UserOverrideItemName</key>
 			<true/>
 		</dict>
+		<key>5D75A410-D204-40E2-82C5-6AD07B3FD5A4</key>
+		<dict>
+			<key>ItemData</key>
+			<dict>
+				<key>BookmarkData</key>
+				<data>
+				Ym9va4wDAAAAAAUQQAAAAIenDU7LDol4an36Zj9xjXwB
+				zAuxwLVkRqzMIGYiw+EgAAAAAAAAAAAAAAAAAAAAAHgC
+				AAAEAAAAAwMAAAAIACgFAAAAAQEAAFVzZXJzAAAAAwAA
+				AAEBAABzdWkACQAAAAEBAABEb2N1bWVudHMAAAAFAAAA
+				AQEAAG5vdGVzAAAAAgAAAAEBAABiYgAAFAAAAAEBAABu
+				b3RlYm9vay5iYm5vdGVib29rZAUAAAABAQAATm90ZXMA
+				AAAnAAAAAQEAADJCMkUzOTc4LTEzN0MtNDhDNi1COUIw
+				LUUxRTAyNkU2QkI5Ni5tZAAgAAAAAQYAABAAAAAgAAAA
+				LAAAAEAAAABQAAAAXAAAAHgAAACIAAAACAAAAAQDAACd
+				RwAAAAAAAAgAAAAEAwAA+FcBAAAAAAAIAAAABAMAADS9
+				HwAAAAAACAAAAAQDAADG7x8AAAAAAAgAAAAEAwAA9e+3
+				AwAAAAAIAAAABAMAAAVougMAAAAACAAAAAQDAAAGaLoD
+				AAAAAAgAAAAEAwAA3yzoAwAAAAAgAAAAAQYAAOAAAADw
+				AAAAAAEAABABAAAgAQAAMAEAAEABAABQAQAACAAAAAAE
+				AABByCgJrb1yHRgAAAABAgAAAQAAAAAAAAAPAAAAAAAA
+				AAAAAAAAAAAACAAAAAQDAAAGAAAAAAAAAAQAAAADAwAA
+				9QEAAAgAAAABCQAAZmlsZTovLy8MAAAAAQEAAE1hY2lu
+				dG9zaCBIRAgAAAAEAwAAAFChG3MAAAAIAAAAAAQAAEHI
+				FrRlgAAAJAAAAAEBAABDNjQ0NDc4My02NTY2LTRFRkIt
+				OUMyRS03MzVDMjQ1NkM4QTkYAAAAAQIAAIEAAAABAAAA
+				7xMAAAEAAAAAAAAAAAAAAAEAAAABAQAALwAAAAAAAAAB
+				BQAAzAAAAP7///8BAAAAAAAAABAAAAAEEAAAuAAAAAAA
+				AAAFEAAAYAEAAAAAAAAQEAAAmAEAAAAAAABAEAAAiAEA
+				AAAAAAACIAAAZAIAAAAAAAAFIAAA1AEAAAAAAAAQIAAA
+				5AEAAAAAAAARIAAAGAIAAAAAAAASIAAA+AEAAAAAAAAT
+				IAAACAIAAAAAAAAgIAAARAIAAAAAAAAwIAAAcAIAAAAA
+				AAABwAAAuAEAAAAAAAARwAAAIAAAAAAAAAASwAAAyAEA
+				AAAAAAAQ0AAABAAAAAAAAAA=
+				</data>
+				<key>FileURL</key>
+				<string>file:///Users/sui/Documents/notes/bb/notebook.bbnotebookd/Notes/2B2E3978-137C-48C6-B9B0-E1E026E6BB96.md</string>
+				<key>HasSecurityScope</key>
+				<true/>
+				<key>RelativePath</key>
+				<string>./2B2E3978-137C-48C6-B9B0-E1E026E6BB96.md</string>
+				<key>TypeID</key>
+				<string>_CFileLocator</string>
+				<key>Version</key>
+				<integer>1</integer>
+			</dict>
+			<key>ItemName</key>
+			<string>MMDI-19997</string>
+			<key>ItemType</key>
+			<string>FileReference</string>
+			<key>UserOverrideItemName</key>
+			<true/>
+		</dict>
 		<key>6033F409-0A1B-4853-BD93-96062B1990BA</key>
 		<dict>
 			<key>ItemData</key>
@@ -346,7 +423,7 @@
 				<integer>1</integer>
 			</dict>
 			<key>ItemName</key>
-			<string>News</string>
+			<string>值班</string>
 			<key>ItemType</key>
 			<string>FileReference</string>
 			<key>UserOverrideItemName</key>
@@ -458,6 +535,15 @@
 			<key>UserOverrideItemName</key>
 			<true/>
 		</dict>
+		<key>7D92CF3B-541B-4FA3-AB87-1E09D160DEBC</key>
+		<dict>
+			<key>ItemData</key>
+			<array/>
+			<key>ItemName</key>
+			<string>Feature</string>
+			<key>ItemType</key>
+			<string>StaticCollection</string>
+		</dict>
 		<key>94C65AE0-883E-49BD-A800-42914F318A83</key>
 		<dict>
 			<key>ItemData</key>
@@ -524,6 +610,59 @@
 			<key>UserOverrideItemName</key>
 			<true/>
 		</dict>
+		<key>99E7A299-EF76-4F46-8F20-71F88C70EA4D</key>
+		<dict>
+			<key>ItemData</key>
+			<dict>
+				<key>BookmarkData</key>
+				<data>
+				Ym9va4wDAAAAAAUQQAAAAKP4S8qUAcUIK91BUHwq/h9B
+				nEKhDYNQlFjAJnyguKneAAAAAAAAAAAAAAAAAAAAAHgC
+				AAAEAAAAAwMAAAAIACgFAAAAAQEAAFVzZXJzAAAAAwAA
+				AAEBAABzdWkACQAAAAEBAABEb2N1bWVudHMAAAAFAAAA
+				AQEAAG5vdGVzAAAAAgAAAAEBAABiYgAAFAAAAAEBAABu
+				b3RlYm9vay5iYm5vdGVib29rZAUAAAABAQAATm90ZXMA
+				AAAnAAAAAQEAADVCMjM4MjY0LTlGODYtNDYzQy05MTgw
+				LTMyNzQxRTEzNDU4NS5tZAAgAAAAAQYAABAAAAAgAAAA
+				LAAAAEAAAABQAAAAXAAAAHgAAACIAAAACAAAAAQDAACd
+				RwAAAAAAAAgAAAAEAwAA+FcBAAAAAAAIAAAABAMAADS9
+				HwAAAAAACAAAAAQDAADG7x8AAAAAAAgAAAAEAwAA9e+3
+				AwAAAAAIAAAABAMAAAVougMAAAAACAAAAAQDAAAGaLoD
+				AAAAAAgAAAAEAwAAZNDoAwAAAAAgAAAAAQYAAOAAAADw
+				AAAAAAEAABABAAAgAQAAMAEAAEABAABQAQAACAAAAAAE
+				AABByCgO7aYVHhgAAAABAgAAAQAAAAAAAAAPAAAAAAAA
+				AAAAAAAAAAAACAAAAAQDAAAGAAAAAAAAAAQAAAADAwAA
+				9QEAAAgAAAABCQAAZmlsZTovLy8MAAAAAQEAAE1hY2lu
+				dG9zaCBIRAgAAAAEAwAAAFChG3MAAAAIAAAAAAQAAEHI
+				FrRlgAAAJAAAAAEBAABDNjQ0NDc4My02NTY2LTRFRkIt
+				OUMyRS03MzVDMjQ1NkM4QTkYAAAAAQIAAIEAAAABAAAA
+				7xMAAAEAAAAAAAAAAAAAAAEAAAABAQAALwAAAAAAAAAB
+				BQAAzAAAAP7///8BAAAAAAAAABAAAAAEEAAAuAAAAAAA
+				AAAFEAAAYAEAAAAAAAAQEAAAmAEAAAAAAABAEAAAiAEA
+				AAAAAAACIAAAZAIAAAAAAAAFIAAA1AEAAAAAAAAQIAAA
+				5AEAAAAAAAARIAAAGAIAAAAAAAASIAAA+AEAAAAAAAAT
+				IAAACAIAAAAAAAAgIAAARAIAAAAAAAAwIAAAcAIAAAAA
+				AAABwAAAuAEAAAAAAAARwAAAIAAAAAAAAAASwAAAyAEA
+				AAAAAAAQ0AAABAAAAAAAAAA=
+				</data>
+				<key>FileURL</key>
+				<string>file:///Users/sui/Documents/notes/bb/notebook.bbnotebookd/Notes/5B238264-9F86-463C-9180-32741E134585.md</string>
+				<key>HasSecurityScope</key>
+				<true/>
+				<key>RelativePath</key>
+				<string>./5B238264-9F86-463C-9180-32741E134585.md</string>
+				<key>TypeID</key>
+				<string>_CFileLocator</string>
+				<key>Version</key>
+				<integer>1</integer>
+			</dict>
+			<key>ItemName</key>
+			<string>confluence</string>
+			<key>ItemType</key>
+			<string>FileReference</string>
+			<key>UserOverrideItemName</key>
+			<true/>
+		</dict>
 		<key>B1F0F766-BA61-412B-9A59-79809D9AFE90</key>
 		<dict>
 			<key>ItemData</key>
@@ -576,6 +715,15 @@
 			<string>FileReference</string>
 			<key>UserOverrideItemName</key>
 			<true/>
+		</dict>
+		<key>D20DE33F-6435-4F05-ADF2-65555241CDB1</key>
+		<dict>
+			<key>ItemData</key>
+			<array/>
+			<key>ItemName</key>
+			<string>Bugfix</string>
+			<key>ItemType</key>
+			<string>StaticCollection</string>
 		</dict>
 		<key>DEF486A6-382B-49BB-9B97-32C9FF006F9D</key>
 		<dict>
@@ -640,6 +788,68 @@
 			<string>FileReference</string>
 			<key>UserOverrideItemName</key>
 			<true/>
+		</dict>
+		<key>F19CBA78-A682-467C-8234-9E3FEAC0DE65</key>
+		<dict>
+			<key>ItemData</key>
+			<dict>
+				<key>BookmarkData</key>
+				<data>
+				Ym9va4wDAAAAAAUQQAAAALLo4l7ov9TNWRPkcQ42gaGq
+				q5q17/RxGSRLx6Mbbg5eAAAAAAAAAAAAAAAAAAAAAHgC
+				AAAEAAAAAwMAAAAIACgFAAAAAQEAAFVzZXJzAAAAAwAA
+				AAEBAABzdWkACQAAAAEBAABEb2N1bWVudHMAAAAFAAAA
+				AQEAAG5vdGVzAAAAAgAAAAEBAABiYgAAFAAAAAEBAABu
+				b3RlYm9vay5iYm5vdGVib29rZAUAAAABAQAATm90ZXMA
+				AAAnAAAAAQEAADVEQ0EwNkJFLThEM0MtNDA0MS1CMTFD
+				LUJDQjhEMDhENzkzRC5tZAAgAAAAAQYAABAAAAAgAAAA
+				LAAAAEAAAABQAAAAXAAAAHgAAACIAAAACAAAAAQDAACd
+				RwAAAAAAAAgAAAAEAwAA+FcBAAAAAAAIAAAABAMAADS9
+				HwAAAAAACAAAAAQDAADG7x8AAAAAAAgAAAAEAwAA9e+3
+				AwAAAAAIAAAABAMAAAVougMAAAAACAAAAAQDAAAGaLoD
+				AAAAAAgAAAAEAwAATnfiAwAAAAAgAAAAAQYAAOAAAADw
+				AAAAAAEAABABAAAgAQAAMAEAAEABAABQAQAACAAAAAAE
+				AABByCf6vxBcwhgAAAABAgAAAQAAAAAAAAAPAAAAAAAA
+				AAAAAAAAAAAACAAAAAQDAAAGAAAAAAAAAAQAAAADAwAA
+				9QEAAAgAAAABCQAAZmlsZTovLy8MAAAAAQEAAE1hY2lu
+				dG9zaCBIRAgAAAAEAwAAAFChG3MAAAAIAAAAAAQAAEHI
+				FrRlgAAAJAAAAAEBAABDNjQ0NDc4My02NTY2LTRFRkIt
+				OUMyRS03MzVDMjQ1NkM4QTkYAAAAAQIAAIEAAAABAAAA
+				7xMAAAEAAAAAAAAAAAAAAAEAAAABAQAALwAAAAAAAAAB
+				BQAAzAAAAP7///8BAAAAAAAAABAAAAAEEAAAuAAAAAAA
+				AAAFEAAAYAEAAAAAAAAQEAAAmAEAAAAAAABAEAAAiAEA
+				AAAAAAACIAAAZAIAAAAAAAAFIAAA1AEAAAAAAAAQIAAA
+				5AEAAAAAAAARIAAAGAIAAAAAAAASIAAA+AEAAAAAAAAT
+				IAAACAIAAAAAAAAgIAAARAIAAAAAAAAwIAAAcAIAAAAA
+				AAABwAAAuAEAAAAAAAARwAAAIAAAAAAAAAASwAAAyAEA
+				AAAAAAAQ0AAABAAAAAAAAAA=
+				</data>
+				<key>FileURL</key>
+				<string>file:///Users/sui/Documents/notes/bb/notebook.bbnotebookd/Notes/5DCA06BE-8D3C-4041-B11C-BCB8D08D793D.md</string>
+				<key>HasSecurityScope</key>
+				<true/>
+				<key>RelativePath</key>
+				<string>./5DCA06BE-8D3C-4041-B11C-BCB8D08D793D.md</string>
+				<key>TypeID</key>
+				<string>_CFileLocator</string>
+				<key>Version</key>
+				<integer>1</integer>
+			</dict>
+			<key>ItemName</key>
+			<string>MMDI-20355</string>
+			<key>ItemType</key>
+			<string>FileReference</string>
+			<key>UserOverrideItemName</key>
+			<true/>
+		</dict>
+		<key>FDB2EDBF-6C1C-487C-9CE2-81BE37AC66D5</key>
+		<dict>
+			<key>ItemData</key>
+			<array/>
+			<key>ItemName</key>
+			<string>AI 提示词</string>
+			<key>ItemType</key>
+			<string>StaticCollection</string>
 		</dict>
 	</dict>
 	<key>ProjectUniqueID</key>

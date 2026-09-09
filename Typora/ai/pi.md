@@ -445,5 +445,28 @@ pi install npm:pi-web-access
 
 #
 pi-simplify
+
+
+
+
+# 当前使用的packages
+{
+  "lastChangelogVersion": "0.85.1",
+  "theme": "dark",
+  "defaultProvider": "openai",
+  "defaultModel": "gpt-5.6-terra",
+  "packages": [
+    "npm:pi-subagents",
+    "npm:pi-diet",
+    "npm:@narumitw/pi-plan-mode",
+    "npm:pi-web-access",
+    "git:github.com/DietrichGebert/ponytail",
+    "npm:pi-mcp-adapter",
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:@henryqw/pi-task-models",
+    "npm:pi-hermes-memory"
+  ]
+}
+
 ```
 
