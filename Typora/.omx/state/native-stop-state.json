@@ -1,0 +1,14 @@
+{
+  "sessions": {
+    "01a08592-69b4-7290-b89a-57edbb2d1b74": {
+      "ordinary_no_progress_guard": {
+        "fingerprint": "ordinary|已更新 [ai/pi.md](/users/sui/documents/notes/typora/ai/pi.md:32)，补充完整会话命令、选择指南、`/resume` 快捷键、导入导出及数据保留说明。 依据官方 latest 文档与本机 pi agent `0.85.1` 核对，`git diff --check` 通过。",
+        "first_seen_at": "2026-09-09T09:55:43.377Z",
+        "last_seen_at": "2026-09-09T09:55:43.377Z",
+        "repeat_count": 1,
+        "last_turn_id": "01a08593-07cc-7251-b18e-d3cd47baa9a4",
+        "last_thread_id": null
+      }
+    }
+  }
+}

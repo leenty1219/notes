@@ -1,0 +1,14 @@
+{
+  "session_id": "01a08592-69b4-7290-b89a-57edbb2d1b74",
+  "native_session_id": "01a08592-69b4-7290-b89a-57edbb2d1b74",
+  "started_at": "2026-09-09T09:50:01.114Z",
+  "cwd": "/Users/sui/Documents/notes/Typora",
+  "state_root": "/Users/sui/Documents/notes/Typora/.omx/state",
+  "pid": 50254,
+  "platform": "darwin",
+  "identity_schema_version": 2,
+  "process_identity": {
+    "platform": "darwin",
+    "birth": "1788947359.765200"
+  }
+}
