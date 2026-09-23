@@ -85,4 +85,5 @@ https://www.figma.com/design/eZ3f6J3CgsmBVR8LCAFjTH/260622-%E5%A4%96%E5%B8%81%E6
 
 
 
+我的目标是：在isFromAccount为true时，新账本（本地和远端都没有设置对账开关时），开启了本地化就是默认开，关闭本地化就是默认关（当前效果）
 

@@ -1,0 +1,3 @@
+### 开启编译缓存
+
+`COMPILATION_CACHE_ENABLE_CACHING`设置为true
