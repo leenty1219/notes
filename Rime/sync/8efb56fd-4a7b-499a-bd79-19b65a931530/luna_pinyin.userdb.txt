@@ -1,0 +1,166 @@
+# Rime user dictionary
+#@/db_name	luna_pinyin
+#@/db_type	userdb
+#@/rime_version	1.16.0
+#@/tick	257
+#@/user_id	8efb56fd-4a7b-499a-bd79-19b65a931530
+a 	啊	c=1 d=1 t=184
+an 	按	c=2 d=1.58567 t=183
+ba 	把	c=3 d=2.00316 t=166
+bang wo 	幫我	c=1 d=1 t=198
+bian dong 	變動	c=1 d=1 t=248
+biao qing 	表情	c=1 d=1 t=102
+biao xian 	表現	c=2 d=1.71892 t=205
+bu 	布	c=1 d=1 t=4
+bu chong 	補充	c=1 d=1 t=35
+bu shi 	不是	c=2 d=1.82696 t=112
+bu shun chang 	不順暢	c=1 d=1 t=111
+bu xu yao 	不需要	c=1 d=1 t=236
+bu yao 	不要	c=1 d=1 t=225
+bu ying xiang 	不影響	c=1 d=1 t=240
+bu yong 	不用	c=1 d=1 t=52
+bu zhi chi 	不支持	c=1 d=1 t=161
+ce shi 	測試	c=1 d=1.08511 t=4
+ce shi shu ru fa de 	測試輸入法的	c=1 d=1 t=5
+cha yi 	差異	c=1 d=1 t=23
+chang jian 	常見	c=1 d=1 t=194
+ci 	次	c=1 d=1 t=163
+ci 	詞	c=1 d=1 t=164
+ci biao 	詞表	c=1 d=1 t=179
+da zi 	打字	c=1 d=1 t=95
+dang qian 	當前	c=1 d=1 t=129
+dao 	到	c=2 d=1.63128 t=128
+de 	的	c=25 d=15.0648 t=247
+dian 	點	c=1 d=1 t=223
+dong 	動	c=1 d=1 t=227
+dong xi 	東西	c=1 d=1 t=234
+dui de 	對的	c=1 d=1 t=190
+dui ying 	對應	c=2 d=1.95123 t=90
+fan cha 	反查	c=1 d=1 t=232
+fan jian 	繁簡	c=1 d=1 t=13
+fan ti 	繁體	c=1 d=1 t=45
+fan ye 	翻頁	c=0 d=0.1 t=167
+fang an 	方案	c=1 d=1 t=110
+fang xiang 	方向	c=1 d=1 t=145
+fu hao 	符號	c=2 d=1.77105 t=155
+gai 	改	c=1 d=1 t=226
+gai dong 	改動	c=1 d=1 t=216
+gang gang 	剛剛	c=1 d=1 t=237
+ge 	個	c=1 d=1 t=37
+gei 	給	c=1 d=1 t=88
+gong neng 	功能	c=2 d=1.94176 t=242
+guan fang 	官方	c=1 d=1 t=24
+guo cheng zhong 	過程中	c=1 d=1 t=69
+hai 	還	c=0 d=0.1 t=157
+hai hui 	還會	c=1 d=1 t=43
+hai yi ge 	還一個	c=1 d=1 t=158
+hai you 	還有	c=1 d=1 t=61
+hao 	好	c=2 d=1.99501 t=201
+he 	和	c=2 d=1.47711 t=169
+hou xuan 	候選	c=1 d=1 t=100
+hou xuan ci 	候選詞	c=4 d=2.65792 t=153
+hui 	回	c=1 d=1 t=212
+huo dong 	活動	c=1 d=1 t=142
+ji zhi 	極致	c=1 d=1 t=136
+ji zhi 	機制	c=1 d=1 t=135
+jia ru 	加入	c=1 d=1 t=188
+jian 	鍵	c=1 d=1 t=173
+jian ti 	簡體	c=1 d=1 t=50
+jie jue 	解決	c=1 d=1 t=152
+jin qu le 	進去了	c=0 d=0.1 t=180
+jin qu le ma 	進去了嗎	c=1 d=1 t=181
+jiu shi 	就是	c=3 d=2.40608 t=131
+kai qi 	開啓	c=2 d=0.769163 t=253
+kan 	看	c=1 d=1 t=213
+ke yi 	可以	c=2 d=1.7465 t=244
+ke yi zuo 	可以做	c=1 d=1 t=245
+lao shou 	老手	c=1 d=1 t=86
+le 	了	c=4 d=2.79534 t=249
+li mian 	裏面	c=1 d=1 t=42
+ma 	嗎	c=2 d=1.69933 t=257
+man yi 	滿意	c=1 d=1 t=210
+mei 	沒	c=1 d=1 t=54
+mei bi yao 	沒必要	c=1 d=1 t=87
+mei you 	沒有	c=2 d=1.76721 t=154
+na ge 	那個	c=1 d=1 t=176
+ni 	你	c=3 d=2.69598 t=144
+ni hao 	你好	c=3 d=2.44123 t=185
+ni hao a 	你好啊	c=2 d=1.32628 t=250
+pin yin 	拼音	c=2 d=1.90484 t=92
+qian mian 	前面	c=2 d=1.72253 t=214
+qie huan 	切換	c=3 d=2.13965 t=127
+qu 	去	c=3 d=2.6524 t=126
+quan pin 	全拼	c=1 d=1 t=82
+rang 	讓	c=1 d=1 t=208
+shang mian 	上面	c=1 d=1 t=70
+shang xia 	上下	c=0 d=0.1 t=167
+shang xia fan ye 	上下翻頁	c=1 d=1 t=168
+shi 	是	c=4 d=2.98939 t=150
+shi fou 	是否	c=2 d=1.36788 t=218
+shi shen me 	是什麼	c=1 d=1 t=174
+shi xian 	實現	c=1 d=1 t=117
+shou shen 	瘦身	c=1 d=1 t=239
+shu liang 	數量	c=1 d=1 t=34
+shu ru 	輸入	c=3 d=2.02424 t=193
+shu ru fa 	輸入法	c=2 d=2.02992 t=125
+shu xu guan 	鼠鬚管	c=2 d=1.93707 t=143
+shuang pin 	雙拼	c=3 d=2.16884 t=231
+shuo de 	說的	c=1 d=1 t=238
+ti shi 	提示	c=1 d=1 t=73
+tian jia 	添加	c=1 d=1 t=180
+tiao pin 	調頻	c=1 d=1 t=256
+wei shen me 	爲什麼	c=3 d=2.6342 t=121
+wei shen me wo 	爲什麼我	c=1 d=1 t=94
+wei xiao 	微笑	c=1 d=1 t=96
+wen ti 	問題	c=2 d=1.625 t=157
+wo 	我	c=15 d=8.51552 t=252
+wo hai xiang 	我還想	c=1 d=1 t=14
+wo xian zai 	我現在	c=1 d=1 t=46
+wu song 	霧凇	c=1 d=1 t=175
+xi tong 	系統	c=1 d=1 t=123
+xia 	下	c=1 d=1 t=2
+xian you 	現有	c=2 d=1.93707 t=241
+xian zai 	現在	c=3 d=2.07551 t=253
+xian zai shi 	現在是	c=1 d=1 t=84
+xiang 	想	c=1 d=1 t=58
+xiang yao 	想要	c=1 d=1 t=134
+xiao he 	小鶴	c=1 d=1 t=159
+xiao xie 	小寫	c=1 d=1 t=197
+xing 	形	c=1 d=1 t=20
+xing neng 	性能	c=3 d=2.50176 t=140
+xing shi 	形式	c=1 d=1 t=93
+xiu gai 	修改	c=1 d=1 t=53
+yao 	要	c=3 d=2.62948 t=151
+ye 	也	c=1 d=1 t=244
+ye zhi chi 	也支持	c=1 d=1 t=167
+yi 	一	c=1 d=1 t=3
+yi dong 	移動	c=1 d=1 t=171
+yi ge 	一個	c=2 d=1.41956 t=157
+yi jing 	已經	c=2 d=1.45158 t=206
+yi tao 	一套	c=1 d=1 t=118
+yin wei 	因爲	c=1 d=1 t=132
+yin yu 	隱喻	c=1 d=1 t=162
+ying wen 	英文	c=1 d=1 t=196
+ying yu 	英語	c=1 d=1 t=177
+you 	有	c=2 d=1.29535 t=253
+you hua 	優化	c=2 d=1.89583 t=221
+you kai qi 	有開啓	c=1 d=1 t=254
+you shen me 	有什麼	c=1 d=1 t=22
+zai 	在	c=5 d=3.55135 t=217
+zen me 	怎麼	c=1 d=1 t=11
+zen me hui shi 	怎麼回事	c=1 d=1 t=60
+zen me yang 	怎麼樣	c=1 d=1 t=8
+zhao 	找	c=1 d=1 t=109
+zhe ge 	這個	c=2 d=1.56553 t=233
+zhe shi 	這是	c=1 d=1 t=251
+zhe yi lun 	這一輪	c=1 d=1 t=246
+zhi chi 	支持	c=1 d=1 t=16
+zhi dao 	知道	c=1 d=1 t=59
+zhi shi 	只是	c=1 d=1 t=192
+zhu yi 	注意	c=2 d=1.54881 t=224
+zi dong 	自動	c=1 d=1 t=255
+zi ji 	自己	c=1 d=1 t=115
+zou pian 	走偏	c=1 d=1 t=146
+zu gou 	足夠	c=1 d=1 t=207
+zuo 	做	c=0 d=0.1 t=244
+zuo you 	左右	c=1 d=1 t=170

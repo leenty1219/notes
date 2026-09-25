@@ -1,0 +1,23 @@
+# flypy.custom.yaml
+# 小鶴音形方案的個別補丁。
+# 因為 flypy.schema.yaml 裡自帶 menu.page_size: 5，
+# 會覆蓋全域設定，所以要在這裡單獨覆寫為 8。
+#
+# 生效方式：選單「鼠鬚管 → 重新部署」，或執行
+#   "/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel" --reload
+
+patch:
+  menu/page_size: 8
+
+  # ── 官方 rime-emoji 表情建議（現成方案，非自寫）────────
+  # 來源：https://github.com/rime/rime-emoji
+  switches/@next:
+    name: emoji_suggestion
+    reset: 1
+    states: [ "🈚︎", "🈶️" ]
+  "engine/filters/@before 0": simplifier@emoji_suggestion
+  emoji_suggestion:
+    opencc_config: emoji.json
+    option_name: emoji_suggestion
+    tips: none
+    inherit_comment: false

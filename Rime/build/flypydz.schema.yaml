@@ -1,0 +1,86 @@
+__build_info:
+  rime_version: 1.16.0
+  timestamps:
+    default: 1768354364
+    default.custom: 1790350229
+    flypydz.custom: 0
+    flypydz.schema: 1790350099
+    key_bindings: 1768354364
+    key_bindings.custom: 0
+    punctuation: 1768354364
+    punctuation.custom: 0
+engine:
+  filters:
+    - simplifier
+    - uniquifier
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - table_translator
+    - reverse_lookup_translator
+menu:
+  page_size: 8
+reverse_lookup:
+  comment_format:
+    - "xform/ / /"
+  dictionary: flypydz
+  enable_charset_filter: false
+  enable_completion: false
+  enable_encoder: false
+  enable_sentence: false
+  enable_user_dict: false
+  filter: "^(?!.*\\bok)"
+  inherit: false
+schema:
+  author:
+    - "方案设计：何海峰 flypy.cc"
+  description: |
+    小鹤音形输入法反查单字词库
+
+  name: "小鹤音形反查"
+  schema_id: flypydz
+  version: 10.26.1
+selector:
+  bindings:
+    ISO_Left_Tab: previous_candidate
+    "Shift+Tab": previous_candidate
+    Tab: next_candidate
+speller:
+  algebra:
+    - "derive/^.(.*)$/`$1/"
+    - "derive/^(.).(.*)$/$1`$2/"
+    - "derive/^(..).(.*)$/$1`$2/"
+    - "derive/^(...).$/$1`/"
+  alphabet: "/;zyxwvutsrqponmlkjihgfedcba"
+  auto_select: true
+  auto_select_pattern: "^;.$|^\\w{4}$"
+  finals: "/"
+  initials: "abcdefghijklmnopqrstuvwxyz;"
+  max_code_length: 4
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [CN, EN]
+translator:
+  dictionary: flypydz
+  enable_charset_filter: false
+  enable_completion: false
+  enable_sentence: false
+  enable_user_dict: false
+  inherit: false
+  preedit_format:
+    - "xform/^`(.*)/$1/"

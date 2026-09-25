@@ -1,44 +1,22 @@
 __build_info:
-  rime_version: 1.13.0
+  rime_version: 1.16.0
   timestamps:
-    default: 1737643099
-    default.custom: 1595062584
-    flypy.custom: 0
-    flypy.schema: 1757676060
-    key_bindings: 1737643099
+    default: 1768354364
+    default.custom: 1790350229
+    flypy.custom: 1790350942
+    flypy.schema: 1790350099
+    key_bindings: 1768354364
     key_bindings.custom: 0
-    punctuation: 1737643099
+    punctuation: 1768354364
     punctuation.custom: 0
-custom_phraseQMZ:
-  db_class: stabledb
-  dictionary: ""
-  enable_completion: false
-  enable_sentence: false
-  initial_quality: "-1"
-  user_dict: flypy_full
-custom_phraseVD:
-  db_class: stabledb
-  dictionary: ""
-  enable_completion: false
-  enable_sentence: false
-  initial_quality: 0
-  user_dict: flypy_top
-custom_phraseXT:
-  db_class: stabledb
-  dictionary: ""
-  enable_completion: false
-  enable_sentence: false
-  initial_quality: "-1"
-  user_dict: flypy_sys
-custom_phraseYH:
-  db_class: stabledb
-  dictionary: ""
-  enable_completion: false
-  enable_sentence: false
-  initial_quality: "-1"
-  user_dict: flypy_user
+emoji_suggestion:
+  inherit_comment: false
+  opencc_config: emoji.json
+  option_name: emoji_suggestion
+  tips: none
 engine:
   filters:
+    - "simplifier@emoji_suggestion"
     - simplifier
     - "simplifier@simplification"
     - uniquifier
@@ -54,29 +32,55 @@ engine:
   segmentors:
     - ascii_segmentor
     - matcher
+    - "affix_segmentor@ok_mode"
     - abc_segmentor
     - punct_segmentor
     - fallback_segmentor
   translators:
     - punct_translator
+    - "table_translator@user_top"
     - table_translator
-    - "lua_translator@date_translator"
-    - "lua_translator@time_translator"
-    - "table_translator@custom_phraseVD"
-    - "table_translator@custom_phraseXT"
-    - "table_translator@custom_phraseYH"
-    - "table_translator@custom_phraseQMZ"
+    - "table_translator@user_phrase"
+    - "table_translator@ok_mode"
+    - "lua_translator@*flypy_date_translator"
+    - "lua_translator@*flypy_time_translator"
     - reverse_lookup_translator
     - "history_translator@history"
-    - "lua_translator@calculator_translator"
+    - "lua_translator@*calculator_translator"
 history:
   initial_quality: 1
   input: ";f"
   size: 1
 key_binder:
   bindings:
-    - {accept: bracketleft, send: Page_Up, when: paging}
-    - {accept: bracketright, send: Page_Down, when: has_menu}
+    - {accept: "Control+p", send: Up, when: composing}
+    - {accept: "Control+n", send: Down, when: composing}
+    - {accept: "Control+b", send: Left, when: composing}
+    - {accept: "Control+f", send: Right, when: composing}
+    - {accept: "Control+a", send: Home, when: composing}
+    - {accept: "Control+e", send: End, when: composing}
+    - {accept: "Control+d", send: Delete, when: composing}
+    - {accept: "Control+k", send: "Shift+Delete", when: composing}
+    - {accept: "Control+h", send: BackSpace, when: composing}
+    - {accept: "Control+g", send: Escape, when: composing}
+    - {accept: "Control+bracketleft", send: Escape, when: composing}
+    - {accept: "Control+y", send: Page_Up, when: composing}
+    - {accept: "Alt+v", send: Page_Up, when: composing}
+    - {accept: "Control+v", send: Page_Down, when: composing}
+    - {accept: minus, send: Page_Up, when: has_menu}
+    - {accept: equal, send: Page_Down, when: has_menu}
+    - {accept: comma, send: Page_Up, when: paging}
+    - {accept: period, send: Page_Down, when: has_menu}
+    - {accept: "Control+Shift+1", select: .next, when: always}
+    - {accept: "Control+Shift+2", toggle: ascii_mode, when: always}
+    - {accept: "Control+Shift+3", toggle: full_shape, when: always}
+    - {accept: "Control+Shift+4", toggle: simplification, when: always}
+    - {accept: "Control+Shift+5", toggle: extended_charset, when: always}
+    - {accept: "Control+Shift+exclam", select: .next, when: always}
+    - {accept: "Control+Shift+at", toggle: ascii_mode, when: always}
+    - {accept: "Control+Shift+numbersign", toggle: full_shape, when: always}
+    - {accept: "Control+Shift+dollar", toggle: simplification, when: always}
+    - {accept: "Control+Shift+percent", toggle: extended_charset, when: always}
     - {accept: bracketleft, send: Page_Up, when: paging}
     - {accept: bracketright, send: Page_Down, when: has_menu}
     - {accept: comma, send: comma, when: paging}
@@ -91,7 +95,16 @@ key_binder:
     - {accept: "Control+j", toggle: simplification, when: always}
   import_preset: default
 menu:
-  page_size: 5
+  page_size: 8
+ok_mode:
+  dictionary: flypyok
+  enable_charset_filter: false
+  enable_completion: false
+  enable_sentence: false
+  enable_user_dict: false
+  prefix: ok
+  tag: ok_mode
+  tips: "〔拼字〕"
 punctuator:
   full_shape:
     " ": {commit: "　"}
@@ -166,6 +179,7 @@ recognizer:
   patterns:
     email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$"
     expression: "^=.*$"
+    ok_mode: "^ok[a-z']*$"
     punct: ""
     reverse_lookup: "[a-z`]*`+[a-z`]*"
     uppercase: ""
@@ -177,12 +191,20 @@ reverse_lookup:
 schema:
   author:
     - "方案设计：何海峰 flypy.cc"
+  dependencies:
+    - flypydz
+    - flypyok
   description: |
     小鹤音形输入法
 
   name: "小鹤音形"
   schema_id: flypy
-  version: 10.13.8
+  version: 10.26.1
+selector:
+  bindings:
+    ISO_Left_Tab: previous_candidate
+    "Shift+Tab": previous_candidate
+    Tab: next_candidate
 simplification:
   opencc_config: s2tw.json
   option_name: simplification
@@ -197,7 +219,6 @@ speller:
   max_code_length: 4
 style:
   candidate_list_layout: linear
-  horizontal: true
   text_orientation: horizontal
 switches:
   - name: ascii_mode
@@ -210,11 +231,27 @@ switches:
     states: ["简", "繁"]
   - name: ascii_punct
     reset: 0
+    states: ["。，", "．，"]
+  - name: emoji_suggestion
+    reset: 1
+    states: ["🈚︎", "🈶️"]
 translator:
   dictionary: flypy
-  disable_user_dict_for_patterns:
-    - "^z.*$"
   enable_charset_filter: false
   enable_completion: false
   enable_sentence: false
   enable_user_dict: false
+user_phrase:
+  db_class: stabledb
+  dictionary: ""
+  enable_completion: false
+  enable_sentence: false
+  initial_quality: "-1"
+  user_dict: flypy.user
+user_top:
+  db_class: stabledb
+  dictionary: ""
+  enable_completion: false
+  enable_sentence: false
+  initial_quality: 1
+  user_dict: flypy.user.top

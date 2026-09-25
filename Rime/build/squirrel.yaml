@@ -1,8 +1,8 @@
 __build_info:
-  rime_version: 1.13.0
+  rime_version: 1.16.0
   timestamps:
-    squirrel: 1737643099
-    squirrel.custom: 1736737130
+    squirrel: 1768354364
+    squirrel.custom: 1790352292
 app_options:
   co.zeit.hyper:
     ascii_mode: true
@@ -189,31 +189,6 @@ preset_color_schemes:
     hilited_text_color: 0x7fffff
     name: "明月／Luna"
     text_color: 0xa5a5a5
-  metro:
-    author: flypy.com
-    back_color: 0xffffff
-    border_color_width: 1
-    border_height: 8
-    border_width: 8
-    candidate_back_color: 0xffffff
-    candidate_format: "%c %@ "
-    candidate_list_layout: linear
-    candidate_text_color: 0x000000
-    comment_text_color: 0x555555
-    corner_radius: 6
-    font_point: 18
-    hilited_back_color: 0xffffff
-    hilited_candidate_back_color: 0xe89f00
-    hilited_candidate_label_color: 0xeeeeee
-    hilited_candidate_text_color: 0xffffff
-    hilited_comment_text_color: 0xcccccc
-    hilited_text_color: 0x000000
-    inline_preedit: true
-    label_color: 0x555555
-    label_font_point: 14
-    name: metro
-    text_color: 0x333333
-    text_orientation: horizontal
   mojave_dark:
     author: "xiehuc <xiehuc@gmail.com>"
     back_color: 0x252320
@@ -275,6 +250,32 @@ preset_color_schemes:
     hilited_text_color: 0xeeeeee
     name: "純粹的形式／Purity of Form"
     text_color: 0xc2c222
+  retro_green:
+    author: "佛振 <chen.sst@gmail.com>"
+    back_color: 0x000000
+    border_color: 0x00FF00
+    border_height: 2
+    border_width: 2
+    corner_radius: 16
+    hilited_candidate_back_color: 0x00FF00
+    hilited_candidate_label_color: 0x000000
+    hilited_candidate_text_color: 0x000000
+    label_color: 0x00FF00
+    name: "綠色熒光屏"
+    text_color: 0x00FF00
+  retro_orange:
+    author: "佛振 <chen.sst@gmail.com>"
+    back_color: 0x000000
+    border_color: 0x0093FF
+    border_height: 2
+    border_width: 2
+    corner_radius: 16
+    hilited_candidate_back_color: 0x0093FF
+    hilited_candidate_label_color: 0x000000
+    hilited_candidate_text_color: 0x000000
+    label_color: 0x0093FF
+    name: "琥珀色熒光屏"
+    text_color: 0x0093FF
   solarized_dark:
     author: "雪齋 <lyc20041@gmail.com>"
     back_color: 0xF0352A0A
@@ -324,35 +325,37 @@ preset_color_schemes:
     author: "Contralisk <contralisk@gmail.com>, original artwork by Blizzard Entertainment"
     back_color: 0xee000000
     border_color: 0x1010a0
+    border_height: 2
+    border_width: 2
     candidate_text_color: 0x30bb55
     comment_text_color: 0x1010d0
+    corner_radius: 8
     hilited_back_color: 0x000000
     hilited_candidate_back_color: 0x00000000
     hilited_candidate_label_color: 0x40cf7f
     hilited_candidate_text_color: 0x70ffaf
     hilited_comment_text_color: 0x1010f0
+    hilited_corner_radius: 8
     hilited_text_color: 0xfecb96
     name: "星際我爭霸／StarCraft"
     text_color: 0xccaa88
 show_notifications_when: appropriate
 style:
-  border_height: "-2"
-  border_width: "-2"
+  border_height: 0
+  border_width: 0
   candidate_format: "[label]. [candidate] [comment]"
-  candidate_list_layout: stacked
-  color_scheme: metro
-  corner_radius: 7
-  display_tray_icon: false
-  font_face: Avenir
+  candidate_list_layout: linear
+  color_scheme: native
+  comment_font_point: 14
+  corner_radius: 10
+  font_face: "PingFang SC"
   font_point: 16
-  hilited_corner_radius: 0
+  hilited_corner_radius: 10
   inline_candidate: false
   inline_preedit: true
-  line_spacing: 12
+  label_font_point: 14
+  line_spacing: 6
   memorize_size: true
-  mutual_exclusive: false
   shadow_size: 0
   show_paging: false
   spacing: 8
-  text_orientation: horizontal
-  translucency: false

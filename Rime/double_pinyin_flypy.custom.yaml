@@ -1,0 +1,73 @@
+# double_pinyin_flypy.custom.yaml
+# 小鶴雙拼方案的個別補丁。
+#
+# 目的：取消「雙拼鍵 → 全拼」的 preedit 顯示轉換。
+#   double_pinyin_flypy.schema.yaml 的 translator.preedit_format 裡
+#   有一長串 xform，會把輸入的雙拼鍵（如 nihc）顯示成全拼（nihao）。
+#   對熟手來說沒必要，這裡把它清空，讓輸入過程直接顯示原始按鍵。
+#
+# 註：只改 translator 的 preedit_format；reverse_lookup（`反查筆畫）
+#     的 preedit_format 保持不變。
+#
+# 生效方式：選單「鼠鬚管 → 重新部署」，或執行
+#   "/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel" --reload
+
+patch:
+  translator/preedit_format: []
+
+  # ── 官方 rime-emoji 表情建議（現成方案，非自寫）────────
+  # 來源：https://github.com/rime/rime-emoji
+  # 讓普通拼音候選也能出 emoji（例如打「笑」會出現 😊）。
+  # 開關名稱 emoji_suggestion：🈚︎ 關 / 🈶️ 開，預設開。
+  switches/@next:
+    name: emoji_suggestion
+    reset: 1
+    states: [ "🈚︎", "🈶️" ]
+  "engine/filters/@before 0": simplifier@emoji_suggestion
+  emoji_suggestion:
+    opencc_config: emoji.json
+    option_name: emoji_suggestion
+    tips: none
+    inherit_comment: false
+
+  # ── 英文候選（雾凇 rime-ice 的輕量英文詞庫，作為次翻譯器）────
+  # 來源：https://github.com/iDvel/rime-ice
+  # melt_eng 作為「依賴方案」，用自己獨立的拼寫規則編譯英文詞庫，
+  # 不會被雙拼的 speller algebra 改壞。
+  # initial_quality: 1.1 → 英文排在中文候選之後，不搶位。
+  #
+  # 註：dependencies 直接改成只留 melt_eng，
+  #     即去掉原方案的 stroke（筆畫反查，` 引導）——用戶不需要。
+  #     同時重寫 translators 去掉 reverse_lookup_translator。
+  schema/dependencies:
+    - melt_eng
+  engine/translators:
+    - punct_translator
+    - script_translator
+    - table_translator@custom_phrase
+    - table_translator@melt_eng
+  # 主拼音權重必須高於英文的 1.1，中文候選才排在前面
+  translator/initial_quality: 1.2
+
+  # ── 自定義短語（朋友名、郵箱、常用語等）──────────────
+  # 條目寫在 custom_phrase.txt，格式：詞<TAB>雙拼編碼[<TAB>權重]
+  # initial_quality: 99 → 置頂，排在所有候選之前。
+  custom_phrase:
+    dictionary: ""
+    user_dict: custom_phrase
+    db_class: stabledb
+    enable_completion: false
+    enable_sentence: false
+    initial_quality: 99
+
+  # 移除筆畫反查後，把懸空的識別規則也清掉，
+  # 否則 `` ` `` 會被識別為 reverse_lookup 而進入一個沒有翻譯器的空段。
+  recognizer/patterns/reverse_lookup: null
+  reverse_lookup: null
+  melt_eng:
+    dictionary: melt_eng
+    enable_sentence: false
+    enable_user_dict: false
+    initial_quality: 1.1
+    comment_format:
+      - xform/.*//

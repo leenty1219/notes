@@ -1,2 +1,5 @@
-2025/11/05-14:02:28.597971 0x20af720c0 Creating DB /Users/sui/Library/Rime/luna_pinyin.userdb since it was missing.
-2025/11/05-14:02:28.628254 0x20af720c0 Delete type=3 #1
+2026/09/26-00:10:14.550845 0x1f4783f80 Recovering log #75
+2026/09/26-00:10:14.550984 0x1f4783f80 Level-0 table #77: started
+2026/09/26-00:10:14.558740 0x1f4783f80 Level-0 table #77: 161 bytes OK
+2026/09/26-00:10:14.573197 0x1f4783f80 Delete type=0 #75
+2026/09/26-00:10:14.573243 0x1f4783f80 Delete type=3 #74

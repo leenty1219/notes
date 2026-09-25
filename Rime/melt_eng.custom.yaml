@@ -1,0 +1,24 @@
+# melt_eng.custom.yaml
+# 針對「霧凇英文詞庫」的性能 / 可用性優化補丁。
+#
+# 背景：
+#   melt_eng.schema.yaml 的 speller/algebra 預設會為每個英文詞派生
+#   ~12 種大小寫組合（全大寫、首字母大寫、前 2~10 字母大寫…），
+#   使編譯出的 melt_eng.prism.bin 膨脹到約 8.4 MB。
+#   而小鶴雙拼的 speller 字母表只有小寫，這些大寫組合根本無法輸入。
+#
+# 做法：
+#   把所有詞條編碼統一轉成小寫（xform + \L）。
+#   - 去掉大小寫派生 → prism 從 8.4MB 降到 ~0.9MB（約 10 倍）
+#   - 讓匹配大小寫不敏感 → 打 `google` 也能出 `Google`、
+#     打 `china` 也能出 `China`（原本大寫碼的詞也救回來了）
+#
+# 註：這裡用 xform（改寫）而不是 derive（派生），
+#     所以不會額外新增拼寫；相對只用空 algebra（只保留原始大小寫碼，
+#     約 0.35MB，但打 google 出不了 Google）的取捨見 README/說明。
+# 生效方式：選單「鼠鬚管 → 重新部署」，或執行
+#   "/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel" --reload
+
+patch:
+  speller/algebra:
+    - xform/^.+$/\L$0/
