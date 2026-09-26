@@ -51,14 +51,14 @@ patch:
 
   # ── 自定義短語（朋友名、郵箱、常用語等）──────────────
   # 條目寫在 custom_phrase.txt，格式：詞<TAB>雙拼編碼[<TAB>權重]
-  # initial_quality: 99 → 置頂，排在所有候選之前。
+  # initial_quality: 0.9 → 低權重，排在正常中文（1.2）與英文（1.1）候選之後。
   custom_phrase:
     dictionary: ""
     user_dict: custom_phrase
     db_class: stabledb
     enable_completion: false
     enable_sentence: false
-    initial_quality: 99
+    initial_quality: 0.9
 
   # 移除筆畫反查後，把懸空的識別規則也清掉，
   # 否則 `` ` `` 會被識別為 reverse_lookup 而進入一個沒有翻譯器的空段。

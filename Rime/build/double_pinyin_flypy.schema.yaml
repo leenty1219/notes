@@ -3,7 +3,7 @@ __build_info:
   timestamps:
     default: 1768354364
     default.custom: 1790350229
-    double_pinyin_flypy.custom: 1790352509
+    double_pinyin_flypy.custom: 1790407196
     double_pinyin_flypy.schema: 1790349697
     key_bindings: 1768354364
     key_bindings.custom: 0
@@ -14,7 +14,7 @@ custom_phrase:
   dictionary: ""
   enable_completion: false
   enable_sentence: false
-  initial_quality: 99
+  initial_quality: 0.9
   user_dict: custom_phrase
 emoji_suggestion:
   inherit_comment: false
