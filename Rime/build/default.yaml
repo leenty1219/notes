@@ -6,7 +6,7 @@ __build_info:
     key_bindings: 1768354364
     key_bindings.custom: 0
     punctuation: 1768354364
-    punctuation.custom: 0
+    punctuation.custom: 1790408157
 ascii_composer:
   good_old_caps_lock: true
   switch_key:
@@ -99,7 +99,7 @@ punctuator:
     ",": {commit: "，"}
     "-": "-"
     .: {commit: "。"}
-    "/": ["、", "/", "／", "÷"]
+    "/": ["/", "、", "／", "÷"]
     ":": {commit: "："}
     ";": {commit: "；"}
     "<": ["《", "〈", "«", "‹"]

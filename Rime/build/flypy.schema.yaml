@@ -8,7 +8,7 @@ __build_info:
     key_bindings: 1768354364
     key_bindings.custom: 0
     punctuation: 1768354364
-    punctuation.custom: 0
+    punctuation.custom: 1790408157
 emoji_suggestion:
   inherit_comment: false
   opencc_config: emoji.json
@@ -155,7 +155,7 @@ punctuator:
     ",": {commit: "，"}
     "-": "-"
     .: {commit: "。"}
-    "/": ["、", "/", "／", "÷"]
+    "/": ["/", "、", "／", "÷"]
     ":": {commit: "："}
     ";": {commit: "；"}
     "<": ["《", "〈", "«", "‹"]

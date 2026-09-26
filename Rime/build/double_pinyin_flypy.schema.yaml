@@ -3,12 +3,12 @@ __build_info:
   timestamps:
     default: 1768354364
     default.custom: 1790350229
-    double_pinyin_flypy.custom: 1790407196
+    double_pinyin_flypy.custom: 1790407427
     double_pinyin_flypy.schema: 1790349697
     key_bindings: 1768354364
     key_bindings.custom: 0
     punctuation: 1768354364
-    punctuation.custom: 0
+    punctuation.custom: 1790408157
 custom_phrase:
   db_class: stabledb
   dictionary: ""
@@ -16,6 +16,13 @@ custom_phrase:
   enable_sentence: false
   initial_quality: 0.9
   user_dict: custom_phrase
+custom_phrase_top:
+  db_class: stabledb
+  dictionary: ""
+  enable_completion: false
+  enable_sentence: false
+  initial_quality: 99
+  user_dict: custom_phrase_top
 emoji_suggestion:
   inherit_comment: false
   opencc_config: emoji.json
@@ -44,6 +51,7 @@ engine:
   translators:
     - punct_translator
     - script_translator
+    - "table_translator@custom_phrase_top"
     - "table_translator@custom_phrase"
     - "table_translator@melt_eng"
 key_binder:
@@ -136,7 +144,7 @@ punctuator:
     ",": {commit: "，"}
     "-": "-"
     .: {commit: "。"}
-    "/": ["、", "/", "／", "÷"]
+    "/": ["/", "、", "／", "÷"]
     ":": {commit: "："}
     ";": {commit: "；"}
     "<": ["《", "〈", "«", "‹"]

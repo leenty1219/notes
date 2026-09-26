@@ -8,7 +8,7 @@ __build_info:
     melt_eng.custom: 1790351679
     melt_eng.schema: 1790351204
     punctuation: 1768354364
-    punctuation.custom: 0
+    punctuation.custom: 1790408157
 algebra_common:
   - "derive/1([4-7|9])/$1teen/"
   - "derive/11/eleven/"
@@ -835,7 +835,7 @@ punctuator:
     ",": {commit: "，"}
     "-": "-"
     .: {commit: "。"}
-    "/": ["、", "/", "／", "÷"]
+    "/": ["/", "、", "／", "÷"]
     ":": {commit: "："}
     ";": {commit: "；"}
     "<": ["《", "〈", "«", "‹"]
