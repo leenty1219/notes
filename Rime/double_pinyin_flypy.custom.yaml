@@ -44,10 +44,22 @@ patch:
   engine/translators:
     - punct_translator
     - script_translator
+    - table_translator@custom_phrase_top
     - table_translator@custom_phrase
     - table_translator@melt_eng
   # 主拼音權重必須高於英文的 1.1，中文候選才排在前面
   translator/initial_quality: 1.2
+
+  # ── 置頂短語（最高權重）──────────────────────────
+  # 條目寫在 custom_phrase_top.txt，格式：詞<TAB>雙拼編碼[<TAB>權重]
+  # initial_quality: 99 → 置頂，排在所有候選之前。
+  custom_phrase_top:
+    dictionary: ""
+    user_dict: custom_phrase_top
+    db_class: stabledb
+    enable_completion: false
+    enable_sentence: false
+    initial_quality: 99
 
   # ── 自定義短語（朋友名、郵箱、常用語等）──────────────
   # 條目寫在 custom_phrase.txt，格式：詞<TAB>雙拼編碼[<TAB>權重]
