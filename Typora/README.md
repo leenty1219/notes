@@ -1,6 +1,6 @@
 # Typora 笔记总览
 
-这是一个以 iOS 开发为主轴的个人知识库，同时包含 AI 编码工具、Frida 逆向、Go/Rust 语言基础、Mac/NAS/生活记录等内容。
+这是一个以 iOS 开发为主轴的个人知识库，同时包含 AI 编码工具、Frida 逆向、Go/Rust/Zig 语言基础、Mac/NAS/生活记录等内容。
 
 ## 快速入口
 
@@ -11,7 +11,8 @@
 | AI 工具 | [ai/README.md](ai/README.md) | pi、Codex、Claude、Copilot、Kimi、Herdr、OMX 等速查 |
 | 逆向分析 | [逆向/README.md](逆向/README.md) | Frida、iOS 逆向、ARM 寄存器、汇编、工具链 |
 | Go | [Go/README.md](Go/README.md) | Go 基础、并发、字符串、日志、XORM、Go Mod 等 |
-| Rust | [Rust/README.md](Rust/README.md) | Rust 基础、trait、生命周期、闭包、多线程等 |
+| Rust | [Rust/README.md](Rust/README.md) | Rust 知识点、所有权、Tokio 与网络编程等 |
+| Zig | [Zig/README.md](Zig/README.md) | Zig 背景选型、语言基础、内存管理与官方学习资料 |
 | Combine + UIKit | [Combine+UIKit/README.md](Combine+UIKit/README.md) | Combine 与 UIKit 封装实例 |
 | Mac | [Mac/README.md](Mac/README.md) | Mac 使用记录 |
 | NAS | [Nas/README.md](Nas/README.md) | 家庭服务、DNS 配置 |
