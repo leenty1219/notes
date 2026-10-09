@@ -23,7 +23,9 @@
 | [通用/FBPromise.md](通用/FBPromise.md) | Promise 使用与理解 |
 | [通用/YYModel.md](通用/YYModel.md) | YYModel 相关记录 |
 | [通用/Carthage.md](通用/Carthage.md) | Carthage 依赖管理 |
-| [通用/Git.md](通用/Git.md) | Git 使用记录 |
+| [通用/Git.md](通用/Git.md) | Git 个人使用记录与本机索引设置 |
+| [通用/Git操作手册.md](通用/Git操作手册.md) | Git 从基础配置到分支协作、撤销恢复和排障的完整操作手册 |
+| [通用/Git裸仓库与Worktree.md](通用/Git裸仓库与Worktree.md) | 裸仓库与多个 worktree 的用法，含 Nuke iOS 项目实操示例 |
 | [通用/UI.md](通用/UI.md) | UI 相关记录 |
 | [通用/图片UIImage.md](通用/图片UIImage.md) | UIImage 处理 |
 | [通用/字体.md](通用/字体.md) | 字体相关记录 |
