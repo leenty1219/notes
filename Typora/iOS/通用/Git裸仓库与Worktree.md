@@ -21,6 +21,7 @@
 ```bash
 mkdir -p ~/Projects
 git clone --bare git@github.com:example/app.git ~/Projects/app.git
+// git clone git@m.sui.work:iOS/MyMoney.git --bare .git // 直接作为一个隐藏文件
 ```
 
 `git clone --bare` 会把仓库克隆到 `app.git`，不创建普通的项目文件目录。克隆完成后检查仓库和分支：

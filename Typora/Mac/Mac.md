@@ -117,6 +117,12 @@ herdr：一个终端的agent集合
 
 EdgeEver：自部署的免费笔记软件
 
+
+
+magpie 各项AI的配置集合体
+
+orca
+
 ## 15 配置本机Claude
 
 ```bash
