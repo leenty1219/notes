@@ -1,0 +1,22 @@
+# punctuation.custom.yaml
+# 調整標點鍵位（來源：系統 SharedSupport/punctuation.yaml）。
+#
+# 問題：半角（half_shape）下
+#   `/` 鍵（即 `?` 鍵）原為 [ 、, /, ／, ÷ ]，預設出「、」；
+#   Enter 上方的 `\` 鍵原為 [ 、, \, ＼ ]，預設也出「、」，
+#   兩鍵預設結果衝突。
+#
+# 目的：讓 `?` 鍵預設輸出半角 `/`，第二位才是「、」；
+#       `\` 鍵維持不變（仍預設「、」）。
+#
+# 註：librime 的 patch 路徑以 `/` 分隔且無法轉義，直接寫
+#     half_shape/'/' 會被切成空鍵。因此改用 `__merge` 字面量補丁，
+#     讓 merge_tree 分支以「字面鍵名」寫入 `/`，是唯一可靠寫法。
+#
+# 生效方式：選單「鼠鬚管 → 重新部署」，或執行
+#   "/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel" --reload
+
+patch:
+  __merge:
+    half_shape:
+      '/': [ '/', 、, ／, ÷ ]

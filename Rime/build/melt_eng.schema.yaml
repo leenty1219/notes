@@ -2,13 +2,13 @@ __build_info:
   rime_version: 1.16.0
   timestamps:
     default: 1768354364
-    default.custom: 1790350229
+    default.custom: 1792121486
     key_bindings: 1768354364
     key_bindings.custom: 0
-    melt_eng.custom: 1790351679
-    melt_eng.schema: 1790351204
+    melt_eng.custom: 1790558005
+    melt_eng.schema: 1790558005
     punctuation: 1768354364
-    punctuation.custom: 1790408157
+    punctuation.custom: 1790558005
 algebra_common:
   - "derive/1([4-7|9])/$1teen/"
   - "derive/11/eleven/"

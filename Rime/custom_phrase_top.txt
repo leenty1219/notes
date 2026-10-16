@@ -27,3 +27,18 @@
 # 张三	vhsj
 # 李四	lisi
 # 我的邮箱	yx
+a	啊
+是嘞	uilw
+成屎	igui
+阿色	aase
+艳平	yjpk
+我	w
+我们	wm
+iOS	ios
+Swift	swift
+是	ui
+汀语	tkyu
+周汀语	zty
+鸡鸭子	jiyazi
+秋云	qqyy
+俊熙	jyxi

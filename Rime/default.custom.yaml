@@ -16,3 +16,12 @@ patch:
   # 每頁候選詞數量：8
   menu:
     page_size: 8
+
+  # 輸入中按 Shift（左右皆可）：把已輸入的編碼原樣上屏為英文，
+  # 並保持在英文輸入狀態，直到再按一次 Shift 才回到中文。
+  # 上游預設是 Shift_L: inline_ascii（要再按 Enter 才上屏，且上屏後立刻切回中文），
+  # 以及 Shift_R: commit_text（會把選中的中文候選上屏），故一併改為 commit_code。
+  # 注意：這裡必須用「斜線路徑」寫法。若寫成巢狀 map（ascii_composer: switch_key: ...），
+  # librime 會整塊取代 ascii_composer，連上游的 good_old_caps_lock / Caps_Lock 一併遺失。
+  ascii_composer/switch_key/Shift_L: commit_code
+  ascii_composer/switch_key/Shift_R: commit_code
