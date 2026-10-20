@@ -3,7 +3,7 @@ __build_info:
   timestamps:
     default: 1768354364
     default.custom: 1792121486
-    double_pinyin_flypy.custom: 1790558005
+    double_pinyin_flypy.custom: 1792464793
     double_pinyin_flypy.schema: 1790558005
     key_bindings: 1768354364
     key_bindings.custom: 0
@@ -84,6 +84,8 @@ key_binder:
     - {accept: "Control+Shift+numbersign", toggle: full_shape, when: always}
     - {accept: "Control+Shift+dollar", toggle: simplification, when: always}
     - {accept: "Control+Shift+percent", toggle: extended_charset, when: always}
+    - {accept: bracketleft, send: Page_Up, when: paging}
+    - {accept: bracketright, send: Page_Down, when: has_menu}
   import_preset: default
 melt_eng:
   comment_format:
