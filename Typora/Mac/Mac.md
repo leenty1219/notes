@@ -186,3 +186,6 @@ pkill -f "gitnexus serve"
 lsof -ti:4747 | xargs kill。
 ```
 
+## 18 iOS 开发 配套环境查询
+
+https://developer.apple.com/xcode/system-requirements/
