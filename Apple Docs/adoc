@@ -1,0 +1,994 @@
+#!/usr/bin/env python3
+"""adoc: query Apple developer docs imported from Xcode's local documentation asset.
+
+Source: /System/Library/AssetsV2/com_apple_MobileAsset_AppleDeveloperDocumentation
+(the same data Xcode's DocumentationSearch uses). Read-only; nothing is downloaded.
+
+    ./adoc import [--source DIR]        build or incrementally merge data/docs.db (manual)
+    ./adoc import-oc [--docset DIR]     add Objective-C pages from a Dash Apple docset (manual)
+    ./adoc search QUERY [-f FW] [-n N] [--text]
+    ./adoc show PATH                    e.g. uikit/uilabel/numberoflines
+    ./adoc objc PATH [--offline]        Objective-C docs; local when stored, else online
+    ./adoc info
+"""
+import argparse
+import difflib
+import hashlib
+import json
+import os
+import plistlib
+import re
+import sqlite3
+import subprocess
+import sys
+import tempfile
+import time
+import urllib.parse
+import zlib
+
+HERE = os.path.dirname(os.path.realpath(__file__))
+DB_PATH = os.path.join(HERE, "data", "docs.db")
+ASSET_ROOT = "/System/Library/AssetsV2/com_apple_MobileAsset_AppleDeveloperDocumentation"
+DASH_DOCSET = os.path.expanduser(
+    "~/Library/Application Support/Dash/DocSets/Apple_API_Reference/Apple_API_Reference.docset")
+DOC_PREFIX = "/documentation/"
+IOS_PLATFORMS = ("iOS", "iPadOS")
+SUMMARY_LIMIT = 240
+BATCH = 5000
+
+SCHEMA = """
+CREATE TABLE IF NOT EXISTS meta(key TEXT PRIMARY KEY, value TEXT);
+CREATE TABLE IF NOT EXISTS pages(
+    id INTEGER PRIMARY KEY,
+    key TEXT NOT NULL UNIQUE,
+    path TEXT NOT NULL,
+    framework TEXT NOT NULL COLLATE NOCASE,
+    title TEXT NOT NULL COLLATE NOCASE,
+    kind TEXT NOT NULL,
+    role_heading TEXT NOT NULL,
+    summary TEXT NOT NULL,
+    ios_introduced REAL,
+    ios_deprecated INTEGER NOT NULL,
+    depth INTEGER NOT NULL,
+    hash TEXT NOT NULL,
+    lang TEXT NOT NULL DEFAULT 'swift'
+);
+CREATE INDEX IF NOT EXISTS pages_title ON pages(title);
+CREATE INDEX IF NOT EXISTS pages_framework ON pages(framework);
+CREATE TABLE IF NOT EXISTS bodies(id INTEGER PRIMARY KEY, md BLOB NOT NULL);
+CREATE TABLE IF NOT EXISTS oc_pages(
+    id INTEGER PRIMARY KEY,
+    key TEXT NOT NULL UNIQUE,
+    path TEXT NOT NULL,
+    title TEXT NOT NULL,
+    role_heading TEXT NOT NULL,
+    md BLOB NOT NULL
+);
+CREATE TABLE IF NOT EXISTS changes(
+    id INTEGER PRIMARY KEY, ts TEXT NOT NULL, release TEXT NOT NULL,
+    key TEXT NOT NULL, action TEXT NOT NULL
+);
+"""
+
+FTS_SCHEMA = """
+DROP TABLE IF EXISTS names_fts;
+DROP TABLE IF EXISTS text_fts;
+CREATE VIRTUAL TABLE names_fts USING fts5(
+    name, page_id UNINDEXED, tokenize='trigram'
+);
+CREATE VIRTUAL TABLE text_fts USING fts5(
+    title, body, content='', tokenize='unicode61 remove_diacritics 2'
+);
+"""
+
+LINK_TARGET = re.compile(r"\]\((?:[^()]|\([^()]*\))*\)")
+CAMEL_A = re.compile(r"([a-z0-9])([A-Z])")
+CAMEL_B = re.compile(r"([A-Z]+)([A-Z][a-z])")
+
+
+# ---------------------------------------------------------------- helpers
+
+def split_words(text):
+    """'NSString' -> 'NS String'; 'numberOfLines' -> 'number Of Lines'."""
+    return CAMEL_B.sub(r"\1 \2", CAMEL_A.sub(r"\1 \2", text))
+
+
+def name_blob(title, path):
+    return " ".join([title] + path[len(DOC_PREFIX):].split("/"))
+
+
+def plain_text(md):
+    return LINK_TARGET.sub("]", md)
+
+
+def fts_phrase(term):
+    return '"' + term.replace('"', '""') + '"'
+
+
+def format_ios(introduced, deprecated):
+    text = "iOS (all)" if introduced is None else "iOS %g+" % introduced
+    return text + (" deprecated" if deprecated else "")
+
+
+def page_text(blob):
+    return plain_text(zlib.decompress(blob).decode("utf-8"))
+
+
+def page_markdown(db, pid):
+    """Stored Markdown for a page: Swift body when present, else the OC body."""
+    for table in ("bodies", "oc_pages"):
+        row = db.execute("SELECT md FROM %s WHERE id=?" % table, (pid,)).fetchone()
+        if row:
+            return page_text(row[0])
+    return ""
+
+
+def migrate(db):
+    """Bring an older database up to the current shape."""
+    db.executescript(SCHEMA)
+    columns = {row[1] for row in db.execute("PRAGMA table_info(pages)")}
+    if "lang" not in columns:
+        db.execute("ALTER TABLE pages ADD COLUMN lang TEXT NOT NULL DEFAULT 'swift'")
+    db.commit()
+
+
+def connect():
+    if not os.path.exists(DB_PATH):
+        sys.exit("no database; run ./adoc import first")
+    db = sqlite3.connect(DB_PATH)
+    migrate(db)
+    return db
+
+
+# ---------------------------------------------------------------- import
+
+def macos_major_minor():
+    out = subprocess.run(["sw_vers", "-productVersion"], capture_output=True, text=True)
+    return ".".join(out.stdout.strip().split(".")[:2])
+
+
+def version_key(text):
+    return tuple(int(p) for p in re.findall(r"\d+", text))
+
+
+def pick_asset(root):
+    assets = []
+    for name in os.listdir(root):
+        info = os.path.join(root, name, "Info.plist")
+        if name.endswith(".asset") and os.path.exists(info):
+            with open(info, "rb") as handle:
+                props = plistlib.load(handle).get("MobileAssetProperties", {})
+            assets.append((name, props))
+    if not assets:
+        sys.exit("no documentation asset under " + root)
+    current = macos_major_minor()
+    for name, props in assets:
+        if props.get("OSVersion") == current:
+            return os.path.join(root, name), props
+    name, props = max(assets, key=lambda a: version_key(a[1].get("OSVersion", "0")))
+    return os.path.join(root, name), props
+
+
+def ios_availability(platforms):
+    """Return (introduced, deprecated) for iOS/iPadOS, or None if neither listed."""
+    for wanted in IOS_PLATFORMS:
+        for entry in platforms:
+            if entry.get("platform") == wanted:
+                return entry.get("introduced"), bool(entry.get("deprecated"))
+    return None
+
+
+def load_roots(src):
+    roots = {}
+    rows = src.execute(
+        "SELECT asset_id, document FROM documents WHERE asset_id LIKE '/documentation/%' "
+        "AND instr(substr(asset_id, 16), '/') = 0 AND instr(asset_id, '#') = 0"
+    )
+    for asset_id, document in rows:
+        platforms = json.loads(document).get("platforms") or []
+        roots[asset_id[len(DOC_PREFIX):].lower()] = ios_availability(platforms) is not None
+    return roots
+
+
+def load_sections(src):
+    sections = {}
+    rows = src.execute(
+        "SELECT asset_id, vector_id, content FROM attributes "
+        "WHERE asset_id LIKE '/documentation/%#%' ORDER BY vector_id"
+    )
+    for asset_id, _, content in rows:
+        sections.setdefault(asset_id.split("#", 1)[0], []).append(content or "")
+    return sections
+
+
+def build_markdown(title, content, sections):
+    lines = (content or "").split("\n")
+    lines[0] = "# " + lines[0]
+    parts = ["\n".join(lines).rstrip()]
+    prefix = title + ": "
+    for text in sections:
+        head, _, rest = text.partition("\n")
+        if head.startswith(prefix):
+            head = head[len(prefix):]
+        parts.append("## " + head + "\n\n" + rest.strip())
+    return "\n\n".join(parts) + "\n"
+
+
+def summarize(content, role_heading):
+    rest = (content or "").split("\n")[1:]
+    while rest and (not rest[0].strip() or rest[0].startswith(role_heading + " of ")):
+        rest.pop(0)
+    block = []
+    for line in rest:
+        if not line.strip() or line.startswith("```"):
+            break
+        block.append(line.strip())
+    return " ".join(block)[:SUMMARY_LIMIT]
+
+
+def iter_pages(src):
+    """Yield one dict per iOS page: sections merged into the parent page."""
+    roots = load_roots(src)
+    sections = load_sections(src)
+    rows = src.execute(
+        "SELECT a.asset_id, a.title, a.content, d.document FROM attributes a "
+        "JOIN documents d ON d.asset_id = a.asset_id "
+        "WHERE a.asset_id LIKE '/documentation/%' "
+        "AND a.asset_id NOT LIKE '%#%' ORDER BY a.vector_id"
+    )
+    for asset_id, title, content, document in rows:
+        doc = json.loads(document)
+        key = asset_id[len(DOC_PREFIX):].lower()
+        framework = asset_id[len(DOC_PREFIX):].split("/")[0]
+        platforms = doc.get("platforms")
+        if platforms is None:
+            if not roots.get(framework.lower(), False):
+                continue
+            avail = (None, False)
+        else:
+            avail = ios_availability(platforms)
+            if avail is None:
+                continue
+        title = title or doc.get("fileName") or key.rsplit("/", 1)[-1]
+        symbol = doc.get("symbol") or {}
+        role_heading = doc.get("roleHeading") or ""
+        md = build_markdown(title, content, sections.get(asset_id, []))
+        kind = symbol.get("kind") or doc.get("role") or ""
+        digest = hashlib.sha1(
+            "\0".join([md, kind, role_heading, str(avail[0]), str(avail[1])]).encode("utf-8")
+        ).hexdigest()
+        yield {
+            "key": key, "path": asset_id, "framework": framework, "title": title,
+            "kind": kind, "role_heading": role_heading,
+            "summary": summarize(content, role_heading),
+            "ios_introduced": avail[0], "ios_deprecated": int(avail[1]),
+            "depth": key.count("/"), "hash": digest, "md": md,
+        }
+
+
+PAGE_COLUMNS = (
+    "key", "path", "framework", "title", "kind", "role_heading", "summary",
+    "ios_introduced", "ios_deprecated", "depth", "hash",
+)
+
+
+def merge_pages(db, pages, release):
+    existing = {k: (i, h, lang) for i, k, h, lang in
+                db.execute("SELECT id, key, hash, lang FROM pages")}
+    next_id = (db.execute("SELECT MAX(id) FROM pages").fetchone()[0] or 0) + 1
+    seen, log = set(), []
+    skipped = count = 0
+    for page in pages:
+        count += 1
+        if count % 20000 == 0:
+            print("  scanned %d pages" % count, file=sys.stderr)
+        if page["key"] in seen:
+            skipped += 1
+            continue
+        seen.add(page["key"])
+        blob = zlib.compress(page["md"].encode("utf-8"), 9)
+        values = [page[c] for c in PAGE_COLUMNS]
+        old = existing.get(page["key"])
+        if old is None:
+            marks = ",".join("?" * (len(PAGE_COLUMNS) + 2))
+            db.execute("INSERT INTO pages (id, %s, lang) VALUES (%s)" % (
+                ", ".join(PAGE_COLUMNS), marks), [next_id] + values + ["swift"])
+            db.execute("INSERT INTO bodies VALUES (?, ?)", (next_id, blob))
+            next_id += 1
+            log.append((page["key"], "added"))
+        elif old[2] == "oc" or old[1] != page["hash"]:
+            sets = ",".join("%s=?" % c for c in PAGE_COLUMNS)
+            db.execute("UPDATE pages SET %s, lang='swift' WHERE id=?" % sets, values + [old[0]])
+            db.execute("INSERT OR REPLACE INTO bodies VALUES (?, ?)", (old[0], blob))
+            db.execute("DELETE FROM oc_pages WHERE id=?", (old[0],))
+            log.append((page["key"], "updated"))
+    gone = [(i, k) for k, (i, _, lang) in existing.items() if k not in seen and lang == "swift"]
+    for pid, key in gone:
+        db.execute("DELETE FROM pages WHERE id=?", (pid,))
+        db.execute("DELETE FROM bodies WHERE id=?", (pid,))
+        db.execute("DELETE FROM oc_pages WHERE id=?", (pid,))
+        log.append((key, "removed"))
+    stamp = time.strftime("%Y-%m-%dT%H:%M:%S")
+    db.executemany(
+        "INSERT INTO changes(ts, release, key, action) VALUES (?,?,?,?)",
+        [(stamp, release, k, a) for k, a in log],
+    )
+    return log, skipped
+
+
+def rebuild_fts(db):
+    db.executescript(FTS_SCHEMA)
+    cursor = db.execute(
+        "SELECT p.id, p.title, p.path, b.md, o.title, o.md FROM pages p "
+        "LEFT JOIN bodies b ON b.id = p.id LEFT JOIN oc_pages o ON o.id = p.id"
+    )
+    done = 0
+    while True:
+        rows = cursor.fetchmany(BATCH)
+        if not rows:
+            break
+        names, texts = [], []
+        for pid, title, path, blob, oc_title, oc_blob in rows:
+            names.append((pid, name_blob(title, path)))
+            if oc_title and oc_title.lower() != title.lower():
+                names.append((pid, name_blob(oc_title, path)))
+            body = page_text(blob or oc_blob)
+            texts.append((pid, title + " " + split_words(title), body))
+        db.executemany("INSERT INTO names_fts(page_id, name) VALUES (?, ?)", names)
+        db.executemany("INSERT INTO text_fts(rowid, title, body) VALUES (?, ?, ?)", texts)
+        done += len(rows)
+        print("  indexed %d pages" % done, file=sys.stderr)
+    db.commit()
+
+
+def extract_source(db_file, target):
+    """Copy the /documentation rows into a plain table file.
+
+    Python's bundled SQLite (3.35) cannot open the source's STRICT tables; the
+    system sqlite3 CLI can. The source is opened read-only and immutable.
+    """
+    sql = (
+        "ATTACH '%s' AS t;"
+        "CREATE TABLE t.documents AS SELECT asset_id, document FROM documents "
+        "WHERE asset_id LIKE '/documentation/%%';"
+        "CREATE TABLE t.attributes AS SELECT asset_id, vector_id, title, content "
+        "FROM attributes WHERE chunk_index = 0 AND asset_id LIKE '/documentation/%%';"
+        "CREATE UNIQUE INDEX t.documents_asset ON documents(asset_id);"
+        "CREATE INDEX t.attributes_asset ON attributes(asset_id);"
+    ) % target
+    uri = "file:%s?mode=ro&immutable=1" % db_file
+    subprocess.run(["/usr/bin/sqlite3", uri, sql], check=True)
+
+
+def cmd_import(args):
+    asset, props = pick_asset(args.source or ASSET_ROOT)
+    release = "%s/xcode%s/os%s" % (
+        props.get("DocumentationRelease"), props.get("XcodeVersion"), props.get("OSVersion"),
+    )
+    print("source: %s (%s)" % (asset, release), file=sys.stderr)
+    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+    db_file = os.path.join(asset, "AssetData", "documentation-db", "index.sql")
+    with tempfile.TemporaryDirectory() as tmp:
+        extracted = os.path.join(tmp, "source.db")
+        extract_source(db_file, extracted)
+        merge_from(extracted, release)
+
+
+def merge_from(extracted, release):
+    db = sqlite3.connect(DB_PATH)
+    db.executescript(SCHEMA)
+    fts_ready = db.execute("SELECT value FROM meta WHERE key='fts_ready'").fetchone()
+    src = sqlite3.connect(extracted)
+    db.execute("INSERT OR REPLACE INTO meta VALUES ('fts_ready', '0')")
+    log, skipped = merge_pages(db, iter_pages(src), release)
+    meta = {"release": release, "imported_at": time.strftime("%Y-%m-%d %H:%M:%S")}
+    db.executemany("INSERT OR REPLACE INTO meta VALUES (?, ?)", meta.items())
+    db.commit()
+    if log or not fts_ready or fts_ready[0] != "1":
+        rebuild_fts(db)
+    db.execute("INSERT OR REPLACE INTO meta VALUES ('fts_ready', '1')")
+    db.commit()
+    tally = {}
+    for _, action in log:
+        tally[action] = tally.get(action, 0) + 1
+    print("changes: %s; duplicate keys skipped: %d" % (tally or "none", skipped))
+
+
+# ---------------------------------------------------------------- search
+
+FUZZY_BASE = 10
+NESTING_PENALTY = 3
+
+
+def nesting_penalty(row):
+    """Members (depth >= 2) rank after top-level types with an equal name match."""
+    return 0 if row[8] <= 1 else NESTING_PENALTY
+
+
+def term_quality(term, parts):
+    """0 exact, 1 prefix, 2 substring over name parts; None if absent."""
+    best = None
+    for part in parts:
+        if part == term:
+            return 0
+        if part.startswith(term):
+            quality = 1
+        elif term in part:
+            quality = 2
+        else:
+            continue
+        best = quality if best is None else min(best, quality)
+    return best
+
+
+def rank_tier(row, terms):
+    """Lower is better; None when a term does not occur in a title or the path."""
+    path = row[2]
+    titles = [row[3]] + ([row[9]] if row[9] and row[9].lower() != row[3].lower() else [])
+    parts = [t.lower().split("(")[0] for t in titles]
+    parts += [p.split("(")[0] for p in path[len(DOC_PREFIX):].lower().split("/")]
+    if len(terms) > 1:
+        scores = [term_quality(t, parts) for t in terms]
+        return None if None in scores else sum(scores)
+    term = terms[0]
+    tiers = []
+    for title in titles:
+        base = title.lower().split("(")[0]
+        segments = [s.lower() for s in split_words(title.split("(")[0]).split()]
+        if base == term:
+            tiers.append(0)
+        elif term in segments:
+            tiers.append(1)
+        elif base.startswith(term):
+            tiers.append(2)
+        elif term in base:
+            tiers.append(3)
+    if tiers:
+        return min(tiers) + nesting_penalty(row)
+    if term_quality(term, parts[len(titles):]) is not None:
+        return 4 + nesting_penalty(row)
+    return None
+
+
+PAGE_SELECT = ("SELECT p.id, p.key, p.path, p.title, p.kind, p.summary, p.ios_introduced, "
+               "p.ios_deprecated, p.depth, o.title FROM pages p "
+               "LEFT JOIN oc_pages o ON o.id = p.id")
+
+
+def name_candidates(db, query, terms, framework):
+    found = {}
+    fw_sql = " AND p.framework = ?" if framework else ""
+    fw_arg = [framework] if framework else []
+
+    def add(sql, args):
+        for row in db.execute(sql, args):
+            found[row[0]] = row
+
+    if len(terms) == 1:
+        low, high = terms[0], terms[0] + "\U0010ffff"
+        add(PAGE_SELECT + " WHERE p.title >= ? AND p.title < ?" + fw_sql + " LIMIT 300",
+            [low, high] + fw_arg)
+        add(PAGE_SELECT + " WHERE p.title LIKE ?" + fw_sql + " LIMIT 300",
+            ["%" + terms[0]] + fw_arg)
+    long_terms = [t for t in terms if len(t) >= 3]
+    if long_terms:
+        match = " AND ".join(fts_phrase(t) for t in long_terms)
+        add(PAGE_SELECT + " WHERE p.id IN (SELECT page_id FROM names_fts "
+            "WHERE names_fts MATCH ? ORDER BY rank LIMIT 5000)" + fw_sql,
+            [match] + fw_arg)
+    return found
+
+
+def fuzzy_candidates(db, terms, framework):
+    trigrams = set()
+    for term in terms:
+        trigrams.update(term[i:i + 3] for i in range(len(term) - 2))
+    if not trigrams:
+        return {}
+    match = " OR ".join(fts_phrase(t) for t in sorted(trigrams))
+    fw_sql = " AND p.framework = ?" if framework else ""
+    sql = (PAGE_SELECT + " WHERE p.id IN (SELECT page_id FROM names_fts "
+           "WHERE names_fts MATCH ? ORDER BY rank LIMIT 400)" + fw_sql)
+    return {r[0]: r for r in db.execute(sql, [match] + ([framework] if framework else []))}
+
+
+def print_hit(row):
+    _, key, _, title, kind, summary, introduced, deprecated, _ = row[:9]
+    print("%s  [%s]  %s  %s" % (title, kind, key, format_ios(introduced, deprecated)))
+    if summary:
+        print("    " + summary[:120])
+
+
+def print_oc_name(row, terms):
+    if len(row) < 10 or not terms:
+        return
+    oc_title = row[9]
+    if not oc_title:
+        return
+    if re.sub(r"\W", "", oc_title.lower()) == re.sub(r"\W", "", row[3].lower()):
+        return
+    if any(term in oc_title.lower() for term in terms):
+        print("    Objective-C: %s" % oc_title)
+
+
+def search_names(db, args):
+    terms = [t.lower() for t in args.query.split()]
+    rows = name_candidates(db, args.query, terms, args.framework)
+    ranked = []
+    for row in rows.values():
+        tier = rank_tier(row, terms)
+        if tier is not None:
+            ranked.append((tier, row))
+    if not ranked:
+        joined = "".join(terms)
+        fuzzy = fuzzy_candidates(db, terms, args.framework)
+        for pid, row in fuzzy.items():
+            if pid not in rows:
+                ratio = difflib.SequenceMatcher(
+                    None, joined, row[3].lower().split("(")[0]).ratio()
+                ranked.append((FUZZY_BASE + (1 - ratio) + nesting_penalty(row), row))
+    ranked.sort(key=lambda tr: (tr[0], tr[1][8], len(tr[1][3]), tr[1][3].lower()))
+    return [r for _, r in ranked[:args.limit]]
+
+
+def search_text(db, args):
+    terms = re.findall(r"\w+", args.query)
+    if not terms:
+        return []
+    match = " AND ".join(fts_phrase(t) for t in terms)
+    fw_sql = " AND p.framework = ?" if args.framework else ""
+    sql = ("SELECT p.id, p.key, p.path, p.title, p.kind, p.summary, p.ios_introduced, "
+           "p.ios_deprecated, p.depth FROM text_fts JOIN pages p ON p.id = text_fts.rowid "
+           "WHERE text_fts MATCH ?" + fw_sql + " ORDER BY bm25(text_fts, 10.0, 1.0) LIMIT ?")
+    params = [match] + ([args.framework] if args.framework else []) + [args.limit]
+    return db.execute(sql, params).fetchall()
+
+
+def snippet(db, pid, terms):
+    text = re.sub(r"<!--.*?-->", "", page_markdown(db, pid), flags=re.S)
+    low = text.lower()
+    hits = [low.find(t.lower()) for t in terms if t.lower() in low]
+    start = max(min(hits) - 60, 0) if hits else 0
+    return " ".join(text[start:start + 200].split())
+
+
+def cmd_search(args):
+    db = connect()
+    rows = search_text(db, args) if args.text else search_names(db, args)
+    if not rows:
+        print("no results")
+        return
+    terms = re.findall(r"\w+", args.query)
+    for row in rows:
+        print_hit(row)
+        print_oc_name(row, [t.lower() for t in terms] if not args.text else [])
+        if args.text:
+            print("    ..." + snippet(db, row[0], terms))
+
+
+# ---------------------------------------------------------------- show / info
+
+def normalize_target(target):
+    target = re.sub(r"^https?://developer\.apple\.com", "", target.strip())
+    target = target.split("#", 1)[0].strip("/")
+    if target.lower().startswith("documentation/"):
+        target = target[len("documentation/"):]
+    return target.lower()
+
+
+def cmd_show(args):
+    db = connect()
+    key = normalize_target(args.target)
+    row = db.execute(
+        "SELECT id, path, kind, role_heading, ios_introduced, ios_deprecated, lang "
+        "FROM pages WHERE key=?", (key,)).fetchone()
+    if row is None:
+        print("not found: %s" % key, file=sys.stderr)
+        similar = search_names(db, argparse.Namespace(
+            query=key.rsplit("/", 1)[-1], framework=None, limit=5))
+        for hit in similar:
+            print("  did you mean: " + hit[1], file=sys.stderr)
+        sys.exit(1)
+    pid, path, kind, role_heading, introduced, deprecated, lang = row
+    print("<!-- %s | %s | %s | %s%s -->\n" % (
+        path, role_heading or kind, kind, format_ios(introduced, deprecated),
+        " | Objective-C only" if lang == "oc" else ""))
+    md = page_markdown(db, pid)
+    if md.startswith("<!--"):
+        _, _, md = md.partition("-->")
+        md = md.lstrip("\n")
+    sys.stdout.write(md)
+
+
+# ---------------------------------------------------------------- objc (render / online)
+
+DOCC_URL = "https://developer.apple.com/tutorials/data/documentation/"
+OBJC_LANGUAGE = "occ"
+FETCH_TIMEOUT = "30"
+URL_SAFE = "/()_:-.,~"
+
+
+def fetch_docc(path):
+    """Fetch DocC JSON via curl (system trust store; Python's bundled one fails TLS here)."""
+    url = DOCC_URL + urllib.parse.quote(path, safe=URL_SAFE) + ".json"
+    result = subprocess.run(
+        ["curl", "-sS", "-f", "-m", FETCH_TIMEOUT, url], capture_output=True)
+    if result.returncode == 22:
+        return None
+    if result.returncode != 0:
+        sys.exit("fetch failed: " + result.stderr.decode("utf-8", "replace").strip())
+    return json.loads(result.stdout)
+
+
+def pointer_steps(pointer):
+    return [s.replace("~1", "/").replace("~0", "~") for s in pointer.split("/")[1:]]
+
+
+def step_key(container, step):
+    return int(step) if isinstance(container, list) else step
+
+
+def apply_patch(doc, ops):
+    """Apply JSON-patch add/replace/remove operations (the subset DocC variants use)."""
+    for op in ops:
+        steps = pointer_steps(op["path"])
+        parent = doc
+        for step in steps[:-1]:
+            parent = parent[step_key(parent, step)]
+        last = step_key(parent, steps[-1])
+        if op["op"] == "remove":
+            del parent[last]
+        elif op["op"] == "add" and isinstance(parent, list):
+            parent.insert(last, op["value"])
+        else:
+            parent[last] = op["value"]
+
+
+def has_objc_declaration(doc):
+    return any(
+        objc_declarations(s) for s in doc.get("primaryContentSections", [])
+        if s.get("kind") == "declarations"
+    )
+
+
+def objc_document(doc):
+    """Return the document in Objective-C form, or None if no OC declaration exists.
+
+    A variant override alone is not proof: Swift-only APIs such as Swift.String can carry
+    one that patches metadata but leaves the declaration in Swift.
+    """
+    for override in doc.get("variantOverrides") or []:
+        traits = [t.get("interfaceLanguage") for t in override.get("traits", [])]
+        if OBJC_LANGUAGE in traits:
+            apply_patch(doc, override["patch"])
+            break
+    return doc if has_objc_declaration(doc) else None
+
+
+def render_inline(items, refs):
+    out = []
+    for item in items or []:
+        kind = item.get("type")
+        if kind == "reference":
+            ref = refs.get(item.get("identifier"), {})
+            out.append("`%s`" % (ref.get("title") or item.get("identifier", "").rsplit("/", 1)[-1]))
+        elif kind == "codeVoice":
+            out.append("`%s`" % item.get("code", ""))
+        elif kind in ("emphasis", "strong", "newTerm"):
+            mark = "**" if kind == "strong" else "*"
+            out.append(mark + render_inline(item.get("inlineContent"), refs) + mark)
+        elif kind == "link":
+            out.append("%s (%s)" % (item.get("title", ""), item.get("destination", "")))
+        else:
+            out.append(item.get("text", ""))
+    return "".join(out)
+
+
+def render_blocks(blocks, refs):
+    out = []
+    for block in blocks or []:
+        kind = block.get("type")
+        if kind == "paragraph":
+            out.append(render_inline(block.get("inlineContent"), refs))
+        elif kind == "heading":
+            out.append("#" * block.get("level", 2) + " " + block.get("text", ""))
+        elif kind == "codeListing":
+            body = "\n".join(block.get("code", []))
+            out.append("```%s\n%s\n```" % (block.get("syntax") or "", body))
+        elif kind == "aside":
+            inner = render_blocks(block.get("content"), refs)
+            label = block.get("name") or block.get("style", "Note").title()
+            out.append("> **%s**\n> %s" % (label, inner.replace("\n", "\n> ")))
+        elif kind in ("unorderedList", "orderedList"):
+            for item in block.get("items", []):
+                text = render_blocks(item.get("content"), refs).replace("\n\n", "\n  ")
+                out.append("- " + text)
+    return "\n\n".join(out)
+
+
+def objc_declarations(section):
+    return [d for d in section.get("declarations", []) if OBJC_LANGUAGE in d.get("languages", [])]
+
+
+def render_declarations(section):
+    out = []
+    for decl in objc_declarations(section):
+        out.append("```objc\n%s\n```" % "".join(t.get("text", "") for t in decl["tokens"]))
+    return "\n\n".join(out)
+
+
+def render_parameters(section, refs):
+    lines = ["## Parameters", ""]
+    for param in section.get("parameters", []):
+        text = render_blocks(param.get("content"), refs)
+        head, _, tail = text.partition("\n\n")
+        lines.append("- `%s`: %s" % (param.get("name", ""), head))
+        if tail:
+            lines.append("  " + tail.replace("\n", "\n  "))
+    return "\n".join(lines)
+
+
+def swift_key(identifier):
+    return identifier.split("/documentation/", 1)[-1].lower()
+
+
+def render_topics(doc, refs):
+    out = []
+    for topic in doc.get("topicSections") or []:
+        out.append("## " + topic.get("title", ""))
+        for ident in topic.get("identifiers", []):
+            ref = refs.get(ident, {})
+            name = "".join(f.get("text", "") for f in ref.get("fragments", [])).strip()
+            name = name or ref.get("title") or ident.rsplit("/", 1)[-1]
+            abstract = render_inline(ref.get("abstract"), refs)
+            out.append("- `%s` [%s]%s" % (
+                name, swift_key(ident), " " + abstract if abstract else ""))
+    return "\n".join(out)
+
+
+def render_objc(doc):
+    refs = doc.get("references", {})
+    meta = doc.get("metadata", {})
+    ios = next((p for p in meta.get("platforms", []) if p.get("name") == "iOS"), {})
+    introduced = ios.get("introducedAt")
+    parts = ["<!-- %s | Objective-C | %s | iOS %s -->" % (
+        doc.get("identifier", {}).get("url", ""), meta.get("roleHeading", ""),
+        introduced + "+" if introduced else "(all)")]
+    parts.append("# " + meta.get("title", ""))
+    abstract = render_inline(doc.get("abstract"), refs)
+    if abstract:
+        parts.append(abstract)
+    for section in doc.get("primaryContentSections", []):
+        kind = section.get("kind")
+        if kind == "declarations":
+            parts.append(render_declarations(section))
+        elif kind == "parameters":
+            parts.append(render_parameters(section, refs))
+        elif kind == "content":
+            parts.append(render_blocks(section.get("content"), refs))
+    parts.append(render_topics(doc, refs))
+    return "\n\n".join(p for p in parts if p) + "\n"
+
+
+# ---------------------------------------------------------------- objc (Dash docset)
+
+def dash_page_docs(root):
+    """Yield every DocC JSON page stored in a Dash Apple docset.
+
+    Dash keeps 500k+ pages as brotli blobs under Contents/Resources/Documents/fs,
+    sliced by the refs table of cache.db (offset/length into the decompressed blob).
+    """
+    try:
+        import brotli
+    except ImportError:
+        sys.exit("brotli is missing; install it with: /usr/bin/pip3 install brotli")
+    documents = os.path.join(os.path.expanduser(root), "Contents", "Resources", "Documents")
+    cache = os.path.join(documents, "cache.db")
+    fs_dir = os.path.join(documents, "fs")
+    if not os.path.exists(cache):
+        sys.exit("not a Dash docset: %s" % root)
+    src = sqlite3.connect("file:%s?mode=ro&immutable=1" % cache, uri=True)
+    slices = {}
+    for _, data_id, offset, length in src.execute(
+            "SELECT uuid, data_id, offset, length FROM refs"):
+        slices.setdefault(data_id, []).append((offset, length))
+    for data_id in sorted(slices):
+        blob_file = os.path.join(fs_dir, str(data_id))
+        if not os.path.exists(blob_file):
+            continue
+        with open(blob_file, "rb") as handle:
+            raw = handle.read()
+        try:
+            data = brotli.decompress(raw)
+        except Exception:
+            continue
+        for offset, length in slices[data_id]:
+            chunk = data[offset:offset + length]
+            if chunk[:1] != b"{":
+                continue
+            yield json.loads(chunk)
+
+
+def oc_availability(doc):
+    """(introduced, deprecated) for iOS/iPadOS; metadata uses platform/name key styles."""
+    for wanted in IOS_PLATFORMS:
+        for entry in doc.get("metadata", {}).get("platforms") or []:
+            if (entry.get("platform") or entry.get("name")) != wanted:
+                continue
+            introduced = entry.get("introduced", entry.get("introducedAt"))
+            try:
+                introduced = float(introduced)
+            except (TypeError, ValueError):
+                introduced = None
+            return introduced, bool(entry.get("deprecated"))
+    return None
+
+
+def md_summary(md):
+    for block in md.split("\n\n"):
+        text = block.strip()
+        if not text or text.startswith(("<!--", "#", "```")):
+            continue
+        return " ".join(text.split())[:SUMMARY_LIMIT]
+    return ""
+
+
+def dash_release(root):
+    info = os.path.join(os.path.expanduser(root), "Contents", "Info.plist")
+    try:
+        with open(info, "rb") as handle:
+            return str(plistlib.load(handle).get("XcodeDocsVersion", ""))
+    except (OSError, plistlib.InvalidFileException):
+        return ""
+
+
+def store_oc_rows(db, rows):
+    db.executemany(
+        "INSERT OR REPLACE INTO oc_pages (id, key, path, title, role_heading, md) "
+        "VALUES (?, ?, ?, ?, ?, ?)", rows)
+    db.commit()
+
+
+def cmd_import_oc(args):
+    db = connect()
+    root = os.path.expanduser(args.docset or DASH_DOCSET)
+    if not os.path.isdir(root):
+        sys.exit("Dash docset not found: %s" % root)
+    frameworks = {fw.lower() for fw, in db.execute("SELECT DISTINCT framework FROM pages")}
+    db.execute("DELETE FROM pages WHERE lang='oc'")
+    db.execute("DELETE FROM oc_pages")
+    db.commit()
+    ids = {key: pid for pid, key in db.execute("SELECT id, key FROM pages")}
+    next_id = (db.execute("SELECT MAX(id) FROM pages").fetchone()[0] or 0) + 1
+    attached = added = 0
+    rows = []
+    for doc in dash_page_docs(root):
+        if doc.get("identifier", {}).get("interfaceLanguage") != OBJC_LANGUAGE:
+            continue
+        url = doc.get("identifier", {}).get("url", "")
+        index = url.find(DOC_PREFIX)
+        if index < 0:
+            continue
+        path = url[index:]
+        key = path[len(DOC_PREFIX):].lower()
+        framework = path[len(DOC_PREFIX):].split("/")[0]
+        if framework.lower() not in frameworks:
+            continue
+        pid = ids.get(key)
+        availability = None
+        if pid is None:
+            availability = oc_availability(doc)
+            if availability is None:
+                continue
+        md = render_objc(doc)
+        blob = zlib.compress(md.encode("utf-8"), 6)
+        meta = doc.get("metadata", {})
+        title = meta.get("title") or key.rsplit("/", 1)[-1]
+        role = meta.get("roleHeading") or ""
+        if pid is None:
+            db.execute(
+                "INSERT INTO pages (id, key, path, framework, title, kind, role_heading, "
+                "summary, ios_introduced, ios_deprecated, depth, hash, lang) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'oc')",
+                (next_id, key, path, framework, title, meta.get("symbolKind") or role, role,
+                 md_summary(md), availability[0], int(availability[1]), key.count("/"),
+                 hashlib.sha1(blob).hexdigest()))
+            pid, next_id = next_id, next_id + 1
+            added += 1
+        else:
+            attached += 1
+        rows.append((pid, key, path, title, role, blob))
+        if len(rows) >= BATCH:
+            store_oc_rows(db, rows)
+            rows = []
+            print("  read %d pages" % (attached + added), file=sys.stderr)
+    store_oc_rows(db, rows)
+    db.execute("INSERT OR REPLACE INTO meta VALUES ('fts_ready', '0')")
+    db.commit()
+    rebuild_fts(db)
+    meta = {
+        "oc_imported_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "oc_docset": root,
+        "oc_release": dash_release(root),
+        "oc_pages": str(attached + added),
+        "oc_only_pages": str(added),
+        "fts_ready": "1",
+    }
+    db.executemany("INSERT OR REPLACE INTO meta VALUES (?, ?)", meta.items())
+    db.commit()
+    print("Objective-C pages: %d (%d attached to existing pages, %d OC-only)"
+          % (attached + added, attached, added))
+
+
+def cmd_objc(args):
+    key = normalize_target(args.target)
+    db = connect() if os.path.exists(DB_PATH) else None
+    if db is not None:
+        stored = db.execute("SELECT md FROM oc_pages WHERE key=?", (key,)).fetchone()
+        if stored:
+            sys.stdout.write(page_text(stored[0]))
+            return
+    if args.offline:
+        sys.exit("no stored Objective-C docs for %s (drop --offline to fetch online)" % key)
+    row = db.execute("SELECT path FROM pages WHERE key=?", (key,)).fetchone() if db else None
+    path = row[0][len(DOC_PREFIX):] if row else key
+    print("<!-- %s not in the local Objective-C set; fetched online -->" % key, file=sys.stderr)
+    doc = fetch_docc(path)
+    if doc is None:
+        sys.exit("not found online: %s (check the key; Swift key or OC-only page path)" % path)
+    objc = objc_document(doc)
+    if objc is None:
+        sys.exit("no Objective-C variant online for %s (Swift-only API)" % path)
+    sys.stdout.write(render_objc(objc))
+
+
+def cmd_info(_args):
+    db = connect()
+    meta = dict(db.execute("SELECT key, value FROM meta"))
+    pages = db.execute("SELECT COUNT(*) FROM pages").fetchone()[0]
+    swift = db.execute("SELECT COUNT(*) FROM pages WHERE lang='swift'").fetchone()[0]
+    oc = db.execute("SELECT COUNT(*) FROM oc_pages").fetchone()[0]
+    frameworks = db.execute("SELECT COUNT(DISTINCT framework) FROM pages").fetchone()[0]
+    print("release: %s\nimported_at: %s\npages: %d (swift %d, oc-only %d)\n"
+          "objective-c pages: %d\nframeworks: %d\nfts_ready: %s" % (
+              meta.get("release"), meta.get("imported_at"), pages, swift, pages - swift,
+              oc, frameworks, meta.get("fts_ready")))
+    if meta.get("oc_imported_at"):
+        print("oc source: Dash apple docset %s, imported_at: %s" % (
+            meta.get("oc_release"), meta.get("oc_imported_at")))
+    last = db.execute("SELECT ts, action, COUNT(*) FROM changes GROUP BY ts, action "
+                      "ORDER BY ts DESC LIMIT 3").fetchall()
+    for stamp, action, total in last:
+        print("last change: %s %s %d" % (stamp, action, total))
+
+
+def main():
+    parser = argparse.ArgumentParser(prog="adoc", description=__doc__.split("\n")[0])
+    sub = parser.add_subparsers(dest="cmd", required=True)
+    imp = sub.add_parser("import", help="build or merge the database from Xcode's asset")
+    imp.add_argument("--source", help="documentation asset root directory")
+    imp.set_defaults(func=cmd_import)
+    ioc = sub.add_parser("import-oc", help="add Objective-C pages from a Dash Apple docset")
+    ioc.add_argument("--docset", help="Dash .docset directory (default: Apple API Reference)")
+    ioc.set_defaults(func=cmd_import_oc)
+    sea = sub.add_parser("search", help="search names (default) or full text (--text)")
+    sea.add_argument("query")
+    sea.add_argument("-f", "--framework")
+    sea.add_argument("-n", "--limit", type=int, default=20)
+    sea.add_argument("--text", action="store_true")
+    sea.set_defaults(func=cmd_search)
+    sho = sub.add_parser("show", help="print a page as Markdown")
+    sho.add_argument("target")
+    sho.set_defaults(func=cmd_show)
+    inf = sub.add_parser("info", help="database status")
+    inf.set_defaults(func=cmd_info)
+    obj = sub.add_parser("objc", help="Objective-C docs: local copy when stored, else online")
+    obj.add_argument("target")
+    obj.add_argument("--offline", action="store_true", help="never fetch online")
+    obj.set_defaults(func=cmd_objc)
+    args = parser.parse_args()
+    args.func(args)
+
+
+if __name__ == "__main__":
+    main()

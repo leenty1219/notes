@@ -1,0 +1,22 @@
+# symbols_v.yaml
+# Apple 風格符號面板：輸入 V + 代碼，候選欄列出該類符號。
+#
+# 為什麼用 V：
+# - 小鶴雙拼的 v 鍵是正常拼音（ü），不能拿來當符號前綴；
+# - 大寫 V 不在 speller 的字母表裡，不會與拼音衝突。
+#
+# 用法：
+# - Vhelp 或 Vlist：列出所有分類；
+# - Vjt：箭頭；Vsx：數學；Vfh：符號；Vbq：表情；Vtq：天氣；
+# - V0..V10：數字變體；Va..Vz：字母變體。
+#
+# 來源：rime-ice 的 symbols_caps_v.yaml（由 Squirrel 內建 symbols.yaml 轉換前綴）。
+# 生效方式：選單「鼠鬚管 → 重新部署」，或執行
+#   "/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel" --reload
+
+punctuator:
+  # 繼承 default 的 full_shape / half_shape / digit_separators 等設定；
+  # 其中 punctuation.custom.yaml 已把標點改成「直接上屏」。
+  __include: default:/punctuator
+  symbols:
+    __include: symbols_caps_v:/symbols

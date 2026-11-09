@@ -9,6 +9,9 @@
 patch:
   menu/page_size: 8
 
+  # 英文模式 / 英文標點下，[ ] 直接輸出 ［ ］（lua/ascii_brackets.lua）
+  "engine/processors/@before 0": lua_processor@*ascii_brackets
+
   # ── 官方 rime-emoji 表情建議（現成方案，非自寫）────────
   # 來源：https://github.com/rime/rime-emoji
   switches/@next:
@@ -21,3 +24,10 @@ patch:
     option_name: emoji_suggestion
     tips: none
     inherit_comment: false
+
+  # ── 符號面板（V + 代碼）────────────────────────────
+  # 參考 Apple 符號視窗：Vhelp 列出分類，Vjt 箭頭、Vsx 數學…
+  # punctuator 的 full_shape/half_shape 由 symbols_v.yaml 繼承 default，
+  # 再套用 punctuation.custom.yaml 的「直接上屏」。
+  punctuator/import_preset: symbols_v
+  recognizer/patterns/punct: "^V([0-9]0?|[A-Za-z]+)$"

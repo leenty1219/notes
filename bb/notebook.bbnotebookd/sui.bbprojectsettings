@@ -849,6 +849,45 @@
 			<key>Version</key>
 			<integer>1</integer>
 		</dict>
+		<dict>
+			<key>BookmarkData</key>
+			<data>
+			Ym9va4wDAAAAAAUQQAAAAJmzAOoIbDC8xGeXLZRPgwgz+u2OrhZZ
+			zlTZ1ZVbnpBuAAAAAAAAAAAAAAAAAAAAAHgCAAAEAAAAAwMAAAAI
+			ACgFAAAAAQEAAFVzZXJzAAAAAwAAAAEBAABzdWkACQAAAAEBAABE
+			b2N1bWVudHMAAAAFAAAAAQEAAG5vdGVzAAAAAgAAAAEBAABiYgAA
+			FAAAAAEBAABub3RlYm9vay5iYm5vdGVib29rZAUAAAABAQAATm90
+			ZXMAAAAnAAAAAQEAAEQ2MUYzN0JBLUNBQjgtNDhGNy05M0IyLUI5
+			RjVCQzdFQkYxRi5tZAAgAAAAAQYAABAAAAAgAAAALAAAAEAAAABQ
+			AAAAXAAAAHgAAACIAAAACAAAAAQDAACdRwAAAAAAAAgAAAAEAwAA
+			+FcBAAAAAAAIAAAABAMAADS9HwAAAAAACAAAAAQDAACYjwQEAAAA
+			AAgAAAAEAwAApK4EBAAAAAAIAAAABAMAAKWuBAQAAAAACAAAAAQD
+			AACmrgQEAAAAAAgAAAAEAwAAnvVJBQAAAAAgAAAAAQYAAOAAAADw
+			AAAAAAEAABABAAAgAQAAMAEAAEABAABQAQAACAAAAAAEAABByFDQ
+			mzG5OBgAAAABAgAAAQAAAAAAAAAPAAAAAAAAAAAAAAAAAAAACAAA
+			AAQDAAAGAAAAAAAAAAQAAAADAwAA9QEAAAgAAAABCQAAZmlsZTov
+			Ly8MAAAAAQEAAE1hY2ludG9zaCBIRAgAAAAEAwAAAFChG3MAAAAI
+			AAAAAAQAAEHIFrRlgAAAJAAAAAEBAABDNjQ0NDc4My02NTY2LTRF
+			RkItOUMyRS03MzVDMjQ1NkM4QTkYAAAAAQIAAIEAAAABAAAA7xMA
+			AAEAAAAAAAAAAAAAAAEAAAABAQAALwAAAAAAAAABBQAAzAAAAP7/
+			//8BAAAAAAAAABAAAAAEEAAAuAAAAAAAAAAFEAAAYAEAAAAAAAAQ
+			EAAAmAEAAAAAAABAEAAAiAEAAAAAAAACIAAAZAIAAAAAAAAFIAAA
+			1AEAAAAAAAAQIAAA5AEAAAAAAAARIAAAGAIAAAAAAAASIAAA+AEA
+			AAAAAAATIAAACAIAAAAAAAAgIAAARAIAAAAAAAAwIAAAcAIAAAAA
+			AAABwAAAuAEAAAAAAAARwAAAIAAAAAAAAAASwAAAyAEAAAAAAAAQ
+			0AAABAAAAAAAAAA=
+			</data>
+			<key>FileURL</key>
+			<string>file:///Users/sui/Documents/notes/bb/notebook.bbnotebookd/Notes/D61F37BA-CAB8-48F7-93B2-B9F5BC7EBF1F.md</string>
+			<key>HasSecurityScope</key>
+			<true/>
+			<key>RelativePath</key>
+			<string>./D61F37BA-CAB8-48F7-93B2-B9F5BC7EBF1F.md</string>
+			<key>TypeID</key>
+			<string>_CFileLocator</string>
+			<key>Version</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>OpenDocumentsSplitterProportion</key>
 	<real>0.0</real>
@@ -860,7 +899,53 @@
 	<array>
 		<dict>
 			<key>Date</key>
-			<date>2026-10-28T06:23:29Z</date>
+			<date>2026-11-09T06:35:52Z</date>
+			<key>Location</key>
+			<dict>
+				<key>BookmarkData</key>
+				<data>
+				Ym9va4wDAAAAAAUQQAAAAJmzAOoIbDC8xGeXLZRPgwgz
+				+u2OrhZZzlTZ1ZVbnpBuAAAAAAAAAAAAAAAAAAAAAHgC
+				AAAEAAAAAwMAAAAIACgFAAAAAQEAAFVzZXJzAAAAAwAA
+				AAEBAABzdWkACQAAAAEBAABEb2N1bWVudHMAAAAFAAAA
+				AQEAAG5vdGVzAAAAAgAAAAEBAABiYgAAFAAAAAEBAABu
+				b3RlYm9vay5iYm5vdGVib29rZAUAAAABAQAATm90ZXMA
+				AAAnAAAAAQEAAEQ2MUYzN0JBLUNBQjgtNDhGNy05M0Iy
+				LUI5RjVCQzdFQkYxRi5tZAAgAAAAAQYAABAAAAAgAAAA
+				LAAAAEAAAABQAAAAXAAAAHgAAACIAAAACAAAAAQDAACd
+				RwAAAAAAAAgAAAAEAwAA+FcBAAAAAAAIAAAABAMAADS9
+				HwAAAAAACAAAAAQDAACYjwQEAAAAAAgAAAAEAwAApK4E
+				BAAAAAAIAAAABAMAAKWuBAQAAAAACAAAAAQDAACmrgQE
+				AAAAAAgAAAAEAwAAnvVJBQAAAAAgAAAAAQYAAOAAAADw
+				AAAAAAEAABABAAAgAQAAMAEAAEABAABQAQAACAAAAAAE
+				AABByFDQmzG5OBgAAAABAgAAAQAAAAAAAAAPAAAAAAAA
+				AAAAAAAAAAAACAAAAAQDAAAGAAAAAAAAAAQAAAADAwAA
+				9QEAAAgAAAABCQAAZmlsZTovLy8MAAAAAQEAAE1hY2lu
+				dG9zaCBIRAgAAAAEAwAAAFChG3MAAAAIAAAAAAQAAEHI
+				FrRlgAAAJAAAAAEBAABDNjQ0NDc4My02NTY2LTRFRkIt
+				OUMyRS03MzVDMjQ1NkM4QTkYAAAAAQIAAIEAAAABAAAA
+				7xMAAAEAAAAAAAAAAAAAAAEAAAABAQAALwAAAAAAAAAB
+				BQAAzAAAAP7///8BAAAAAAAAABAAAAAEEAAAuAAAAAAA
+				AAAFEAAAYAEAAAAAAAAQEAAAmAEAAAAAAABAEAAAiAEA
+				AAAAAAACIAAAZAIAAAAAAAAFIAAA1AEAAAAAAAAQIAAA
+				5AEAAAAAAAARIAAAGAIAAAAAAAASIAAA+AEAAAAAAAAT
+				IAAACAIAAAAAAAAgIAAARAIAAAAAAAAwIAAAcAIAAAAA
+				AAABwAAAuAEAAAAAAAARwAAAIAAAAAAAAAASwAAAyAEA
+				AAAAAAAQ0AAABAAAAAAAAAA=
+				</data>
+				<key>FileURL</key>
+				<string>file:///Users/sui/Documents/notes/bb/notebook.bbnotebookd/Notes/D61F37BA-CAB8-48F7-93B2-B9F5BC7EBF1F.md</string>
+				<key>HasSecurityScope</key>
+				<true/>
+				<key>TypeID</key>
+				<string>_CFileLocator</string>
+				<key>Version</key>
+				<integer>1</integer>
+			</dict>
+		</dict>
+		<dict>
+			<key>Date</key>
+			<date>2026-11-09T06:35:52Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -908,7 +993,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2026-10-28T06:23:29Z</date>
+			<date>2026-11-09T06:35:52Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -956,7 +1041,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2026-10-28T06:23:29Z</date>
+			<date>2026-11-09T06:35:52Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -1004,7 +1089,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2026-10-28T06:23:29Z</date>
+			<date>2026-11-09T06:35:52Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -1050,7 +1135,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2026-10-28T06:23:29Z</date>
+			<date>2026-11-09T06:35:52Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -1098,7 +1183,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2026-10-28T06:23:29Z</date>
+			<date>2026-11-09T06:35:52Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -1146,7 +1231,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2026-10-28T06:23:29Z</date>
+			<date>2026-11-09T06:35:52Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -1192,7 +1277,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2026-10-28T06:23:29Z</date>
+			<date>2026-11-09T06:35:52Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -1240,7 +1325,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2026-10-28T06:23:29Z</date>
+			<date>2026-11-09T06:35:52Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -1288,7 +1373,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2026-10-28T06:23:29Z</date>
+			<date>2026-11-09T06:35:52Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -1336,7 +1421,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2026-10-28T06:23:29Z</date>
+			<date>2026-11-09T06:35:52Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -1382,7 +1467,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2026-10-28T06:23:29Z</date>
+			<date>2026-11-09T06:35:52Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -1428,7 +1513,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2026-10-28T06:23:29Z</date>
+			<date>2026-11-09T06:35:52Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -1476,7 +1561,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2026-10-28T06:23:29Z</date>
+			<date>2026-11-09T06:35:52Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -1520,54 +1605,6 @@
 				<integer>1</integer>
 			</dict>
 		</dict>
-		<dict>
-			<key>Date</key>
-			<date>2026-10-28T06:23:29Z</date>
-			<key>Location</key>
-			<dict>
-				<key>BookmarkData</key>
-				<data>
-				Ym9va8gDAAAAAAUQQAAAAHzaPHA2LIwxifZ/y/rod3XI
-				7Mn98DaeQb9ZLNksv4AdAAAAAAAAAAAAAAAAAAAAAKgC
-				AAAEAAAAAwMAAAAIACgFAAAAAQEAAFVzZXJzAAAAAwAA
-				AAEBAABzdWkACQAAAAEBAABEb2N1bWVudHMAAAAFAAAA
-				AQEAAG5vdGVzAAAAAgAAAAEBAABiYgAAFAAAAAEBAABu
-				b3RlYm9vay5iYm5vdGVib29rZAUAAAABAQAATm90ZXMA
-				AAAnAAAAAQEAADJCMkUzOTc4LTEzN0MtNDhDNi1COUIw
-				LUUxRTAyNkU2QkI5Ni5tZAAgAAAAAQYAABAAAAAgAAAA
-				LAAAAEAAAABQAAAAXAAAAHgAAACIAAAACAAAAAQDAACd
-				RwAAAAAAAAgAAAAEAwAA+FcBAAAAAAAIAAAABAMAADS9
-				HwAAAAAACAAAAAQDAACYjwQEAAAAAAgAAAAEAwAApK4E
-				BAAAAAAIAAAABAMAAKWuBAQAAAAACAAAAAQDAACmrgQE
-				AAAAAAgAAAAEAwAAqK4EBAAAAAAgAAAAAQYAAOAAAADw
-				AAAAAAEAABABAAAgAQAAMAEAAEABAABQAQAACAAAAAAE
-				AABByC0fEflbCRgAAAABAgAAAQAAAAAAAAAPAAAAAAAA
-				AAAAAAAAAAAACAAAAAQDAAAGAAAAAAAAAAQAAAADAwAA
-				9QEAAAgAAAABCQAAZmlsZTovLy8MAAAAAQEAAE1hY2lu
-				dG9zaCBIRAgAAAAEAwAAAFChG3MAAAAIAAAAAAQAAEHI
-				FrRlgAAAJAAAAAEBAABDNjQ0NDc4My02NTY2LTRFRkIt
-				OUMyRS03MzVDMjQ1NkM4QTkYAAAAAQIAAIEAAAABAAAA
-				7xMAAAEAAAAAAAAAAAAAAAEAAAABAQAALwAAAAAAAAAB
-				BQAAGgAAAAEBAABOU1VSTERvY3VtZW50SWRlbnRpZmll
-				cktleQAABAAAAAMDAAAGBwAA2AAAAP7///8BAAAAAAAA
-				ABEAAAAEEAAAuAAAAAAAAAAFEAAAYAEAAAAAAAAQEAAA
-				mAEAAAAAAABAEAAAiAEAAAAAAAACIAAAZAIAAAAAAAAF
-				IAAA1AEAAAAAAAAQIAAA5AEAAAAAAAARIAAAGAIAAAAA
-				AAASIAAA+AEAAAAAAAATIAAACAIAAAAAAAAgIAAARAIA
-				AAAAAAAwIAAAcAIAAAAAAAABwAAAuAEAAAAAAAARwAAA
-				IAAAAAAAAAASwAAAyAEAAAAAAAAQ0AAABAAAAAAAAAB4
-				AgCAnAIAAAAAAAA=
-				</data>
-				<key>FileURL</key>
-				<string>file:///Users/sui/Documents/notes/bb/notebook.bbnotebookd/Notes/2B2E3978-137C-48C6-B9B0-E1E026E6BB96.md</string>
-				<key>HasSecurityScope</key>
-				<true/>
-				<key>TypeID</key>
-				<string>_CFileLocator</string>
-				<key>Version</key>
-				<integer>1</integer>
-			</dict>
-		</dict>
 	</array>
 	<key>ShowSCMData:sui</key>
 	<false/>
@@ -1576,6 +1613,6 @@
 	<key>ViewSplitterPosition:sui</key>
 	<real>0.1119791641831398</real>
 	<key>WindowFrame:sui:displays([(0, 0), (2560, 1440)])</key>
-	<string>rect(161,302,1345,2222)</string>
+	<string>rect(141,230,1325,2150)</string>
 </dict>
 </plist>
