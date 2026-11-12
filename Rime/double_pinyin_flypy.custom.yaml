@@ -15,8 +15,6 @@
 patch:
   translator/preedit_format: []
 
-  # 英文模式 / 英文標點下，[ ] 直接輸出 ［ ］（lua/ascii_brackets.lua）
-  "engine/processors/@before 0": lua_processor@*ascii_brackets
 
   # [ ] 翻頁（與 flypy 方案一致）
   key_binder/bindings/+:

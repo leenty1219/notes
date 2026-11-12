@@ -3,7 +3,7 @@ __build_info:
   timestamps:
     default: 1768354364
     default.custom: 1792121486
-    double_pinyin_flypy.custom: 1793688162
+    double_pinyin_flypy.custom: 1794452665
     double_pinyin_flypy.schema: 1790558005
     key_bindings: 1768354364
     key_bindings.custom: 0
@@ -38,7 +38,6 @@ engine:
     - simplifier
     - uniquifier
   processors:
-    - "lua_processor@*ascii_brackets"
     - ascii_composer
     - recognizer
     - key_binder

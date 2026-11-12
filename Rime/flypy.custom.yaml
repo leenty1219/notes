@@ -9,8 +9,6 @@
 patch:
   menu/page_size: 8
 
-  # 英文模式 / 英文標點下，[ ] 直接輸出 ［ ］（lua/ascii_brackets.lua）
-  "engine/processors/@before 0": lua_processor@*ascii_brackets
 
   # ── 官方 rime-emoji 表情建議（現成方案，非自寫）────────
   # 來源：https://github.com/rime/rime-emoji

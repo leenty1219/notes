@@ -8,54 +8,119 @@
 ├────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤  
 │ C  │ AI 导入部分成功反馈:提示条、结果弹窗、导入失败明细页,以及 import_record_num 等三个条数字段。                       │ SCImportAIResultController、SCImportAIFailureController、SCDataImportModelV2                                                                   │  
 └────┴────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘  
-                                                                                                                                                                                                                                                                              
-待做需求点                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                              
-1. 自定义角色页新增「数据导入」开关,并把「操作日志」和「数据导入」单独分成「高级功能权限」一组。                                                                                                                                                                              
-- iOS 里没有找到这个页面的原生实现。角色详情走 H5:SCMemberAuthorityViewController.segueToRoleDetailPageWithRole 打开 /public-vue/cab-role/#/pages/index。                                                                                                                     
-- 我判断这一项属于 H5 和服务端,iOS 无工作量。待确认。                                                                                                                                                                                                                         
-                                                                                                                                                                                                                                                                              
-2. 常规导入:受限范围下,候选资料只能从新增范围里选。                                                                                                                                                                                                                           
-- 现状:分类选择器用 SCBasicInfoQueryTypeCreate,已按新增范围取数。但账户、成员、商家、项目选择器用 SCBasicInfoQueryTypeDefault,取的是查看范围。                                                                                                                                
-- 位置:SCImportTransactionsMemberController 和 SCImportTransactionsCategoryController 的 account、project 分支。                                                                                                                                                              
-- 改法:把这几处改成 .create。                                                                                                                                                                                                                                                 
-- 独立性:不依赖其他点。                                                                                                                                                                                                                                                       
-                                                                                                                                                                                                                                                                              
-3. 常规导入:必填和非必填的校验规则。                                                                                                                                                                                                                                          
-- 要求:账户、支出分类、收入分类必填,未选完时按钮置灰。项目、商家、成员非必填,无匹配可留空,可直接下一步。                                                                                                                                                                      
-- 现状:SCImportParseResultDetailController.reloadEnable 只校验 type == .account。分类不阻断。                                                                                                                                                                                 
-- 位置:SCImportParseResultController.confirmAction,以及该详情页的 reloadEnable。                                                                                                                                                                                              
-- 待确认:留空的项目、商家、成员,confirm 接口怎么传(code 为空且不新增?)。                                                                                                                                                                                                      
-                                                                                                                                                                                                                                                                              
-4. 常规导入:受限范围下不能新增范围外资料,展示也要对应调整。                                                                                                                                                                                                                   
-- 现状:预览页写死「部分流水分类标签无法匹配到账本内数据,将为您新增」,详情页写死「新增xx如下」(SCImportParseResultController、SCImportParseResultDetailController.loadUI)。                                                                                                    
-- 阻塞:new_flag 现在只表示"匹配到已有 / 新增"。客户端看不出这条是"有权新增"还是"无权新增、必须手选"。                                                                                                                                                                         
-- 需要和后端约定:要么返回新增范围标识,要么对无权新增的条目另给字段。                                                                                                                                                                                                          
-- 范围:点 3 和点 4 都依赖这个接口约定,但可以和点 2 并行做。                                                                                                                                                                                                                   
-                                                                                                                                                                                                                                                                              
-5. 导入明细页:常驻提示「仅展示当前有权限查看的流水,如有疑问请联系本账本管理员」。                                                                                                                                                                                             
-- 现状:未做,doc/数据导入权限与导入结果说明.md 第 4 节也记为未覆盖。                                                                                                                                                                                                           
-- 卡点:客户端不知道何时该显示。                                                                                                                                                                                                                                               
-- 我的推测(未验证):total_num 受查看权限影响,所以 import_record_num > total_num 时可作为显示条件。需要后端确认,或让后端直接返回标志。                                                                                                                                          
-- 位置:SCImportTransactionsController,需求图里的 web 端不用管。                                                                                                                                                                                                               
-                                                                                                                                                                                                                                                                              
-6. 导入明细的修改和删除拦截,toast「数据权限不足」。                                                                                                                                                                                                                           
-- 现状:点击流水进入 RecordTransactionRouter.gotoEditRecord,走标准编辑页。批量编辑按钮在 batchEditButtonAction(仅 AI 导入)。                                                                                                                                                   
-- 待核对:标准编辑页对"自己创建 / 自定义范围"是否已有拦截,文案是否为「数据权限不足」。                                                                                                                                                                                         
-- 待核对:批量编辑遇到超范围流水时是整批拦截还是部分拦截。                                                                                                                                                                                                                     
-- 范围:这一项可能只需核对,不一定要改代码。                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                              
-7. 消息中心:新增「AI 导入部分成功」消息,跳转到导入记录对应的结果弹窗。                                                                                                                                                                                                        
-- 现状:文档里写本期未做消息中心跳转。                                                                                                                                                                                                                                         
-- 说明:消息由服务端下发。iOS 要做的只是落地页路由。                                                                                                                                                                                                                           
-- 需要先确认跳转协议和参数(import_id)。                                                                                                                                                                                                                                       
-                                                                                                                                                                                                                                                                              
-8. 导入记录列表的可见范围。                                                                                                                                                                                                                                                   
-- 要求:账本主人和管理员看全部记录,其他成员只看自己的。                                                                                                                                                                                                                        
-- 判断:SCImportDataRecordsController 没有任何过滤逻辑,应该是服务端过滤,iOS 无改动。                                                                                                                                                                                           
-- 做法:联调时验证即可。                                                                                                                                                                                                                                                       
-                                                                                                                                                                                                                                                                              
-待确认的风险                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                              
-- 外部分享文件导入走 SCShareImportManager,代码里没有经过 10000102 和新增权限校验。它依赖 queryAccountBooksImportPermission(服务端返回哪些账本有导入权限)。需要确认服务端已按新规则更新,否则这条链路会绕过点 A 和点 B。                                                        
-- 点 2、3、4 都改常规导入的映射流程,会改同几个文件。建议按 2、3、4 的顺序做,避免冲突。   
+
+
+## 1.本次需求重点(目标)：
+	* 1.数据导入权限支持独立配置，不与记账权限开关联动。
+	* 2.角色有数据导入权限时，可进行通用导入(微信/支付宝/随手记)和 AI 导入。
+	* 3.实际导入时，以记账权限(新建/修改/删除/查看)及其基础资料范围控制可创建的数据。
+	* 4.AI 导入在范围受限时按单条流水降级，不因少量异常导致整批失败。
+## 2.权限设置
+	权限设置属于H5范畴，App咱不考虑
+## 3.导入前校验
+	1.从账本设置页面点击‘数据导入’要校验当前用户是否有数据导入权限，如果有就进入数据导入页面，如果没有toast提示：“暂无导入权限，请联系账本管理员”
+	2.进入数据导入页面，点击‘上传文件’按钮，要查询当前用户是否有流水新增权限，有就继续执行导入步骤，没有就toast提示：“暂无新增流水权限，无法导入\n请联系账本管理员”
+## 4.导入中校验
+	1.AI导入服务端会返回成功m条，失败n条，失败支持跳转到失败界面。
+			2.普通导入（微信/支付宝/随手记）服务端会告知我们当前用户是否可以新增支出分类/是否可以新增收入分类/是否可以新增成员/是否可以新增项目.....,如果当前用户有了某种权限，就允许使用服务端返回的预设类别。比如服务端在支出分类中智能识别到一个新增分类‘A’，如果当前用户有新增分类的权限，那么就允许用户直接下一步以及点击支出分类去重新匹配时直接确定（类似放弃转换到现有分类）。如果用户没有新增权限，那么就必须使用现有权限，下一步就不能点击，必须去支出分类中匹配现有分类，不能使用服务端新增的智能分类
+	上面举例的支出分类它是必填项，所以不允许下一步。如果是项目就允许下一步。必填项是：支出分类&收入分类&账户
+	
+	前面的前提是服务端rule_config_type == 1代表当前用户有这个选择的权限，如果rule_config_type == 3，那么用户就没有修改识别的分类权限。也没有下一步按钮，下一步按钮是‘确定导入’，只能直接导入
+	
+
+## 5.导入后权限
+	1.点击‘导入记录’不需要权限限制，当前服务端已经限制可见范围。
+	2.点击AI导入记录，弹起导入结果可再次查看导入明细。
+	3.在导入明细页面右上角的‘批量编辑’和单击流水去编辑前要查看当前用户数据导入编辑权限：
+		如果权限为修改所有流水，那么和线上保持一致去编辑。
+		如果权限为仅修改自己创建的流水，点击其他人的导入记录要toast错误提示:数据权限不足
+		如果权限为自定义范围，编辑无权限的流水同样提示：数据权限不足
+	这里主要是在流水编辑和批量编辑页面做处理。
+
+
+
+
+ 二、未完成或缺失
+
+ 1. rule_config_type == 3 完全没有处理。 模型里解码了 ruleConfigType，但没有任何业务代码读它。需求要求：为 3 时不能改识别的分类，没有「下一步」，按钮是「确定导入」，只能直接导入。目前预览页仍可进入分类页修改。这是 4.2 里最明确的一项缺失。
+ 2. 5.2「点击 AI 导入记录，弹起导入结果」没有做。 弹窗只在导入页的 uploadSuccess 状态触发。SCImportDataRecordsController.swift:316-333 的记录列表点击仍直接进入明细。SCImportAIResultController 的注释还写着「导入记录页不提供」，这和需求冲突。
+ 3. 5.3 里「仅自己创建」和「自定义范围」的逐条判断没有做。 requireEditPermission 只判断有没有 transactionEdit 码，不区分流水创建人或范围。如果这部分打算交给服务端，需要确认编辑页或批量编辑页在服务端报错时会提示「数据权限不足」。我没找到这句文案，全仓库搜不到「数据权限不足
+    」。
+ 4. 无权限提示文案不一致。 现在 toast 用「没有编辑流水的权限」，需求是「数据权限不足」。
+ 5. 无新增权限的 toast 文案少了换行。 代码是 "暂无新增流水权限，无法导入，请联系账本管理员"，需求是 "…无法导入\n请联系账本管理员"。
+
+ 三、与需求描述有出入，需要你确认
+
+ - 普通导入没有按 data_permission 区分类型。 需求说有权限就用服务端预设类别，没权限就必须重选。目前只有分类（收入/支出）受 can_create_category 控制。canCreateProject、canCreateMerchant、canCreateMember 只改了文案，不影响按钮，这符合「项目允许下一步」。但需求是否要求项目、
+   成员无新增权限时去掉「新增项」，请确认。
+ - hasUnselectedRequiredCategory 的判断条件。 它用 childCategory.code 为空来判断「未重选」。服务端新识别出的分类，code 是否一定为空，需要确认。
+ - 导入页的提示条文案与需求的分工。 item.hasFailure 以 failureRecordNum > 0 为准，没有处理全部失败（成功为 0）的展示。你需要确认全失败的表现是否符合预期。
+ - 编辑权限被检查了两次。 RecordTransactionRouter.gotoEditRecord 内部本来就会查 transactionEdit 并 toast。现在导入页先查一次，通过后路由再查一次，缓存无权限时会弹两次 loading。先查是为了避免导航栏被隐藏后无法恢复，原因成立，但最好改成「路由返回是否拦截」，或者统一只在一处
+   检查。
+
+
+
+iOS App 里用 WKWebView 打开网页并自动播放音频,需要四项配置。                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                 
+ 1. 取消手势限制(必需)                                                                                                                                                                                                                                                           
+                                                                                                                                                                                                                                                                                 
+ ```swift                                                                                                                                                                                                                                                                        
+let config = WKWebViewConfiguration()
+config.mediaTypesRequiringUserActionForPlayback = []   // 等同 WKAudiovisualMediaTypeNone
+let web = WKWebView(frame: .zero, configuration: config)
+ ```                                                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                                                                 
+ ```objc                                                                                                                                                                                                                                                                         
+config.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
+ ```                                                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                                                                 
+ 只做音频不需要 allowsInlineMediaPlayback 和 playsinline,它们只管视频是否内联。                                                                                                                                                                                                  
+                                                                                                                                                                                                                                                                                 
+ 2. 音频会话(静音开关打开时也要出声,必需)                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                 
+ 在加载网页之前设置:                                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                                                                 
+ ```swift                                                                                                                                                                                                                                                                        
+let s = AVAudioSession.sharedInstance()
+try? s.setCategory(.playback, mode: .default, options: [])
+try? s.setActive(true)
+ ```                                                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                                                                 
+ 文档写明 playback 类别在静音开关打开或锁屏时音频仍会继续。需要和其他 App 的音频共存,加 .mixWithOthers。                                                                                                                                                                         
+                                                                                                                                                                                                                                                                                 
+ 3. 后台和锁屏继续播放(按需)                                                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                                                                 
+ Info.plist 的 UIBackgroundModes 加 audio,否则切后台后会停。                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                                                                 
+ 4. 页面不自己播放时,注入 JS(按需,是我的推断,文档里没有)                                                                                                                                                                                                                         
+                                                                                                                                                                                                                                                                                 
+ 页面没有 autoplay,也不调用 play() 时,第 1 项配置只是放开限制,不会触发播放。用 WKUserScript 在 .atDocumentEnd 注入:                                                                                                                                                              
+                                                                                                                                                                                                                                                                                 
+ ```swift                                                                                                                                                                                                                                                                        
+let js = """
+(function(){
+  function go(){ document.querySelectorAll('audio,video').forEach(function(m){ m.play().catch(function(){}); }); }
+  go();
+  new MutationObserver(go).observe(document.documentElement,{childList:true,subtree:true});
+})();
+"""
+config.userContentController.addUserScript(
+    WKUserScript(source: js, injectionTime: .atDocumentEnd, forMainFrameOnly: false))
+ ```                                                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                                                                 
+ forMainFrameOnly: false 用来覆盖 iframe 里的播放器。MutationObserver 用来处理后续动态插入的元素。                                                                                                                                                                               
+                                                                                                                                                                                                                                                                                 
+ 注意点                                                                                                                                                                                                                                                                          
+ - 第 1、2 项的行为在文档里有明确依据,第 4 项没有。                                                                                                                                                                                                                              
+ - 有些页面的播放器要点击后才创建媒体元素,注入 JS 帮不上,需要另外模拟点击。                                                                                                                                                                                                      
+ - 这些行为我没有在真机上验证。验证时至少看三个场景:静音开关打开、锁屏、其他 App 正在播放音频。
+
+
+
+
+
+
+
+
+
+
